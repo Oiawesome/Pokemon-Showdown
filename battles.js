@@ -2226,10 +2226,15 @@ function Battle(roomid, format, rated) {
 		move.critRatio = clampIntRange(move.critRatio, 0, 5);
 		var critMult = [0, 16, 8, 4, 3, 2];
 
-		move.crit = move.willCrit || false;
-		if (typeof move.willCrit === 'undefined') {
-			if (move.critRatio) {
-				move.crit = (selfB.random(critMult[move.critRatio]) === 0);
+		if (selfB.getFormat(selfB.format).noCrit) {//Crit removal via "noCrit: true" in formats.js
+			move.crit = move.willCrit;
+		}
+		else {
+			move.crit = move.willCrit || false;
+			if (typeof move.willCrit === 'undefined') {
+				if (move.critRatio) {
+					move.crit = (selfB.random(critMult[move.critRatio]) === 0);
+				}
 			}
 		}
 		if (move.crit) {

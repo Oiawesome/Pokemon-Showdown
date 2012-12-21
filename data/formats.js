@@ -180,6 +180,35 @@ FORMATS
 		debug: true,
 		ruleset: ['Pokemon']
 	},
+	duskmodou: {
+		effectType: 'Format',
+		section: 'DuskMod',
+		name: "DuskMod OU",
+		challengeDefault: true,
+		rated: true,
+		challengeShow: true,
+		searchShow: true,
+		noCrit: true,
+		mod: 'duskmod',
+		isTeambuilderFormat: true,
+		ruleset: ['DM Pokemon', 'Sleep Clause', 'Species Clause', 'OHKO Clause', 'Moody Clause', 'Team Preview', 'Evasion Clause'],
+		banlist: ['Uber', 'Soul Dew', 'Spikes + Sleep Powder + Roserade']
+	},
+	duskmoddoubles: {
+		effectType: 'Format',
+		section: 'DuskMod',
+		gameType: 'doubles',
+		name: "DuskMod Doubles",
+		challengeDefault: true,
+		rated: true,
+		challengeShow: true,
+		searchShow: true,
+		noCrit: true,
+		mod: 'duskmod',
+		isTeambuilderFormat: true,
+		ruleset: ['DM Pokemon', 'Smogon', 'Doubles Team Preview', 'Evasion Clause'],
+		banlist: ['Uber', 'Soul Dew', 'Spikes + Sleep Powder + Roserade']
+	},
 	ou: {
 		effectType: 'Format',
 		section: 'Standard',
@@ -412,6 +441,16 @@ FORMATS
 		ruleset: ['Pokemon', 'Smogon', 'Team Preview', 'Evasion Clause'],
 		banlist: ['Uber']
 	},
+	equalbst: {
+		effectType: 'Format',
+		name: "Equal BST",
+		mod: "equalbst",
+		challengeShow: true,
+		searchShow: true,
+		isTeambuilderFormat: true,
+		ruleset: ['DW Pokemon', 'Smogon', 'Team Preview', 'Evasion Clause'],
+		banlist: ['Eviolite', 'Light Ball', 'Soul Dew', 'Deepseascale', 'Deepseatooth', 'Lucky Punch', 'Metal Powder', 'Quick Powder', 'Stick', 'Thick Club',]
+	},
 	customgame: {
 		effectType: 'Format',
 		name: "Custom Game",
@@ -456,6 +495,11 @@ Rule Sets
 	dwpokemon: { //Allows CAP pokemon and moves to be used
 		effectType: 'Banlist',
 		ruleset: ['Moveset Limits', 'Legal Form'],
+		banlist: ['Illegal']
+	},
+	dmpokemon: { //Includes standard legality rules
+		effectType: 'Banlist',
+		ruleset: ['Real Pokemon', 'Moveset Limits', 'Legal Form'],
 		banlist: ['Illegal']
 	},
 	smogon: { //Clauses used in Smogon metagames
