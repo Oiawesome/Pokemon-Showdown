@@ -191,7 +191,7 @@ FORMATS
 		noCrit: true,
 		mod: 'duskmod',
 		isTeambuilderFormat: true,
-		ruleset: ['DM Pokemon', 'Sleep Clause', 'Species Clause', 'OHKO Clause', 'Moody Clause', 'Team Preview', 'Evasion Clause'],
+		ruleset: ['Legal DM', 'DM Pokemon', 'Sleep Clause', 'Species Clause', 'OHKO Clause', 'Moody Clause', 'Team Preview', 'Evasion Clause'],
 		banlist: ['Uber', 'Soul Dew', 'Spikes + Sleep Powder + Roserade']
 	},
 	duskmoddoubles: {
@@ -206,7 +206,7 @@ FORMATS
 		noCrit: true,
 		mod: 'duskmod',
 		isTeambuilderFormat: true,
-		ruleset: ['DM Pokemon', 'Smogon', 'Doubles Team Preview', 'Evasion Clause'],
+		ruleset: ['Legal DM', 'DM Pokemon', 'Smogon', 'Doubles Team Preview', 'Evasion Clause'],
 		banlist: ['Uber', 'Soul Dew', 'Spikes + Sleep Powder + Roserade']
 	},
 	ou: {
@@ -749,6 +749,51 @@ Clauses
 			if (this.effect.onPotD) {
 				this.add('rule', 'Pokemon of the Day: '+this.effect.onPotD);
 			}
+		}
+	},
+	legaldm: {
+		effectType: 'Banlist',
+		validateSet: function(set, format) {
+			var template = this.getTemplate(set.species);
+			var problems = [];
+			if (template.num < 494 && template.num > 151) {
+				var Exceptions = {
+					"Pichu":1,
+					"Cleffa":1,
+					"Igglybuff":1,
+					"Crobat":1,
+					"Bellossom":1,
+					"Politoed":1,
+					"Slowking":1,
+					"Magnezone":1,
+					"Steelix":1,
+					"Tyrogue":1,
+					"Hitmontop":1,
+					"Lickilicky":1,
+					"Rhyperior":1,
+					"Blissey":1,
+					"Tangrowth":1,
+					"Kingdra":1,
+					"Mime Jr.":1,
+					"Scizor":1,
+					"Smoochum":1,
+					"Elekid":1,
+					"Electivire":1,
+					"Magby":1,
+					"Magmortar":1,
+					"Espeon":1,
+					"Umbreon":1,
+					"Leafeon":1,
+					"Glaceon":1,
+					"Porygon2":1,
+					"Porygon-Z":1,
+					"Munchlax":1
+				};
+				if (!Exceptions[set.species]) {
+					problems.push(set.species+' is not released in DuskMod.');
+				}
+			}
+			return problems;
 		}
 	},
 /**********************************

@@ -1567,10 +1567,10 @@ DUSKMOD DATA
 			showOrBroadcastStart(user, cmd, room, socket, message);
 			showOrBroadcast(user, cmd, room, socket,
 				'<div style="border:1px solid #6688AA;padding:2px 4px">DuskMod v2.0.2!<br />' +
-				'- <a href="http://pastebin.com/cqAMCznc" target="_blank">An introduction to DuskMod</a><br />' +
-				'- <a href="http://www.smogon.com/forums/showthread.php?t=3473707" target="_blank">Smogon thread</a><br />' +
-				'- <a href="http://pastebin.com/z7FwuMnx" target="_blank">List of changes</a><br />' +
+				'- <a href="http://duskmod.wikia.com/wiki/DuskMod_Wiki">Wiki homepage, and an introduction to DuskMod</a><br />' +
+				'- <a href="http://duskmod.wikia.com/wiki/Current_Documentation">List of changes</a><br />' +
 				'- <a href="http://pastebin.com/GuQfcM0i" target="_blank">FAQ</a><br />' +
+				'- <a href="http://www.smogon.com/forums/showthread.php?t=3473707" target="_blank">Smogon thread</a><br />' +
 				'</div>');
 		}
 		else if (!matched) {
@@ -1591,6 +1591,51 @@ END DUSKMOD DATA
 			'- <a href="http://duskmodleague.forumotion.com/t5-current-gym-leaders" target="_blank">Gym leaders</a><br />' +
 			'- <a href="http://duskmodleague.forumotion.com/t12-challenger-registration-dm-league-important-info" target="_blank">Challenger registration</a><br />' +
 			'</div>');
+		return false;
+		break;
+	
+	case 'imposter':
+	case 'fake':
+		if (canTalk(user, room) && user.can('ban') && room.id === 'lobby') {
+			if (!target) return parseCommand(user, '?', cmd, room, socket);
+			var targets = splitTarget(target);
+			var targetUser = targets[0];
+			if (!targets[1]) {
+				emit(socket, 'console', 'You forgot the comma.');
+				return parseCommand(user, '?', cmd, room, socket);
+			}
+			if (!targets[0]) {
+				if (target.indexOf(' ')) {
+					emit(socket, 'console', 'User '+targets[2]+' not found. Did you forget a comma?');
+				} else {
+					emit(socket, 'console', 'User '+targets[2]+' not found. Did you misspell their name?');
+				}
+				return parseCommand(user, '?', cmd, room, socket);
+			}
+			room.log.push('|c| '+targets[2]+'|'+targets[1]);
+			if (!parseCommand.lastImposter) parseCommand.lastImposter = [];
+			parseCommand.lastImposter.push(user.name);
+			parseCommand.lastImposter.push(target);
+			if (parseCommand.lastImposter.length > 100) parseCommand.lastImposter.shift();
+			return false;
+		}
+		break;
+	
+	case 'background':
+	case 'bg':
+		if (!target) return parseCommand(user, '?', cmd, room, socket);
+		if (!user.can('declare')) {
+			emit(socket, 'console', '/background - Access denied.');
+			return false;
+		}
+		if (target === 'dusk') target = 'http://imageshack.us/a/img26/6238/duskserv.png';
+		if (target === 'raikou') target = 'http://imageshack.us/a/img822/4290/raikoupsbg.png';
+		if (target === 'mudkip') target = 'http://images.wikia.com/halofanon/images/8/8b/Dancing_mudkip.gif';
+		if (target === 'caffeine') target = 'http://i2.kym-cdn.com/photos/images/newsfeed/000/144/533/mr%20caffeine.gif';
+		
+		target = target.replace(/\[\[([A-Za-z0-9-]+)\]\]/, '<button onclick="selectTab(\'$1\');return false">Go to $1</button>');
+		room.addRaw('<script>$(".battle-log").css("background", "#EDF1F4 url('+target+') no-repeat scroll right bottom");$(".message").detach();</script>');
+		logModCommand(room,user.name+' changed background to '+target,true);
 		return false;
 		break;
 		
