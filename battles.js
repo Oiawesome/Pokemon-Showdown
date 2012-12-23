@@ -747,6 +747,12 @@ function BattlePokemon(set, side) {
 		selfP.status = status.id;
 		selfP.statusData = {id: status.id, target: selfP};
 		if (source) selfP.statusData.source = source;
+		if (status.duration) {
+			selfP.statusData.duration = status.duration;
+		}
+		if (status.durationCallback) {
+			selfP.statusData.duration = status.durationCallback.call(selfB, selfP, source, sourceEffect);
+		}
 
 		if (status.id && !selfB.singleEvent('Start', status, selfP.statusData, selfP, source, sourceEffect)) {
 			selfB.debug('status start ['+status.id+'] interrupted');
@@ -2082,7 +2088,7 @@ function Battle(roomid, format, rated) {
 		}
 
 		if (effect.recoil && source) {
-			selfB.damage(damage * effect.recoil[0] / effect.recoil[1], source, target, 'recoil');
+			selfB.damage(Math.round(damage * effect.recoil[0] / effect.recoil[1]), source, target, 'recoil');
 		}
 		if (effect.drain && source) {
 			selfB.heal(Math.ceil(damage * effect.drain[0] / effect.drain[1]), source, target, 'drain');

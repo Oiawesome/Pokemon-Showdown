@@ -218,6 +218,7 @@ FORMATS
 		challengeShow: true,
 		searchShow: true,
 		isTeambuilderFormat: true,
+<<<<<<< HEAD
 		ruleset: ['Pokemon', 'Smogon', 'Team Preview', 'Evasion Clause'],
 		banlist: ['Uber', 'Drizzle ++ Swift Swim', 'Soul Dew', 'Snow Cloak', 'Sand Veil', 'Spikes + Sleep Powder + Roserade']
 	},
@@ -233,6 +234,12 @@ FORMATS
 	//	banlist: []
 	//},
 	ubers: {
+=======
+		ruleset: ['Pokemon', 'Team Preview', 'Standard Ubers'],
+		banlist: []
+	},
+	uberssuspecttest: {
+>>>>>>> upstream/master
 		effectType: 'Format',
 		section: 'Standard',
 		name: "Ubers (suspect test)",//Suspect Test: no evasion clause
@@ -430,7 +437,21 @@ FORMATS
 		challengeShow: true,
 		canUseRandomTeam: true,
 		debug: true,
-		// no restrictions, for serious
+		ruleset: []
+	},
+	gen3hackmons: {
+		mod: 'gen3',
+		effectType: 'Format',
+		name: "[Gen 3] Hackmons",
+		challengeShow: true,
+		ruleset: ['Pokemon'],
+		banlist: []
+	},
+	gen3customgame: {
+		mod: 'gen3',
+		effectType: 'Format',
+		name: "[Gen 3] Custom Game",
+		challengeShow: true,
 		ruleset: []
 	},
 	gennextnextou: {
