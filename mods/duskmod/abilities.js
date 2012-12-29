@@ -25,9 +25,18 @@ exports.BattleAbilities = {
 	},
 	"heatproof": {
 		inherit: true,
-		onImmunity: function(type, pokemon) {
-			if (type === 'Fire') {
-				return null;
+		onSourceBasePower: function(basePower, attacker, defender, move) {
+			if (move.type === 'Fire') {
+				this.debug('Heatproof weaken');
+				return basePower / 4;
+			}
+		}
+	},
+	"mummy": {
+		inherit: true,
+		onResidual: function(pokemon) {
+			if (!pokemon.hasType('Ghost')) {
+				this.damage(target.maxhp/8);
 			}
 		}
 	},
@@ -80,13 +89,37 @@ exports.BattleAbilities = {
 		},
 		onModifyStats: function(stats, pokemon) {
 			if (this.isWeather('hail')) {
-				stats.spe *= 2;
+				stats.spe *= 1.5;
 			}
 		},
 		id: "snowcloak",
 		name: "Snow Cloak",
 		rating: 2,
 		num: 81
+	},
+	"swiftswim": {
+		inherit: true,
+		onModifyStats: function(stats, pokemon) {
+			if (this.isWeather('raindance')) {
+				stats.spe *= 1.5;
+			}
+		}
+	},
+	"chlorophyll": {
+		inherit: true,
+		onModifyStats: function(stats, pokemon) {
+			if (this.isWeather('sunnyday')) {
+				stats.spe *= 1.5;
+			}
+		}
+	},
+	"sandrush": {
+		inherit: true,
+		onModifyStats: function(stats, pokemon) {
+			if (this.isWeather('sandstorm')) {
+				stats.spe *= 1.5;
+			}
+		}
 	},
 	"leafguard": {
 		desc: "If this Pokemon is active while Sunny Day is in effect, it cannot become poisoned, burned, paralyzed or put to sleep (other than user-induced Rest). Leaf Guard does not heal status effects that existed before Sunny Day came into effect.",
@@ -261,5 +294,5 @@ exports.BattleAbilities = {
 		onModifyMove: function(move) {
 			move.breaksProtect = true;
 		}
-	}
+	},	
 };

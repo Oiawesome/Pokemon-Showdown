@@ -17,10 +17,10 @@ exports.BattleScripts = {
 //KANTO
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 this.data.Learnsets.charizard.learnset.dracometeor = ['5T'];
-                delete this.data.Learnsets.charizard.learnset.earthquake;
-                this.data.Learnsets.charizard.learnset.extremespeed = ['5L50']
+                this.data.Learnsets.charizard.learnset.extremespeed = ['5L50'];
                 
-                this.data.Learnsets.blastoise.learnset.shellsmash = ['5L70'];
+                this.data.Learnsets.blastoise.learnset.lockon = ['5L0'];
+				this.data.Learnsets.blastoise.learnset.stealthrock = ['5L0'];
                 
                 this.data.Learnsets.butterfree.learnset.hurricane = ['5L60'];
                 this.data.Learnsets.butterfree.learnset.thunderbolt = ['5M'];
@@ -31,6 +31,13 @@ exports.BattleScripts = {
                 
                 this.data.Learnsets.pidgeot.learnset.honeclaws = ['5L25'];
                 this.data.Learnsets.pidgeot.learnset.thrash = ['5L65'];
+
+				this.data.Learnsets.raticate.learnset.fakeout = ['5L0'];
+				this.data.Learnsets.raticate.learnset.firefang = ['5L0'];
+				this.data.Learnsets.raticate.learnset.thunderfang = ['5L0'];
+				this.data.Learnsets.raticate.learnset.icefang = ['5L0'];
+				this.data.Learnsets.raticate.learnset.crunch = ['5L0'];
+				this.data.Learnsets.raticate.learnset.lowsweep = ['5L0'];
 				
                 this.data.Learnsets.arbok.learnset.dracometeor = ['5T'];
                 this.data.Learnsets.arbok.learnset.dragondance = ['5L48'];
@@ -40,6 +47,11 @@ exports.BattleScripts = {
                 
                 this.data.Learnsets.raichu.learnset.swordsdance = ['5M'];
                 this.data.Learnsets.raichu.learnset.weatherball = ['5L65'];
+				this.data.Learnsets.raichu.learnset.extremespeed = ['5L0'];
+				
+				this.data.Learnsets.sandslash.learnset.drillrun = ['5L0'];
+				this.data.Learnsets.sandslash.learnset.spikes = ['5L0'];
+				this.data.Learnsets.sandslash.learnset.headsmash = ['5L0'];
                 
                 this.data.Learnsets.nidoqueen.learnset.psychic = ['5M'];
                 this.data.Learnsets.nidoqueen.learnset.paleowave = ['5L40'];
@@ -53,7 +65,21 @@ exports.BattleScripts = {
                 this.data.Learnsets.nidoking.learnset.iciclecrash = ['5L49'];
                 this.data.Learnsets.nidoking.learnset.dragondance = ['5L60'];
                 
+				this.data.Learnsets.clefable.learnset.painsplit= ['5L0'];
+				this.data.Learnsets.clefable.learnset.softboiled= ['5L0'];
+				this.data.Learnsets.clefable.learnset.healpulse= ['5L0'];
+				
                 this.data.Learnsets.ninetales.learnset.recover = ['5L78'];
+				
+				this.data.Learnsets.wigglytuff.learnset.recover = ['5L0'];
+				this.data.Learnsets.wigglytuff.learnset.aromatherapy = ['5L0'];
+				this.data.Learnsets.wigglytuff.learnset.painsplit = ['5L0'];
+				this.data.Learnsets.wigglytuff.learnset.knockoff = ['5L0'];
+				this.data.Learnsets.wigglytuff.learnset.lovelykiss = ['5L0'];
+				this.data.Learnsets.wigglytuff.learnset.torment = ['5L0'];
+				this.data.Learnsets.wigglytuff.learnset.encore = ['5L0'];
+				this.data.Learnsets.wigglytuff.learnset.whirlwind = ['5L0'];
+				this.data.Learnsets.wigglytuff.learnset.roar = ['5L0'];
                 
                 this.data.Learnsets.vileplume.learnset.weatherball = ['5L30'];
                 delete this.data.Learnsets.vileplume.learnset.aromatherapy;
@@ -73,6 +99,8 @@ exports.BattleScripts = {
                 this.data.Learnsets.parasect.learnset.taunt = ['5L20'];
                 this.data.Learnsets.parasect.learnset.wildcharge = ['5L30'];
                 this.data.Learnsets.parasect.learnset.hornleech = ['5L40'];
+				this.data.Learnsets.parasect.learnset.naturepower = ['5L0'];
+				this.data.Learnsets.parasect.learnset.poisonjab = ['5L0'];
                 
                 this.data.Learnsets.dugtrio.learnset.wildcharge = ['5L30'];
                 
@@ -88,6 +116,7 @@ exports.BattleScripts = {
                 this.data.Learnsets.primeape.learnset.jumkick = ['5L45'];
                 this.data.Learnsets.primeape.learnset.hijumpkick = ['5L45'];
                 this.data.Learnsets.primeape.learnset.machpunch= ['5L45'];
+				delete this.data.Learnsets.primeape.learnset.meditate;
                 
                 delete this.data.Learnsets.poliwag.learnset.bellydrum;
 				
@@ -97,12 +126,14 @@ exports.BattleScripts = {
                 this.data.Learnsets.poliwrath.learnset.closecombat = ['5L40'];
                 this.data.Learnsets.poliwrath.learnset.machpunch = ['5L30'];
                 this.data.Learnsets.poliwrath.learnset.aquajet = ['5L0'];
+				this.data.Learnsets.poliwrath.learnset.stormthrow = ['5L0'];
+				this.data.Learnsets.poliwrath.learnset.circlethrow = ['5L0'];
                 
                 delete this.data.Learnsets.politoed.learnset.bellydrum;
                 
                 this.data.Learnsets.alakazam.learnset.thunderbolt = ['5M'];
                 this.data.Learnsets.alakazam.learnset.icebeam = ['5M'];
-                
+				                
                 this.data.Learnsets.machamp.learnset.circlethrow = ['5L0'];
                 
                 this.data.Learnsets.victreebel.learnset.agility = ['5L50']; 
@@ -127,8 +158,13 @@ exports.BattleScripts = {
                 
                 this.data.Learnsets.dodrio.learnset.closecombat= ['5L92'];
                 
+				this.data.Learnsets.dewgong.learnset.recover = ['5L0'];
+				this.data.Learnsets.dewgong.learnset.uturn = ['5L0'];
+				
                 this.data.Learnsets.muk.learnset.bulkup = ['5M'];
                 this.data.Learnsets.muk.learnset.slackoff = ['5L0'];
+				
+				delete this.data.Learnsets.cloyster.learnset.spikecannon;
                 
                 this.data.Learnsets.cloyster.learnset.stealthrock = ['5T'];
                 
@@ -136,6 +172,11 @@ exports.BattleScripts = {
                 this.data.Learnsets.steelix.learnset.headsmash = ['5L70'];
                 
                 this.data.Learnsets.gengar.learnset.nastyplot = ['5L29'];
+				
+				this.data.Learnsets.hypno.learnset.darkvoid = ['5L0'];
+				this.data.Learnsets.hypno.learnset.recover = ['5L0'];
+				this.data.Learnsets.hypno.learnset.vacuumwave = ['5L0'];
+				this.data.Learnsets.hypno.learnset.aurasphere = ['5L0'];
                 
                 this.data.Learnsets.kingler.learnset.shellsmash = ['5L43'];
                 
@@ -155,7 +196,8 @@ exports.BattleScripts = {
                 this.data.Learnsets.lickilicky.learnset.healbell = ['5L50'];
                 
                 this.data.Learnsets.weezing.learnset.icebeam = ['5M'];
-                
+                this.data.Learnsets.weezing.learnset.toxicspikes= ['5L0'];
+				
                 this.data.Learnsets.rhyperior.learnset.dragondance = ['5L40'];
                 this.data.Learnsets.rhyperior.learnset.hornleech = ['5L0'];
                 this.data.Learnsets.rhyperior.learnset.headsmash = ['5L80'];
@@ -175,12 +217,16 @@ exports.BattleScripts = {
                 this.data.Learnsets.seaking.learnset.hornleech = ['5L20'];
                 this.data.Learnsets.seaking.learnset.swordsdance = ['5M'];
                 this.data.Learnsets.seaking.learnset.hornleech = ['5L55'];
-                
+                this.data.Learnsets.seaking.learnset.aquajet = ['5L0'];
+				
                 this.data.Learnsets.starmie.learnset.shadowball = ['5M'];
                 this.data.Learnsets.starmie.learnset.calmmind = ['5M'];
                 
                 this.data.Learnsets.scizor.learnset.hammerarm = ['5L56'];
                 
+				this.data.Learnsets.scyther.learnset.acrobatics = ['5L0'];
+				this.data.Learnsets.scyther.learnset.fakeout = ['5L0'];
+				
                 this.data.Learnsets.jynx.learnset.weatherball = ['5L45'];
                 this.data.Learnsets.jynx.learnset.glaciate = ['5L72'];
                 
@@ -212,6 +258,8 @@ exports.BattleScripts = {
                 this.data.Learnsets.lapras.learnset.glaciate = ['5L50'];
                 this.data.Learnsets.lapras.learnset.recover = ['5L50'];
                 this.data.Learnsets.lapras.learnset.aquajet = ['5L20'];
+				this.data.Learnsets.lapras.learnset.hornleech = ['5L0'];
+				this.data.Learnsets.lapras.learnset.iciclecrash = ['5L0'];
                 
                 this.data.Learnsets.vaporeon.learnset.dragontail = ['5M'];
                 
@@ -233,6 +281,7 @@ exports.BattleScripts = {
 				
                 this.data.Learnsets.leafeon.learnset.growth = ['5L60'];
                 this.data.Learnsets.leafeon.learnset.earthpower = ['5TS'];
+				this.data.Learnsets.leafeon.learnset.naturepower = ['5L0'];
 				
                 this.data.Learnsets.glaceon.learnset.glaciate = ['5L50'];
                 this.data.Learnsets.glaceon.learnset.iciclecrash = ['5L60'];
@@ -243,6 +292,7 @@ exports.BattleScripts = {
                 this.data.Learnsets.porygonz.learnset.flamethrower = ['5M'];
                 this.data.Learnsets.porygonz.learnset.fireblast = ['5M'];
                 
+				delete this.data.Learnsets.omastar.learnset.spikecannon;
                 this.data.Learnsets.omastar.learnset.paleowave = ['5L40'];
 				
                 this.data.Learnsets.aerodactyl.learnset.headsmash = ['5L80'];
@@ -273,8 +323,10 @@ exports.BattleScripts = {
 //UNOVA
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////				
 				
-                this.data.Learnsets.victini.learnset.nastyplot = ['5L100'];
-                this.data.Learnsets.victini.learnset.dragonpulse = ['5T'];
+				this.data.Learnsets.victini.learnset.boltstrike = ['5L0'];
+				this.data.Learnsets.victini.learnset.blueflare = ['5L0'];
+				this.data.Learnsets.victini.learnset.glaciate = ['5L0'];
+				this.data.Learnsets.victini.learnset.vacuumwave = ['5L0'];
                 
                 this.data.Learnsets.serperior.learnset.earthquake = ['5M'];
                 this.data.Learnsets.serperior.learnset.toxicspikes = ['5L54'];
@@ -285,20 +337,59 @@ exports.BattleScripts = {
                 this.data.Learnsets.emboar.learnset.machpunch = ['5L0'];
                 
                 this.data.Learnsets.samurott.learnset.shellsmash = ['5L75'];
+				
+				this.data.Learnsets.watchog.learnset.fakeout = ['5L0'];
+				this.data.Learnsets.watchog.learnset.uturn = ['5L0'];
+				this.data.Learnsets.watchog.learnset.punishment = ['5L0'];
+				this.data.Learnsets.watchog.learnset.snatch = ['5L0'];
+				this.data.Learnsets.watchog.learnset.memento = ['5L0'];
+				this.data.Learnsets.watchog.learnset.healingwish = ['5L0'];
+				this.data.Learnsets.watchog.learnset.doubleedge = ['5L0'];
+				this.data.Learnsets.watchog.learnset.darkpulse = ['5L0'];
+				this.data.Learnsets.watchog.learnset.darkvoid = ['5L0'];
+				this.data.Learnsets.watchog.learnset.suckerpunch = ['5L0'];
+				
+				this.data.Learnsets.stoutland.learnset.flamecharge = ['5L0'];
+				this.data.Learnsets.stoutland.learnset.swordsdance = ['5L0'];
+				
+				this.data.Learnsets.liepard.learnset.disable = ['5L0'];
+				this.data.Learnsets.liepard.learnset.batonpass = ['5L0'];
+				this.data.Learnsets.liepard.learnset.workup = ['5L0'];
+				this.data.Learnsets.liepard.learnset.agility = ['5L0'];
+				this.data.Learnsets.liepard.learnset.moonlight = ['5L0'];
                 
+				this.data.Learnsets.simisage.learnset.bulkup = ['5L0'];
+				this.data.Learnsets.simisage.learnset.growth = ['5L0'];
+				this.data.Learnsets.simisage.learnset.glare = ['5L0'];
+				this.data.Learnsets.simisage.learnset.taunt = ['5L0'];
+
+				this.data.Learnsets.simisear.learnset.thunderbolt = ['5L0'];
+				this.data.Learnsets.simisear.learnset.calmmind = ['5L0'];
+				this.data.Learnsets.simisear.learnset.morningsun = ['5L0'];
+				
+				this.data.Learnsets.simipour.learnset.slackoff = ['5L0'];
+				this.data.Learnsets.simipour.learnset.encore = ['5L0'];
+				this.data.Learnsets.simipour.learnset.healbell = ['5L0'];
+				this.data.Learnsets.simipour.learnset.lightscreen = ['5L0'];
+				this.data.Learnsets.simipour.learnset.reflect = ['5L0'];
+				this.data.Learnsets.simipour.learnset.haze = ['5L0'];
+				
                 this.data.Learnsets.musharna.learnset.willowisp = ['5L50'];
                 this.data.Learnsets.musharna.learnset.recover = ['5L62'];
                 
+				this.data.Learnsets.zebstrika.learnset.flareblitz = ['5L0'];
+				this.data.Learnsets.zebstrika.learnset.doubleedge = ['5L0'];
+				this.data.Learnsets.zebstrika.learnset.jumpkick = ['5L0'];
+				this.data.Learnsets.zebstrika.learnset.weatherball = ['5L0'];
+
+				this.data.Learnsets.gigalith.learnset.spikecannon = ['5L0'];
+				
                 this.data.Learnsets.excadrill.learnset.superpower = ['5T'];
                 
                 this.data.Learnsets.conkeldurr.learnset.suckerpunch = ['5L60'];
                 
                 this.data.Learnsets.seismitoad.learnset.slackoff = ['5L0'];
                 this.data.Learnsets.seismitoad.learnset.waterfall = ['5M'];
-                
-                this.data.Learnsets.scolipede.learnset.rapidspin = ['5L0'];
-                this.data.Learnsets.scolipede.learnset.taunt = ['5T'];
-                this.data.Learnsets.scolipede.learnset.trick = ['5T'];
 				
                 this.data.Learnsets.throh.learnset.meditate = ['5L0'];
                 this.data.Learnsets.throh.learnset.machpunch = ['5L0'];
@@ -306,10 +397,26 @@ exports.BattleScripts = {
 				
                 this.data.Learnsets.sawk.learnset.hijumpkick = ['5L60'];
                 
+                this.data.Learnsets.scolipede.learnset.rapidspin = ['5L0'];
+                this.data.Learnsets.scolipede.learnset.taunt = ['5T'];
+                this.data.Learnsets.scolipede.learnset.trick = ['5T'];
+				this.data.Learnsets.scolipede.learnset.spikecannon = ['5L0'];
+				
+				this.data.Learnsets.leavanny.learnset.hornleech = ['5L0'];
+				this.data.Learnsets.leavanny.learnset.suckerpunch = ['5L0'];
+				this.data.Learnsets.leavanny.learnset.sleeppowder = ['5L0'];
+				this.data.Learnsets.leavanny.learnset.quiverdance = ['5L0'];
+				this.data.Learnsets.leavanny.learnset.earthpower = ['5L0'];
+				this.data.Learnsets.leavanny.learnset.naturepower = ['5L0'];
+				this.data.Learnsets.leavanny.learnset.petaldance = ['5L0'];
+				this.data.Learnsets.leavanny.learnset.twineedle = ['5L0'];
+				
                 this.data.Learnsets.lilligant.learnset.earthpower = ['5L0'];
                 
                 this.data.Learnsets.krookodile.learnset.dragondance = ['5L65'];
                 
+				this.data.Learnsets.darmanitan.learnset.calmmind = ['5L0'];
+				this.data.Learnsets.darmanitan.learnset.shadowball = ['5L0'];
                 this.data.Learnsets.darmanitan.learnset.wildcharge = ['5M'];
                 
                 this.data.Learnsets.scrafty.learnset.suckerpunch = ['5E'];
@@ -328,13 +435,26 @@ exports.BattleScripts = {
                 delete this.data.Learnsets.archeops.learnset.bulldoze;
                 delete this.data.Learnsets.archen.learnset.earthquake;
                 delete this.data.Learnsets.archen.learnset.bulldoze;
-                
+				
+                this.data.Learnsets.garbodor.learnset.snatch = ['5L0'];
+				this.data.Learnsets.garbodor.learnset.gastroacid = ['5L0'];
+				this.data.Learnsets.garbodor.learnset.poisonjab = ['5L0'];
+				this.data.Learnsets.garbodor.learnset.spikecannon = ['5L0'];
+				this.data.Learnsets.garbodor.learnset.suckerpunch = ['5L0'];
+
                 this.data.Learnsets.zoroark.learnset.trick = ['5T'];
                 this.data.Learnsets.zoroark.learnset.fireblast = ['5M'];
                 this.data.Learnsets.zoroark.learnset.aurasphere = ['5L65'];
                 
-                this.data.Learnsets.cinccino.learnset.iciclespear = ['5L35'];
                 this.data.Learnsets.cinccino.learnset.barrage = ['5L45'];
+				
+				this.data.Learnsets.reuniclus.learnset.aurasphere = ['5L0'];
+				
+				this.data.Learnsets.vanilluxe.learnset.chargebeam = ['5L0'];
+				this.data.Learnsets.vanilluxe.learnset.recover = ['5L0'];
+				this.data.Learnsets.vanilluxe.learnset.thunderbolt = ['5L0'];
+				this.data.Learnsets.vanilluxe.learnset.haze = ['5L0'];
+				this.data.Learnsets.vanilluxe.learnset.nastyplot = ['5L0'];
 				
                 this.data.Learnsets.sawsbuck.learnset.hijumpkick = ['5L48'];
                 this.data.Learnsets.sawsbuck.learnset.extremespeed = ['5L70'];
@@ -342,9 +462,12 @@ exports.BattleScripts = {
                 this.data.Learnsets.escavalier.learnset.superpower = ['5T'];
                 this.data.Learnsets.escavalier.learnset.drillrun = ['5T'];
                 this.data.Learnsets.escavalier.learnset.stoneedge = ['5L60'];
-                
+                this.data.Learnsets.escavalier.learnset.bulletpunch = ['5L0'];
+				
                 this.data.Learnsets.amoonguss.learnset.leechseed = ['5L0'];
                 
+				this.data.Learnsets.jellicent.learnset.perishsong = ['5L0'];
+				
                 this.data.Learnsets.alomomola.learnset.amnesia = ['5L20'];
                 this.data.Learnsets.alomomola.learnset.batonpass = ['5L30'];
                 this.data.Learnsets.alomomola.learnset.reflect = ['5L35'];
@@ -353,7 +476,7 @@ exports.BattleScripts = {
                 
                 this.data.Learnsets.galvantula.learnset.batonpass = ['5L43'];
                 
-                this.data.Learnsets.ferrothorn.learnset.rapidspin = ['5L10'];
+                this.data.Learnsets.ferrothorn.learnset.spikecannon = ['5L0'];
                 
                 this.data.Learnsets.klinklang.learnset.bulldoze = ['5M'];
                 this.data.Learnsets.klinklang.learnset.earthquake = ['5M'];
@@ -361,6 +484,7 @@ exports.BattleScripts = {
                 this.data.Learnsets.eelektross.learnset.agility = ['5M'];
                 this.data.Learnsets.eelektross.learnset.swordsdance = ['5M'];
                 this.data.Learnsets.eelektross.learnset.dragondance = ['5L0'];
+				this.data.Learnsets.eelektross.learnset.extremespeed = ['5L0'];
                 
                 delete this.data.Learnsets.litwick.learnset.calmmind;
                 delete this.data.Learnsets.litwick.learnset.trick;
@@ -379,6 +503,13 @@ exports.BattleScripts = {
                 this.data.Learnsets.mienshao.learnset.doubleslap = ['5L40'];
                 this.data.Learnsets.mienshao.learnset.icywind = ['5L35'];
                 
+				this.data.Learnsets.druddigon.learnset.dynamicpunch = ['5L0'];
+				this.data.Learnsets.druddigon.learnset.yawn = ['5L0'];
+				this.data.Learnsets.druddigon.learnset.roost = ['5L0'];
+				this.data.Learnsets.druddigon.learnset.circlethrow = ['5L0'];
+				this.data.Learnsets.druddigon.learnset.drainpunch = ['5L0'];
+				this.data.Learnsets.druddigon.learnset.dragonrush = ['5L0'];
+				
                 this.data.Learnsets.golurk.learnset.bulkup = ['5L38'];
                 this.data.Learnsets.golurk.learnset.painsplit = ['5L48'];
                 
@@ -409,7 +540,8 @@ exports.BattleScripts = {
                 this.data.Learnsets.meloetta.learnset.lunardance = ['5L30'];
                 this.data.Learnsets.meloetta.learnset.vacuumwave = ['5L20'];
                 
-                delete this.data.Learnsets.genesect.learnset.explosion;
-                //genesect still gets selfdestruct at lv 77 normally
-        }
+                delete this.data.Learnsets.genesect.learnset.explosion;//genesect still gets selfdestruct at lv 77 normally
+				delete this.data.Learnsets.genesect.learnset.thunder;
+				delete this.data.Learnsets.genesect.learnset.rockpolish;
+		}
 };

@@ -1566,9 +1566,9 @@ DUSKMOD DATA
 		if (!target) {
 			showOrBroadcastStart(user, cmd, room, socket, message);
 			showOrBroadcast(user, cmd, room, socket,
-				'<div style="border:1px solid #6688AA;padding:2px 4px">DuskMod v2.0.2!<br />' +
-				'- <a href="http://duskmod.wikia.com/wiki/DuskMod_Wiki">Wiki homepage, and an introduction to DuskMod</a><br />' +
-				'- <a href="http://duskmod.wikia.com/wiki/Current_Documentation">List of changes</a><br />' +
+				'<div style="border:1px solid #6688AA;padding:2px 4px">DuskMod v2.1.0!<br />' +
+				'- <a href="http://duskmod.wikia.com/wiki/DuskMod_Wiki" target="_blank">Wiki homepage, and an introduction to DuskMod</a><br />' +
+				'- <a href="http://pastebin.com/KMuszmqL" target="_blank">List of changes</a><br />' +
 				'- <a href="http://pastebin.com/GuQfcM0i" target="_blank">FAQ</a><br />' +
 				'- <a href="http://www.smogon.com/forums/showthread.php?t=3473707" target="_blank">Smogon thread</a><br />' +
 				'</div>');

@@ -324,11 +324,11 @@ exports.BattleStatuses = {
 		onBasePower: function(basePower, attacker, defender, move) {
 			if (move.type === 'Water') {
 				this.debug('rain water boost');
-				return basePower * 1.5;
+				return basePower * 1.3;
 			}
 			if (move.type === 'Fire') {
 				this.debug('rain fire suppress');
-				return basePower * .5;
+				return basePower * .7;
 			}
 		},
 		onStart: function(battle, source, effect) {
@@ -360,11 +360,11 @@ exports.BattleStatuses = {
 		onBasePower: function(basePower, attacker, defender, move) {
 			if (move.type === 'Fire') {
 				this.debug('Sunny Day fire boost');
-				return basePower * 1.5;
+				return basePower * 1.3;
 			}
 			if (move.type === 'Water') {
 				this.debug('Sunny Day water suppress');
-				return basePower * .5;
+				return basePower * .7;
 			}
 		},
 		onStart: function(battle, source, effect) {
@@ -429,6 +429,11 @@ exports.BattleStatuses = {
 				return 8;
 			}
 			return 5;
+		},
+		onModifyStats: function(stats, pokemon) {
+			if (pokemon.hasType('Ice')) {
+				stats.def *= 3/2;
+			}
 		},
 		onStart: function(battle, source, effect) {
 			if (effect && effect.effectType === 'Ability') {

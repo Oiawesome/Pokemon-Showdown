@@ -206,7 +206,7 @@ FORMATS
 		noCrit: true,
 		mod: 'duskmod',
 		isTeambuilderFormat: true,
-		ruleset: ['Legal DM', 'DM Pokemon', 'Smogon', 'Doubles Team Preview', 'Evasion Clause'],
+		ruleset: ['Legal DM', 'DM Pokemon', 'Smogon', 'Team Preview', 'Evasion Clause'],
 		banlist: ['Uber', 'Soul Dew', 'Spikes + Sleep Powder + Roserade']
 	},
 	ou: {
@@ -218,7 +218,6 @@ FORMATS
 		challengeShow: true,
 		searchShow: true,
 		isTeambuilderFormat: true,
-<<<<<<< HEAD
 		ruleset: ['Pokemon', 'Smogon', 'Team Preview', 'Evasion Clause'],
 		banlist: ['Uber', 'Drizzle ++ Swift Swim', 'Soul Dew', 'Snow Cloak', 'Sand Veil', 'Spikes + Sleep Powder + Roserade']
 	},
@@ -234,12 +233,10 @@ FORMATS
 	//	banlist: []
 	//},
 	ubers: {
-=======
 		ruleset: ['Pokemon', 'Team Preview', 'Standard Ubers'],
 		banlist: []
 	},
 	uberssuspecttest: {
->>>>>>> upstream/master
 		effectType: 'Format',
 		section: 'Standard',
 		name: "Ubers (suspect test)",//Suspect Test: no evasion clause
@@ -498,7 +495,7 @@ FORMATS
 		canUseRandomTeam: true,
 		debug: true,
 		// no restrictions, for serious
-		ruleset: ['Doubles Team Preview']
+		ruleset: ['Team Preview']
 	},
 /**********************************
 Rule Sets
@@ -530,7 +527,7 @@ Rule Sets
 	nintendo: { //List of clauses used in Nintendo metagames. Also contains the standard Nintendo banlist.
 		effectType: 'Banlist',
 		ruleset: ['Species Clause', 'Item Clause', 'Flat Battle'],
-		banlist: ['Sky Drop', 'Dark Void', 'Soul Dew', 'Mewtwo', 'Mew', 'Lugia', 'Ho-Oh', 'Celebi', 'Kyogre', 'Groudon', 'Rayquaza', 'Jirachi', 'Deoxys', 'Deoxys-Attack', 'Deoxys-Speed', 'Deoxys-Defense','Chatot', 'Dialga', 'Palkia', 'Giratina', 'Phione', 'Manaphy', 'Darkrai', 'Shaymin', 'Shaymin-Sky', 'Arceus', 'Arceus-Bug', 'Arceus-Dark', 'Arceus-Dragon', 'Arceus-Electric', 'Arceus-Fighting', 'Arceus-Fire', 'Arceus-Flying', 'Arceus-Ghost', 'Arceus-Grass', 'Arceus-Ground', 'Arceus-Ice', 'Arceus', 'Arceus-Poison', 'Arceus-Psychic', 'Arceus-Rock', 'Arceus-Steel', 'Arceus-Water', 'Victini', 'Reshiram', 'Zekrom', 'Kyurem', 'Kyurem-Black', 'Kyurem-White', 'Keldeo', 'Keldeo-Resolute', 'Meloetta', 'Genesect'
+		banlist: ['Sky Drop', 'Dark Void', 'Soul Dew', 'Mewtwo', 'Mew', 'Lugia', 'Ho-Oh', 'Celebi', 'Kyogre', 'Groudon', 'Rayquaza', 'Jirachi', 'Deoxys', 'Deoxys-Attack', 'Deoxys-Speed', 'Deoxys-Defense','Chatot', 'Dialga', 'Palkia', 'Giratina', 'Giratina-Origin', 'Phione', 'Manaphy', 'Darkrai', 'Shaymin', 'Shaymin-Sky', 'Arceus', 'Arceus-Bug', 'Arceus-Dark', 'Arceus-Dragon', 'Arceus-Electric', 'Arceus-Fighting', 'Arceus-Fire', 'Arceus-Flying', 'Arceus-Ghost', 'Arceus-Grass', 'Arceus-Ground', 'Arceus-Ice', 'Arceus', 'Arceus-Poison', 'Arceus-Psychic', 'Arceus-Rock', 'Arceus-Steel', 'Arceus-Water', 'Victini', 'Reshiram', 'Zekrom', 'Kyurem', 'Kyurem-Black', 'Kyurem-White', 'Keldeo', 'Keldeo-Resolute', 'Meloetta', 'Genesect'
 		]
 	},
 /**********************************
@@ -848,21 +845,6 @@ Team Previews
 		},
 		onTeamPreview: function() {
 			this.makeRequest('teampreview', 4);
-		}
-	},
-	doublesteampreview: { //Choose 2 leads, use all 6 Pokemon in battle.
-		onStartPriority: -10,
-		onStart: function() {
-			this.add('clearpoke');
-			for (var i=0; i<this.sides[0].pokemon.length; i++) {
-				this.add('poke', this.sides[0].pokemon[i].side.id, this.sides[0].pokemon[i].details.replace(/Arceus(\-[a-zA-Z\?]+)?/, 'Arceus-*'));
-			}
-			for (var i=0; i<this.sides[1].pokemon.length; i++) {
-				this.add('poke', this.sides[1].pokemon[i].side.id, this.sides[1].pokemon[i].details.replace(/Arceus(\-[a-zA-Z\?]+)?/, 'Arceus-*'));
-			}
-		},
-		onTeamPreview: function() {
-			this.makeRequest('teampreview', 2);
 		}
 	},
 };
