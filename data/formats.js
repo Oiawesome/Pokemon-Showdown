@@ -226,28 +226,25 @@ FORMATS
 		name: "OU",
 		challengeDefault: true,
 		rated: true,
+		// challengeShow: true,
+		// searchShow: true,
+		isTeambuilderFormat: true,
+		ruleset: ['Pokemon', 'Standard', 'Team Preview', 'Evasion Clause'],
+		banlist: ['Uber', 'Drizzle ++ Swift Swim', 'Soul Dew', 'Snow Cloak', 'Sand Veil', 'Spikes + Sleep Powder + Roserade']
+	},
+	oucurrent: {
+		effectType: 'Format',
+		section: 'Standard',
+		name: "OU (current)",
+		challengeDefault: true,
+		rated: true,
 		challengeShow: true,
 		searchShow: true,
 		isTeambuilderFormat: true,
-		ruleset: ['Pokemon', 'Smogon', 'Team Preview', 'Evasion Clause'],
+		ruleset: ['Pokemon', 'Standard', 'Team Preview', 'Evasion Clause'],
 		banlist: ['Uber', 'Drizzle ++ Swift Swim', 'Soul Dew', 'Snow Cloak', 'Sand Veil', 'Spikes + Sleep Powder + Roserade']
 	},
-	//ubers: {
-	//	effectType: 'Format',
-	//	section: 'Smogon',
-	//	name: "Ubers",
-	//	rated: true,
-	//	challengeShow: true,
-	//	searchShow: true,
-	//	isTeambuilderFormat: true,
-	//	ruleset: ['Pokemon', 'Smogon', 'Team Preview', 'Evasion Clause'],
-	//	banlist: []
-	//},
 	ubers: {
-		ruleset: ['Pokemon', 'Team Preview', 'Standard Ubers'],
-		banlist: []
-	},
-	uberssuspecttest: {
 		effectType: 'Format',
 		section: 'Standard',
 		name: "Ubers (suspect test)",//Suspect Test: no evasion clause
@@ -272,7 +269,7 @@ FORMATS
 	ru: {
 		effectType: 'Format',
 		section: 'Standard',
-		name: "RU (suspect test)",//Suspect Test: snow warning is legal
+		name: "RU",
 		rated: true,
 		challengeShow: true,
 		searchShow: true,
@@ -297,8 +294,8 @@ FORMATS
 		name: "PU",
 		challengeShow: true,
 		ruleset: ['NU'],
-		banlist: ["Charizard", "Wartortle", "Kadabra", "Golem", "Haunter", "Exeggutor", "Weezing", "Kangaskhan", "Pinsir", "Lapras", "Ampharos", "Misdreavus", "Piloswine", "Miltank", "Ludicolo", "Swellow", "Gardevoir", "Ninjask", "Camerupt", "Torkoal", "Cacturne", "Altaria", "Armaldo", "Absol", "Gorebyss", "Regirock", "Regice", "Torterra", "Bastiodon", "Floatzel", "Drifblim", "Skuntank", "Lickilicky", "Probopass", "Rotom-Fan", "Serperior", "Emboar", "Samurott", "Musharna", "Gurdurr", "Sawk", "Carracosta", "Garbodor", "Cinccino", "Sawsbuck", "Amoonguss", "Alomomola", "Golurk", "Braviary", "Rapidash", "Articuno"]
-	},
+		banlist: ["Charizard", "Wartortle", "Kadabra", "Golem", "Haunter", "Exeggutor", "Weezing", "Kangaskhan", "Pinsir", "Lapras", "Ampharos", "Misdreavus", "Piloswine", "Miltank", "Ludicolo", "Swellow", "Gardevoir", "Ninjask", "Torkoal", "Cacturne", "Altaria", "Armaldo", "Gorebyss", "Regirock", "Regice", "Bastiodon", "Floatzel", "Drifblim", "Skuntank", "Lickilicky", "Probopass", "Rotom-Fan", "Samurott", "Musharna", "Gurdurr", "Sawk", "Carracosta", "Garbodor", "Sawsbuck", "Alomomola", "Golurk", "Braviary", "Articuno", "Glaceon", "Rotom-Frost", "Electabuzz", "Electrode", "Marowak", "Liepard", "Tangela", "Jumpluff", "Eelektross", "Ditto", "Seismitoad", "Zangoose", "Roselia", "Stoutland"]
+		},
 	lc: {
 		effectType: 'Format',
 		section: 'Standard',
@@ -324,8 +321,8 @@ FORMATS
 		name: "LC UU",
 		challengeShow: true,
 		ruleset: ['LC'],
-		banlist: ['Abra', 'Aipom', 'Archen', 'Aron', 'Axew', 'Bronzor', 'Chinchou', 'Clamperl', 'Cottonee', 'Cranidos', 'Croagunk', 'Cubone', 'Diglett', 'Dratini', 'Drifloon', 'Drilbur', 'Duskull', 'Dwebble', 'Elekid', 'Ferroseed', 'Foongus', 'Frillish', 'Gastly', 'Hippopotas', 'Houndour', 'Larvesta', 'Lileep', 'Machop', 'Magnemite', 'Mienfoo', 'Misdreavus', 'Munchlax', 'Murkrow', 'Natu', 'Onix', 'Pawniard', 'Ponyta', 'Porygon', 'Scraggy', 'Shellder', 'Slowpoke', 'Snover', 'Staryu', 'Taillow', 'Timburr', 'Zorua']
-	},
+		banlist: ['Abra', 'Aipom', 'Archen', 'Aron', 'Axew', 'Bronzor', 'Chinchou', 'Clamperl', 'Cottonee', 'Cranidos', 'Croagunk', 'Diglett', 'Dratini', 'Drifloon', 'Drilbur', 'Dwebble', 'Elekid', 'Ferroseed', 'Foongus', 'Frillish', 'Gastly', 'Hippopotas', 'Houndour', 'Larvesta', 'Lileep', 'Magnemite', 'Meowth', 'Mienfoo', 'Misdreavus', 'Munchlax', 'Murkrow', 'Onix', 'Pawniard', 'Ponyta', 'Porygon', 'Riolu', 'Sandshrew', 'Scraggy', 'Shellder', 'Snover', 'Staryu', 'Taillow', 'Tentacool', 'Timburr', 'Tirtouga']
+		},
 	doublesvgc2013dev: {
 		effectType: 'Format',
 		section: 'Standard',

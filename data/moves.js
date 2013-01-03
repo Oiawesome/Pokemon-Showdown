@@ -1104,7 +1104,7 @@ exports.BattleMovedex = {
 				if (move.id === 'gust' || move.id === 'twister') {
 					return;
 				}
-				if (move.id === 'skyuppercut' || move.id === 'thunder' || move.id === 'hurricane' || move.id === 'smackdown') {
+				if (move.id === 'skyuppercut' || move.id === 'thunder' || move.id === 'hurricane' || move.id === 'smackdown' || move.id === 'helpinghand') {
 					return;
 				}
 				return 0;
@@ -2339,7 +2339,7 @@ exports.BattleMovedex = {
 				if (type === 'sandstorm' || type === 'hail') return false;
 			},
 			onAccuracy: function(accuracy, target, source, move) {
-				if (move.id === 'earthquake' || move.id === 'magnitude') {
+				if (move.id === 'earthquake' || move.id === 'magnitude' || move.id === 'helpinghand') {
 					return;
 				}
 				return 0;
@@ -2468,7 +2468,7 @@ exports.BattleMovedex = {
 				if (type === 'sandstorm' || type === 'hail') return false;
 			},
 			onAccuracy: function(accuracy, target, source, move) {
-				if (move.id === 'surf' || move.id === 'whirlpool') {
+				if (move.id === 'surf' || move.id === 'whirlpool' || move.id === 'helpinghand') {
 					return;
 				}
 				return 0;
@@ -2983,18 +2983,17 @@ exports.BattleMovedex = {
 		accuracy: 100,
 		basePower: false,
 		basePowerCallback: function(pokemon, target) {
-			var targetSpeed = target.stats.spe;
-			var pokemonSpeed = pokemon.stats.spe;
-			if (pokemonSpeed >= targetSpeed * 4) {
+			var ratio = (pokemon.stats.spe / target.stats.spe);
+			if (ratio >= 4) {
 				return 150;
 			}
-			if (pokemonSpeed >= targetSpeed * 3) {
+			if (ratio >= 3) {
 				return 120;
 			}
-			if (pokemonSpeed >= targetSpeed * 2) {
+			if (ratio >= 2) {
 				return 80;
 			}
-			if (pokemonSpeed >= targetSpeed) {
+			if (ratio >= 1) {
 				return 60;
 			}
 			return 40;
@@ -3915,7 +3914,7 @@ exports.BattleMovedex = {
 				if (move.id === 'gust' || move.id === 'twister') {
 					return;
 				}
-				if (move.id === 'skyuppercut' || move.id === 'thunder' || move.id === 'hurricane' || move.id === 'smackdown') {
+				if (move.id === 'skyuppercut' || move.id === 'thunder' || move.id === 'hurricane' || move.id === 'smackdown' || move.id === 'helpinghand') {
 					return;
 				}
 				return 0;
@@ -4457,23 +4456,23 @@ exports.BattleMovedex = {
 		accuracy: 100,
 		basePower: false,
 		basePowerCallback: function(pokemon, target) {
-			if (target.weightkg > 200) {
+			if (target.weightkg >= 200) {
 				this.debug('120 bp');
 				return 120;
 			}
-			if (target.weightkg > 100) {
+			if (target.weightkg >= 100) {
 				this.debug('100 bp');
 				return 100;
 			}
-			if (target.weightkg > 50) {
+			if (target.weightkg >= 50) {
 				this.debug('80 bp');
 				return 80;
 			}
-			if (target.weightkg > 25) {
+			if (target.weightkg >= 25) {
 				this.debug('60 bp');
 				return 60;
 			}
-			if (target.weightkg > 10) {
+			if (target.weightkg >= 10) {
 				this.debug('40 bp');
 				return 40;
 			}
@@ -6528,19 +6527,19 @@ exports.BattleMovedex = {
 		basePower: false,
 		basePowerCallback: function(pokemon, target) {
 			var targetWeight = target.weightkg;
-			if (target.weightkg > 200) {
+			if (target.weightkg >= 200) {
 				return 120;
 			}
-			if (target.weightkg > 100) {
+			if (target.weightkg >= 100) {
 				return 100;
 			}
-			if (target.weightkg > 50) {
+			if (target.weightkg >= 50) {
 				return 80;
 			}
-			if (target.weightkg > 25) {
+			if (target.weightkg >= 25) {
 				return 60;
 			}
-			if (target.weightkg > 10) {
+			if (target.weightkg >= 10) {
 				return 40;
 			}
 			return 20;
@@ -7961,8 +7960,13 @@ exports.BattleMovedex = {
 			this.add('-fieldactivate', 'move: Perish Song');
 			for (var i=0; i<this.sides.length; i++) {
 				for (var j=0; j<this.sides[i].active.length; j++) {
-					if (this.sides[i].active[j].runImmunity('sound')) this.sides[i].active[j].addVolatile('perishsong');
-					else this.add('-end', this.sides[i].active[j], 'Perish Song');
+					if (this.sides[i].active[j].ability !== 'soundproof') {
+						this.sides[i].active[j].addVolatile('perishsong');
+					}
+					else {
+						this.add('-immune', this.sides[i].active[j], '[msg]');
+						this.add('-end', this.sides[i].active[j], 'Perish Song');
+					}
 				}
 			}
 		},
@@ -9618,7 +9622,13 @@ exports.BattleMovedex = {
 			},
 			onSetStatus: function(status, target, source, effect) {
 				if (source && source !== target && source.ability !== 'infiltrator' || (effect && effect.id === 'toxicspikes')) {
-					this.debug('interrupting setstatus');
+					this.debug('interrupting setStatus');
+					return false;
+				}
+			},
+			onTryConfusion: function(target, source, effect) {
+				if (source && source !== target && source.ability !== 'infiltrator') {
+					this.debug('interrupting addVolatile');
 					return false;
 				}
 			},
@@ -9961,6 +9971,9 @@ exports.BattleMovedex = {
 			duration: 2,
 			onLockMove: 'shadowforce',
 			onAccuracy: function(accuracy, target, source, move) {
+				if (move.id === 'helpinghand') {
+					return;
+				}
 				return 0;
 			}
 		},
@@ -10345,12 +10358,12 @@ exports.BattleMovedex = {
 			if (attacker.removeVolatile(move.id)) {
 				return;
 			}
-			if (defender.volatiles['substitute']) {
-				this.add('-fail', target);
+			if (defender.volatiles['substitute'] || defender.side === attacker.side) {
+				this.add('-fail', defender);
 				return null;
 			}
 			if (defender.volatiles['protect']) {
-				this.add('-activate', target, 'Protect');
+				this.add('-activate', defender, 'Protect');
 				return null;
 			}
 			if (defender.volatiles['bounce'] || defender.volatiles['dig'] || defender.volatiles['dive'] || defender.volatiles['fly'] || defender.volatiles['shadowforce']) {
@@ -10397,7 +10410,7 @@ exports.BattleMovedex = {
 				if (move.id === 'gust' || move.id === 'twister') {
 					return;
 				}
-				if (move.id === 'skyuppercut' || move.id === 'thunder' || move.id === 'hurricane' || move.id === 'smackdown') {
+				if (move.id === 'skyuppercut' || move.id === 'thunder' || move.id === 'hurricane' || move.id === 'smackdown' || move.id === 'helpinghand') {
 					return;
 				}
 				return 0;
@@ -11407,6 +11420,7 @@ exports.BattleMovedex = {
 				this.effectData.hp = Math.floor(target.maxhp/4);
 				delete target.volatiles['partiallytrapped'];
 			},
+			onTryHitPriority: -1,
 			onTryHit: function(target, source, move) {
 				if (target === source) {
 					this.debug('sub bypass: self hit');
