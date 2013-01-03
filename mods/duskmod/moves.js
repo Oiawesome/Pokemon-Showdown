@@ -164,7 +164,7 @@ exports.BattleMovedex = {
         nightslash: {
                 inherit: true,
                 power: 50,
-                wilLCrit: true
+                willCrit: true
         },
 //-----------------------------------------------------------------------------------------------
 //Various buffs
@@ -432,14 +432,20 @@ exports.BattleMovedex = {
                 type: "Fighting",
                 multihit: [2,2]
         },
-//2.1.0 stuff/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        "hydrocannon": {
-                inherit: true,
-                accuracy: 100,
-                pp: 20,
+		"hydrocannon": {
+				num: 308,
+				accuracy: 100,
+				basePower: 150,
+				category: "Special",
+				desc: "Deals damage to one adjacent target. If this move is successful, the user must recharge on the following turn and cannot make a move.",
+				shortDesc: "User cannot move next turn.",
+				id: "hydrocannon",
+				name: "Hydro Cannon",
+				pp: 20,
                 priority: -3,
                 beforeTurnCallback: function(pokemon) {
                         pokemon.addVolatile('hydrocannon');
+						this.add('-message', pokemon.name+" is focusing it's aim!");
                 },
                 beforeMoveCallback: function(pokemon) {
                         if (!pokemon.removeVolatile('hydrocannon')) {
@@ -456,8 +462,10 @@ exports.BattleMovedex = {
                                 this.add('-singleturn', pokemon, 'move: Hydro Cannon');
                         }
                 },
-                self: false
-        },
+				secondary: false,
+				target: "normal",
+				type: "Water"
+		},
         "blastburn": {
                 inherit: true,
                 accuracy: 100,
@@ -517,7 +525,7 @@ exports.BattleMovedex = {
                 target: "normal",
                 type: "Ground"
         },
-          "gastroacid": {
+        "gastroacid": {
                 inherit: true,
                 basePower: 50,
                 category: "Special",
@@ -528,73 +536,22 @@ exports.BattleMovedex = {
                 basePower: 80,
                 accuracy: 100,
                 priority: 0,
+                category: "Physical",
+                target: "normal",
+                type: "Ground",
                 onHit: false,
                 onModifyMove: function(move, source, target) {
                         if (source.hasType('Grass')) {
                             move.basePower = 120;
                             }
-        },
-        "futuresight": {
-                inherit: true,
-                basePower: 130,
-                isNotProtectable: true,
-                onTryHit: function(target, source) {
-                        source.side.addSideCondition('futuremove');
-                        if (source.side.sideConditions['futuremove'].positions[source.position]) {
-                                return false;
-                        }
-                        source.side.sideConditions['futuremove'].positions[source.position] = {
-                                duration: 3,
-                                move: 'futuresight',
-                                targetPosition: target.position,
-                                source: source,
-                                moveData: {
-                                        basePower: 130,
-                                        category: "Special",
-                                        type: 'Psychic'
-                                }
-                        };
-                        this.add('-start', source, 'move: Future Sight');
-                        return null;
+				}
         },
         "electroweb": {
                 inherit: true,
                 target: "normal",
         },
-        "detect": { //Fails if used 2x
-                inherit: true,
-                onTryHit: function(pokemon) {
-                        if (!this.willAct()) {
-                                return false;
-                        }
-                        if (pokemon.volatiles['stall']) {
-                                return false;
-                        }
-                }
-        },
-        "protect": { //Fails if used 2x
-                inherit: true,
-                onTryHit: function(pokemon) {
-                        if (!this.willAct()) {
-                                return false;
-                        }
-                        if (pokemon.volatiles['stall']) {
-                                return false;
-                        }
-                }
-        },
         "leechseed": {
                 inherit: true,
                 accuracy: 100,
-        },
-        "heatwave": { //Removes rain
-                inherit: true,
-                onModifyMove: function(move) {
-                        if (!this.isWeather('raindance')) return;
-                        else { 
-                            this.clearWeather();
-                        }
-                },
-                
         }
 };

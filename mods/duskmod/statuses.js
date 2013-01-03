@@ -42,7 +42,6 @@ exports.BattleStatuses = {
 		effectType: 'Status',
 		onStart: function(target) {
 			this.add('-status', target.id, 'slp');
-			// 1-3 turns
 			this.effectData.startTime = 3;
 			this.effectData.time = this.effectData.startTime;
 			if (target.getAbility().isHalfSleep) {
@@ -63,7 +62,7 @@ exports.BattleStatuses = {
 		},
 		onBeforeMovePriority: 2,
 		onBeforeMove: function(pokemon, target, move) {
-			if (pokemon.statusData.time === 0) {
+			if (pokemon.statusData.time <= 0) {
 				pokemon.cureStatus();
 				return;
 			}

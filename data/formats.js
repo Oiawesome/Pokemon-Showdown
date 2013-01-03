@@ -206,8 +206,19 @@ FORMATS
 		noCrit: true,
 		mod: 'duskmod',
 		isTeambuilderFormat: true,
-		ruleset: ['Legal DM', 'DM Pokemon', 'Smogon', 'Team Preview', 'Evasion Clause'],
+		ruleset: ['Legal DM', 'DM Pokemon', 'Sleep Clause', 'Species Clause', 'OHKO Clause', 'Moody Clause', 'Team Preview', 'Evasion Clause'],
 		banlist: ['Uber', 'Soul Dew', 'Spikes + Sleep Powder + Roserade']
+	},
+	duskmoddebug: {
+		effectType: 'Format',
+		section: 'DuskMod',
+		name: "DuskMod Debug Mode",
+		challengeShow: true,
+		canUseRandomTeam: true,
+		debug: true,
+		noCrit: true,
+		mod: 'duskmod',
+		ruleset: ['Team Preview']
 	},
 	ou: {
 		effectType: 'Format',
@@ -517,7 +528,7 @@ Rule Sets
 	},
 	dmpokemon: { //Includes standard legality rules
 		effectType: 'Banlist',
-		ruleset: ['Real Pokemon', 'Moveset Limits', 'Legal Form'],
+		ruleset: ['Real Pokemon', 'Moveset Limits', 'Legal Form DM'],
 		banlist: ['Illegal']
 	},
 	smogon: { //Clauses used in Smogon metagames
@@ -810,6 +821,45 @@ Clauses
 				if (!Exceptions[set.species]) {
 					problems.push(set.species+' is not released in DuskMod.');
 				}
+			}
+			return problems;
+		}
+	},
+	legalformdm: { //Correct the forms of certain pokemon (ex: Keldeo-R without the move Secret Sword)
+		effectType: 'Banlist',
+		validateSet: function(set, format) {
+			var item = this.getItem(set.item);
+			var template = this.getTemplate(set.species);
+			var problems = [];
+
+			if (set.species === set.name) delete set.name;
+			if (template.num == 493) { // Arceus
+				if (set.ability === 'Multitype' && item.onPlate) {
+					set.species = 'Arceus-'+item.onPlate;
+				} else {
+					set.species = 'Arceus';
+				}
+			}
+			if (template.num == 487) { // Giratina
+				if (item.id === 'griseousorb') {
+					set.species = 'Giratina-Origin';
+					if (format.banlistTable && format.banlistTable['illegal']) set.ability = 'Levitate';
+				} else {
+					set.species = 'Giratina';
+					if (format.banlistTable && format.banlistTable['illegal']) set.ability = 'Pressure';
+				}
+			}
+			if (template.num == 555) { // Darmanitan
+				set.species = 'Darmanitan';
+			}
+			if (template.num == 648) { // Meloetta
+				set.species = 'Meloetta';
+			}
+			if (template.num == 351) { // Castform
+				set.species = 'Castform';
+			}
+			if (template.num == 421) { // Cherrim
+				set.species = 'Cherrim';
 			}
 			return problems;
 		}

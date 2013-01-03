@@ -254,6 +254,17 @@ DUSKMOD DATA
                         'Movepool: +Hone Claws, +Thrash<br />' +
                         '<div style="clear:both;"></div>');
         }
+        if (target === 'raticate') {
+            matched = true;
+            showOrBroadcastStart(user, cmd, room, socket, message);
+            showOrBroadcast(user, cmd, room, socket,
+                '<div style="float:left;height:50px;width:80px"><center><b>Raticate</b><br />' +
+                '<img src="http://sprites.pokecheck.org/icon/20.png"></center></div>' +
+                        'Stats: 70/105/80/65/80/120  <br />' +
+                        'Abilities: Guts / Rivalry / Sheer Force<br />' +
+                        'Movepool: +Hone Claws, +Fake Out, +Ice Fang, +Fire Fang, +ThunderFang, +Crunch, +Low Sweep<br />' +
+                        '<div style="clear:both;"></div>');
+        }
         if (target === 'arbok') {
             matched = true;
             showOrBroadcastStart(user, cmd, room, socket, message);
@@ -299,14 +310,37 @@ DUSKMOD DATA
                         'Movepool: +Bulk Up, +Iron Head, +Slack Off, +Icicle Crash, +Dragon Dance</div><br />' +
                         '<div style="clear:both;"></div>');
         }
+        if (target === 'clefable') {
+            matched = true;
+            showOrBroadcastStart(user, cmd, room, socket, message);
+            showOrBroadcast(user, cmd, room, socket,
+                '<div style="float:left;height:50px;width:80px"><center><b>Clefable</b><br />' +
+                '<img src="http://sprites.pokecheck.org/icon/36.png"></center></div>' +
+                        'Stats: 140/50/70/90/115/60<br />' +
+                        'Abilities: Magic Guard / Analytic / Friend Guard<br />' +
+                        'Movepool: +Pain Split, +Softboiled (levelup), +Heal Pulse,</div><br />' +
+                        '<div style="clear:both;"></div>');
+        }
 		if (target === 'ninetales') {
             matched = true;
             showOrBroadcastStart(user, cmd, room, socket, message);
             showOrBroadcast(user, cmd, room, socket,
                 '<div style="float:left;height:50px;width:80px"><center><b>Ninetales</b><br />' +
                 '<img src="http://sprites.pokecheck.org/icon/38.png"></center></div>' +
+                        'Stats: 80/60/75/85/100/100<br />' +
                         'Abilities: Drought<br />' +
                         'Movepool: +Recover</div><br />' +
+                        '<div style="clear:both;"></div>');
+        }
+        if (target === 'wigglytuff') {
+            matched = true;
+            showOrBroadcastStart(user, cmd, room, socket, message);
+            showOrBroadcast(user, cmd, room, socket,
+                '<div style="float:left;height:50px;width:80px"><center><b>Wigglytuff</b><br />' +
+                '<img src="http://sprites.pokecheck.org/icon/40.png"></center></div>' +
+                        'Stats: 140/90/115/50/70/60<br />' +
+                        'Abilities: Thick Fat / Marvel Scale / Friend Guard<br />' +
+                        'Movepool: Movepool: +Aromatherapy, +Recover, +Pain Split, +Knock Off, +Lovely Kiss, +Torment, +Encore, +Baton Pass, +Whirlwind</div><br />' +
                         '<div style="clear:both;"></div>');
         }
         if (target === 'crobat') {
@@ -394,7 +428,7 @@ DUSKMOD DATA
                 '<img src="http://sprites.pokecheck.org/icon/57.png"></center></div>' +
                         'Stats: 110/110/70/50/70/105<br />' +
                         'Abilities: Anger Point/Iron Fist/Defiant<br />' +
-                        'Movepool:+Hi Jump Kick, +Jump Kick, +Mach Punch</div><br />' +
+                        'Movepool:+Hi Jump Kick, +Jump Kick, +Mach Punch, -Meditate</div><br />' +
                         '<div style="clear:both;"></div>');
         }
         if (target === 'arcanine') {
@@ -404,10 +438,9 @@ DUSKMOD DATA
                 '<div style="float:left;height:50px;width:80px"><center><b>Arcanine</b><br />' +
                 '<img src="http://sprites.pokecheck.org/icon/59.png"></center></div>' +
                         'Stats: 90/115/80/90/80/95<br />' +
-                        'Abilities: Intimidate/Magma Armor  /Flash Fire<br />' +
+                        'Abilities: Intimidate/Magma Armor/Flash Fire<br />' +
                         '<div style="clear:both;"></div>');
         }
-
         if (target === 'poliwrath') {
             matched = true;
             showOrBroadcastStart(user, cmd, room, socket, message);
@@ -416,10 +449,9 @@ DUSKMOD DATA
                 '<img src="http://sprites.pokecheck.org/icon/62.png"></center></div>' +
                         'Stats: 90/130/95/70/80/60<br />' +
                         'Abilities: Swift Swim/Guts/Damp<br />' +
-                        'Movepool: +Close Combat, +Mach Punch, +Aqua jet, -Belly Drum</div><br />' +
+                        'Movepool: +Close Combat, +Mach Punch, +Aqua jet, +Circle Throw, -Belly Drum</div><br />' +
                         '<div style="clear:both;"></div>');
         }
-
         if (target === 'politoed') {
             matched = true;
             showOrBroadcastStart(user, cmd, room, socket, message);
@@ -430,7 +462,6 @@ DUSKMOD DATA
                         'Movepool: -Belly Drum</div><br />' +
                         '<div style="clear:both;"></div>');
         }
-
         if (target === 'alakazam') {
             matched = true;
             showOrBroadcastStart(user, cmd, room, socket, message);
@@ -441,7 +472,6 @@ DUSKMOD DATA
                         'Movepool: +Ice Beam, +Thunderbolt</div><br />' +
                         '<div style="clear:both;"></div>');
         }
-
         if (target === 'machamp') {
             matched = true;
             showOrBroadcastStart(user, cmd, room, socket, message);
@@ -453,7 +483,6 @@ DUSKMOD DATA
                         'Movepool: +Meditate, +Circle Throw</div><br />' +
                         '<div style="clear:both;"></div>');
         }
-
         if (target === 'victreebel') {
             matched = true;
             showOrBroadcastStart(user, cmd, room, socket, message);
@@ -465,8 +494,6 @@ DUSKMOD DATA
                         'Movepool: +Agility</div><br />' +
                         '<div style="clear:both;"></div>');
         }
-
-
 		if (target === 'tentacruel') {
             matched = true;
             showOrBroadcastStart(user, cmd, room, socket, message);
@@ -482,7 +509,7 @@ DUSKMOD DATA
             matched = true;
             showOrBroadcastStart(user, cmd, room, socket, message);
             showOrBroadcast(user, cmd, room, socket,
-                '<div style="float:left;height:50px;width:80px"><center><b>Tentacruel</b><br />' +
+                '<div style="float:left;height:50px;width:80px"><center><b>Golem</b><br />' +
                 '<img src="http://sprites.pokecheck.org/icon/76.png"></center></div>' +
                         'Stats: 90/110/130/55/77/40<br />' +
                         'Abilities: Sturdy/Solid Rock/Skill Link<br />' +
@@ -558,7 +585,7 @@ DUSKMOD DATA
                 '<div style="float:left;height:50px;width:80px"><center><b>Cloyster</b><br />' +
                 '<img src="http://sprites.pokecheck.org/icon/91.png"></center></div>' +
                         'Abilities: Skill Link/Water Absorb<br />' +
-                        'Movepool: +Stealth Rock</div><br />' +
+                        'Movepool: +Stealth Rock, -Spike Cannon</div><br />' +
                         '<div style="clear:both;"></div>');
         }
 		if (target === 'steelix') {
@@ -570,6 +597,17 @@ DUSKMOD DATA
                         'Stats: 75/85/200/55/80/30<br />' +
                         'Abilities: Sheer Force/Sturdy/Rock Head<br />' +
                         'Movepool: +Coil, +Head Smash</div><br />' +
+                        '<div style="clear:both;"></div>');
+        }
+        if (target === 'hypno') {
+            matched = true;
+            showOrBroadcastStart(user, cmd, room, socket, message);
+            showOrBroadcast(user, cmd, room, socket,
+                '<div style="float:left;height:50px;width:80px"><center><b>Hypno</b><br />' +
+                '<img src="http://sprites.pokecheck.org/icon/97.png"></center></div>' +
+                        'Stats: 74/70/102/96/120/80<br />' +
+                        'Abilities: Filter/Bad Dreams<br />' +
+                        'Movepool: +Recover, +Dark Void, +Vacuum Wave, +Aura Sphere</div><br />' +
                         '<div style="clear:both;"></div>');
         }
 		if (target === 'gengar') {
@@ -665,7 +703,7 @@ DUSKMOD DATA
                 '<img src="http://sprites.pokecheck.org/icon/110.png"></center></div>' +
                         'Stats: 95/80/140/90/80/50<br />' +
                         'Abilities: Levitate/Regenerator<br />' +
-                        'Movepool: Movepool: +Ice Beam<br />' +
+                        'Movepool: Movepool: +Ice Beam, +Toxic Spikes<br />' +
                         '<div style="clear:both;"></div>');
         }
         if (target === 'rhyperior') {
@@ -730,7 +768,7 @@ DUSKMOD DATA
                 '<img src="http://sprites.pokecheck.org/icon/119.png"></center></div>' +
                         'Stats: 80/115/85/65/85/68<br />' +
                         'Abilities: Swift Swim/Water Veil/Lightningrod <br />' +
-                        'Movepool: +Horn Leech, +Swords Dance</div><br />' +
+                        'Movepool: +Horn Leech, +Swords Dance, +Aqua Jet</div><br />' +
                         '<div style="clear:both;"></div>');
         }
         if (target ==='starmie') {
@@ -753,6 +791,17 @@ DUSKMOD DATA
                         'Abilities: Illusion/Magic Bounce</div><br />' +
                         '<div style="clear:both;"></div>');
         }
+        if (target === 'scyther') {
+            matched = true;
+            showOrBroadcastStart(user, cmd, room, socket, message);
+            showOrBroadcast(user, cmd, room, socket,
+                '<div style="float:left;height:50px;width:80px"><center><b>Scyther</b><br />' +
+                '<img src="http://sprites.pokecheck.org/icon/123.png"></center></div>' +
+                        'Stats: 80/110/85/40/85/110<br />' +
+                        'Abilities: Unburden/Technician/Mountaineer<br />' +
+                        'Movepool: +Acrobatics, +Fake Out</div><br />' +
+                        '<div style="clear:both;"></div>');
+        }
         if (target ==='scizor') {
             matched = true;
             showOrBroadcastStart(user, cmd, room, socket, message);
@@ -760,7 +809,7 @@ DUSKMOD DATA
                 '<div style="float:left;height:50px;width:80px"><center><b>Scizor</b><br />' +
                 '<img src="http://sprites.pokecheck.org/icon/212.png"></center></div>' +
                         'Abilities: Technician<br />' +
-                        'Movepool: +Hammer Arm</div><br />' +
+                        'Movepool: +Hammer Arm, +Fake Out, +Crabhammer</div><br />' +
                         '<div style="clear:both;"></div>');
         }
         if (target === 'jynx') {
@@ -801,6 +850,7 @@ DUSKMOD DATA
             showOrBroadcast(user, cmd, room, socket,
                 '<div style="float:left;height:50px;width:80px"><center><b>Pinsir</b><br />' +
                 '<img src="http://sprites.pokecheck.org/icon/127.png"></center></div>' +
+                        'Type: Bug/Dark <br />' +
                         'Stats: 80/120/100/55/90/75 <br />' +
                         'Abilities: Intimidate/Shed Skin<br />' +
                         'Movepool: -Close Combat, +Poison Jab, +Sucker Punch, +Night Slash, +Bulk Up</div><br />' +
@@ -835,7 +885,7 @@ DUSKMOD DATA
                 '<img src="http://sprites.pokecheck.org/icon/131.png"></center></div>' +
                         'Stats: 130/85/80/85/95/60<br />' +
                         'Abilities: Hydration/Adaptability<br />' +
-                        'Movepool: +Wish, +Superpower, +Haze, +Glaciate, +Aqua Jet, +Recover</div><br />' +
+                        'Movepool: +Wish, +Superpower, +Haze, +Glaciate, +Aqua Jet, +Recover, +Horn Leech, +Icicle Crash</div><br />' +
                         '<div style="clear:both;"></div>');
         }
         if (target === 'ditto') {
@@ -895,7 +945,7 @@ DUSKMOD DATA
             showOrBroadcast(user, cmd, room, socket,
                 '<div style="float:left;height:50px;width:80px"><center><b>Umbreon</b><br />' +
                 '<img src="http://sprites.pokecheck.org/icon/197.png"></center></div>' +
-                        'Abilities: Synchronize/Shield Dust<br />' +
+                        'Abilities: Synchronize/Frisk<br />' +
                         'Movepool: +Dark Void</div><br />' +
                         '<div style="clear:both;"></div>');
         }
@@ -907,7 +957,7 @@ DUSKMOD DATA
                 '<img src="http://sprites.pokecheck.org/icon/470.png"></center></div>' +
                         'Stats: 65/110/60/95/65/130<br/>' +
                         'Abilities: Chlorophyll/Sap Sipper<br />' +
-                        'Movepool: +Growth, +Earth Power</div><br />' +
+                        'Movepool: +Growth, +Earth Power, +Nature Power</div><br />' +
                         '<div style="clear:both;"></div>');
         }
         if (target === 'glaceon') {
@@ -927,7 +977,7 @@ DUSKMOD DATA
             showOrBroadcast(user, cmd, room, socket,
                 '<div style="float:left;height:50px;width:80px"><center><b>Porygon2</b><br />' +
                 '<img src="http://sprites.pokecheck.org/icon/233.png"></center></div>' +
-                        'Stats: 90/80/90/105/105/60<br />' +
+                        'Stats: 85/80/90/109/105/60<br />' +
                         'Abilities: Trace/Download/Analytic<br />' +
                         'Movepool: +Flamethrower, +Fire Blast</div><br />' +
                         '<div style="clear:both;"></div>');
@@ -949,10 +999,9 @@ DUSKMOD DATA
             showOrBroadcast(user, cmd, room, socket,
                 '<div style="float:left;height:50px;width:80px"><center><b>Omastar</b><br />' +
                 '<img src="http://sprites.pokecheck.org/icon/139.png"></center></div>' +
-                        'Movepool: +Paleo Wave</div><br />' +
+                        'Movepool: +Paleo Wave, -Spike Cannon</div><br />' +
                         '<div style="clear:both;"></div>');
         }
-
         if (target === 'kabutops') {
             matched = true;
             showOrBroadcastStart(user, cmd, room, socket, message);
@@ -1010,7 +1059,6 @@ DUSKMOD DATA
             showOrBroadcast(user, cmd, room, socket,
                 '<div style="float:left;height:50px;width:80px"><center><b>Zapdos</b><br />' +
                 '<img src="http://sprites.pokecheck.org/icon/145.png"></center></div>' +
-                        'Stats: 90/90/85/125/90/100<br />' +
                         'Abilities: Volt Absorb <br />' +
                         'Movepool: +Hurricane<br />' +
                         'Important Notes: If Zapdos holds the Damp Rock, rain is automatically summoned for 3 turns</div><br />' +
@@ -1079,6 +1127,73 @@ DUSKMOD DATA
                         'Movepool: +Shell Smash</div><br />' +
                         '<div style="clear:both;"></div>');
         }
+        if (target === 'watchog') {
+            matched = true;
+            showOrBroadcastStart(user, cmd, room, socket, message);
+            showOrBroadcast(user, cmd, room, socket,
+                '<div style="float:left;height:50px;width:80px"><center><b>Watchog</b><br />' +
+                '<img src="http://sprites.pokecheck.org/icon/505.png"></center></div>' +
+                        'Type: Normal/Dark<br />' +
+                        'Abilities: Filter/Trace/Wonder Skin<br />' +
+                        'Stats: 92/95/80/95/80/108<br />' +
+                        'Movepool: +Fake Out, +U-Turn, +Punishment, +Snatch, +Memento, +Healing Wish, +Double Edge, +Dark Pulse, +Dark Void, +Sucker Punch</div><br />' +
+                        '<div style="clear:both;"></div>');
+        }
+        if (target === 'stoutland') {
+            matched = true;
+            showOrBroadcastStart(user, cmd, room, socket, message);
+            showOrBroadcast(user, cmd, room, socket,
+                '<div style="float:left;height:50px;width:80px"><center><b>Stoutland</b><br />' +
+                '<img src="http://sprites.pokecheck.org/icon/508.png"></center></div>' +
+                        'Abilities: Sand Rush/Snow Cloak<br />' +
+                        'Stats: 85/110/90/45/90/80<br />' +
+                        'Movepool: +Flame Charge, +Swords Dance</div><br />' +
+                        '<div style="clear:both;"></div>');
+        }
+        if (target === 'liepard') {
+            matched = true;
+            showOrBroadcastStart(user, cmd, room, socket, message);
+            showOrBroadcast(user, cmd, room, socket,
+                '<div style="float:left;height:50px;width:80px"><center><b>Liepard</b><br />' +
+                '<img src="http://sprites.pokecheck.org/icon/510.png"></center></div>' +
+                        'Abilities: Prankster/Unburden/Wonder Skin<br />' +
+                        'Stats: 70/105/80/90/75/106<br />' +
+                        'Movepool: +Disable, +Baton Pass, +Work Up, +Agility, +Moonlight</div><br />' +
+                        '<div style="clear:both;"></div>');
+        }
+        if (target === 'simisage') {
+            matched = true;
+            showOrBroadcastStart(user, cmd, room, socket, message);
+            showOrBroadcast(user, cmd, room, socket,
+                '<div style="float:left;height:50px;width:80px"><center><b>Simisage</b><br />' +
+                '<img src="http://sprites.pokecheck.org/icon/512.png"></center></div>' +
+                        'Abilities: Guts/Overgrow/Prankster<br />' +
+                        'Stats: 75/105/65/90/65/101<br />' +
+                        'Movepool: +Bulk Up, +Growth, +Glare, +Taunt</div><br />' +
+                        '<div style="clear:both;"></div>');
+        }
+        if (target === 'simisear') {
+            matched = true;
+            showOrBroadcastStart(user, cmd, room, socket, message);
+            showOrBroadcast(user, cmd, room, socket,
+                '<div style="float:left;height:50px;width:80px"><center><b>Simisear</b><br />' +
+                '<img src="http://sprites.pokecheck.org/icon/514.png"></center></div>' +
+                        'Abilities: Solar Power/Blaze/Turboblaze<br />' +
+                        'Stats: 75/90/65/105/65/101<br />' +
+                        'Movepool: +Thunderbolt, +Calm Mind, +Morning Sun</div><br />' +
+                        '<div style="clear:both;"></div>');
+        }
+        if (target === 'simipour') {
+            matched = true;
+            showOrBroadcastStart(user, cmd, room, socket, message);
+            showOrBroadcast(user, cmd, room, socket,
+                '<div style="float:left;height:50px;width:80px"><center><b>Simipour</b><br />' +
+                '<img src="http://sprites.pokecheck.org/icon/516.png"></center></div>' +
+                        'Abilities: Water Absorb / Torrent / Rebound<br />' +
+                        'Stats: 90/75/100/80/105/101<br />' +
+                        'Movepool: +Slack Off, +Encore, +Heal Bell, +Light Screen, +Reflect, +Haze</div><br />' +
+                        '<div style="clear:both;"></div>');
+        }
         if (target === 'musharna') {
             matched = true;
             showOrBroadcastStart(user, cmd, room, socket, message);
@@ -1090,6 +1205,17 @@ DUSKMOD DATA
                         'Movepool: +Recover, +Will-o-Wisp</div><br />' +
                         '<div style="clear:both;"></div>');
         }
+        if (target === 'zebstrika') {
+            matched = true;
+            showOrBroadcastStart(user, cmd, room, socket, message);
+            showOrBroadcast(user, cmd, room, socket,
+                '<div style="float:left;height:50px;width:80px"><center><b>Zebstrika</b><br />' +
+                '<img src="http://sprites.pokecheck.org/icon/523.png"></center></div>' +
+                        'Stats: 75/105/63/105/63/120<br />' +
+                        'Abilities: Lightningrod/Sap Sipper/Reckless<br />' +
+                        'Movepool: +Flare Blitz, +Jump Kick, +Weather Ball</div><br />' +
+                        '<div style="clear:both;"></div>');
+        }
         if (target === 'gigalith') {
             matched = true;
             showOrBroadcastStart(user, cmd, room, socket, message);
@@ -1097,7 +1223,8 @@ DUSKMOD DATA
                 '<div style="float:left;height:50px;width:80px"><center><b>Gigalith</b><br />' +
                 '<img src="http://sprites.pokecheck.org/icon/526.png"></center></div>' +
                         'Abilities: Sturdy/Sand Force/Solid Rock<br />' +
-                        'Stats: 85/135/130/60/90/25</div><br />' +
+                        'Stats: 85/135/130/60/90/25<br />' +
+                        'Movepool:+Spike Cannon</div><br />' +
                         '<div style="clear:both;"></div>');
         }
         if (target === 'excadrill') {
@@ -1118,7 +1245,7 @@ DUSKMOD DATA
                 '<div style="float:left;height:50px;width:80px"><center><b>Conkeldurr</b><br />' +
                 '<img src="http://sprites.pokecheck.org/icon/534.png"></center></div>' +
                         'Abilities: Sheer Force/Guts/Oblivious<br />' +
-                        'Movepool: +Force Palm, +Drain Punch, +Mach Punch<br />' +
+                        'Movepool: +Sucker Punch<br />' +
                         "Important Notes: Sheer force boosts hammer arm damage because of hammer arm's new effect</div><br />" +
                         '<div style="clear:both;"></div>');
         }
@@ -1155,6 +1282,17 @@ DUSKMOD DATA
                         'Movepool: +Hi Jump Kick</div><br />' +
                         '<div style="clear:both;"></div>');
         }
+        if (target === 'leavanny') {
+            matched = true;
+            showOrBroadcastStart(user, cmd, room, socket, message);
+            showOrBroadcast(user, cmd, room, socket,
+                '<div style="float:left;height:50px;width:80px"><center><b>Leavanny</b><br />' +
+                '<img src="http://sprites.pokecheck.org/icon/542.png"></center></div>' +
+                        'Stats: 95/110/70/90/90/103<br />' +
+                        'Abilities: Tinted Lens/Shed Skin/Technician<br />' +
+                        'Movepool: +Horn Leech, +Sucker Punch, +Sleep Powder, +Quiver Dance, +Earth Power, +Nature Power, +Petal Dance, +Twineedle</div><br />' +
+                        '<div style="clear:both;"></div>');
+        }
         if (target === 'scolipede') {
             matched = true;
             showOrBroadcastStart(user, cmd, room, socket, message);
@@ -1164,6 +1302,17 @@ DUSKMOD DATA
                         'Abilities: Unburden/Swarm/Poison Touch<br />' +
                         'Stats: 60/110/95/55/69/112<br />' +
                         'Movepool: +Rapid Spin, +Taunt, +Trick</div><br />' +
+                        '<div style="clear:both;"></div>');
+        }
+        if (target === 'whimsicott') {
+            matched = true;
+            showOrBroadcastStart(user, cmd, room, socket, message);
+            showOrBroadcast(user, cmd, room, socket,
+                '<div style="float:left;height:50px;width:80px"><center><b>Whimsicott</b><br />' +
+                '<img src="http://sprites.pokecheck.org/icon/547.png"></center></div>' +
+                        'Stats: 60/67/85/85/75/116<br />' +
+                        'Abilities: Prankster/Cloud Nine<br />' +
+                        'Movepool: +Ingrain, +Leaf Storm</div><br />' +
                         '<div style="clear:both;"></div>');
         }
         if (target === 'lilligant') {
@@ -1195,7 +1344,7 @@ DUSKMOD DATA
                 '<div style="float:left;height:50px;width:80px"><center><b>Darmanitan</b><br />' +
                 '<img src="http://sprites.pokecheck.org/icon/555.png"></center></div>' +
                         'Abilities: Sheer Force/Rock Head<br />' +
-                        'Movepool: +Wild Charge<br />' +
+                        'Movepool: +Wild Charge, +Shadow Ball, +Calm Mind<br />' +
                         'Important Notes: Zen Mode can be activated using the Odd Incense</div><br />' +
                         '<div style="clear:both;"></div>');
         }
@@ -1208,13 +1357,88 @@ DUSKMOD DATA
                         'Stats: 70/95/125/55/100/55</div><br />' +
                         '<div style="clear:both;"></div>');
         }
+        if (target === 'scrafty') {
+            matched = true;
+            showOrBroadcastStart(user, cmd, room, socket, message);
+            showOrBroadcast(user, cmd, room, socket,
+                '<div style="float:left;height:50px;width:80px"><center><b>Scrafty</b><br />' +
+                '<img src="http://sprites.pokecheck.org/icon/560.png"></center></div>' +
+                        'Movepool:+Sucker Punch</div><br />' +
+                        '<div style="clear:both;"></div>');
+        }
+        if (target === 'carracosta') {
+            matched = true;
+            showOrBroadcastStart(user, cmd, room, socket, message);
+            showOrBroadcast(user, cmd, room, socket,
+                '<div style="float:left;height:50px;width:80px"><center><b>Carracosta</b><br />' +
+                '<img src="http://sprites.pokecheck.org/icon/565.png"></center></div>' +
+                        'Stats: 74/118/123/90/55/70<br />' +
+                        'Movepool: +Dragon Pulse, +Drain Punch, +Focus Blast, +Icicle Crash<br />' +
+                        'Ability: Shell Armor</div><br />' +
+                        '<div style="clear:both;"></div>');
+        }
+        if (target === 'archeops') {
+            matched = true;
+            showOrBroadcastStart(user, cmd, room, socket, message);
+            showOrBroadcast(user, cmd, room, socket,
+                '<div style="float:left;height:50px;width:80px"><center><b>Archeops</b><br />' +
+                '<img src="http://sprites.pokecheck.org/icon/567.png"></center></div>' +
+                        'Stats:75/135/65/80/65/107<br />' +
+                        'Movepool: -Earthquake, -Bulldoze<br />' +
+                        'Important Notes: See Defeatist</div><br />' +
+                        '<div style="clear:both;"></div>');
+        }
+        if (target === 'garbodor') {
+            matched = true;
+            showOrBroadcastStart(user, cmd, room, socket, message);
+            showOrBroadcast(user, cmd, room, socket,
+                '<div style="float:left;height:50px;width:80px"><center><b>Garbodor</b><br />' +
+                '<img src="http://sprites.pokecheck.org/icon/569.png"></center></div>' +
+                        'Stats: 85/95/100/80/90/70<br />' +
+                        'Abilities: Poison Touch/Weak Armor/Aftermath<br />' +
+                        'Movepool: +Snatch, +Gastro Acid, +Poison Jab, +Spike Cannon, +Sucker Punch</div><br />' +
+                        '<div style="clear:both;"></div>');
+        }
+        if (target === 'zoroark') {
+            matched = true;
+            showOrBroadcastStart(user, cmd, room, socket, message);
+            showOrBroadcast(user, cmd, room, socket,
+                '<div style="float:left;height:50px;width:80px"><center><b>Zoroark</b><br />' +
+                '<img src="http://sprites.pokecheck.org/icon/571.png"></center></div>' +
+                        'Stats: 70/105/60/120/60/105<br />' +
+                         'Movepool: +Fire Blast, +Aura Sphere</div><br />' +
+                        '<div style="clear:both;"></div>');
+        }
         if (target === 'reuniclus') {
             matched = true;
             showOrBroadcastStart(user, cmd, room, socket, message);
             showOrBroadcast(user, cmd, room, socket,
                 '<div style="float:left;height:50px;width:80px"><center><b>Reuniclus</b><br />' +
                 '<img src="http://sprites.pokecheck.org/icon/579.png"></center></div>' +
-                        'Abilities: Magic Guard/Regenerator/Levitate</div><br />' +
+                        'Abilities: Magic Guard/Regenerator/Levitate<br />' +
+                         'Movepool: +Aura Sphere</div><br />' +
+                        '<div style="clear:both;"></div>');
+        }
+        if (target === 'swanna') {
+            matched = true;
+            showOrBroadcastStart(user, cmd, room, socket, message);
+            showOrBroadcast(user, cmd, room, socket,
+                '<div style="float:left;height:50px;width:80px"><center><b>Swanna</b><br />' +
+                '<img src="http://sprites.pokecheck.org/icon/581.png"></center></div>' +
+                        'Abilities: Swift Swim/Cloud Nine<br />' +
+                        'Stats: 72/80/80/116/88/79<br />' +
+                        'Movepool: +Sky Attack, +Calm Mind</div><br />' +
+                        '<div style="clear:both;"></div>');
+        }
+        if (target === 'vanilluxe') {
+            matched = true;
+            showOrBroadcastStart(user, cmd, room, socket, message);
+            showOrBroadcast(user, cmd, room, socket,
+                '<div style="float:left;height:50px;width:80px"><center><b>Vanilluxe</b><br />' +
+                '<img src="http://sprites.pokecheck.org/icon/584.png"></center></div>' +
+                        'Abilities: Adaptdability/Ice Body/Technician<br />' +
+                        'Stats: 80/90/85/110/95/90<br />' +
+                        'Movepool: +Charge Beam, +Recover, +Thunderbolt, +Haze, +Nasty Plot</div><br />' +
                         '<div style="clear:both;"></div>');
         }
         if (target === 'sawsbuck') {
@@ -1224,7 +1448,7 @@ DUSKMOD DATA
                 '<div style="float:left;height:50px;width:80px"><center><b>Sawsbuck</b><br />' +
                 '<img src="http://sprites.pokecheck.org/icon/586.png"></center></div>' +
                         'Abilities: Chlorophyll<br />' +
-                        'Stats: 70/120/60/70/80/101<br />' +
+                        'Stats: 70/114/60/70/80/101<br />' +
                         'Movepool: +Hi Jump Kick, +Extremespeed</div><br />' +
                         '<div style="clear:both;"></div>');
         }
@@ -1236,7 +1460,7 @@ DUSKMOD DATA
                 '<img src="http://sprites.pokecheck.org/icon/589.png"></center></div>' +
                         'Abilities: Swarm/Sturdy<br />' +
                         'Stats: 70/135/105/60/105/35<br />' +
-                        'Movepool: +Drill Run, +Stone Edge, +Superpower</div><br />' +
+                        'Movepool: +Drill Run, +Stone Edge, +Superpower, +Bullet Punch</div><br />' +
                         '<div style="clear:both;"></div>');
         }
         if (target === 'amoonguss') {
@@ -1256,7 +1480,8 @@ DUSKMOD DATA
                 '<div style="float:left;height:50px;width:80px"><center><b>Jellicent</b><br />' +
                 '<img src="http://sprites.pokecheck.org/icon/593.png"></center></div>' +
                         'Stats: 100/60/75/85/105/60<br />' +
-                        'Abilities: Water Absorb/Storm Drain/Cursed Body</div><br />' +
+                        'Abilities: Water Absorb/Storm Drain/Levitate<br />' +
+                        'Movepool: +Perish Song</div><br />' +
                         '<div style="clear:both;"></div>');
         }
         if (target === 'alomomola') {
@@ -1286,9 +1511,9 @@ DUSKMOD DATA
             showOrBroadcastStart(user, cmd, room, socket, message);
             showOrBroadcast(user, cmd, room, socket,
                 '<div style="float:left;height:50px;width:80px"><center><b>Ferrothorn</b><br />' +
-                '<img src="http://sprites.pokecheck.org/icon/576.png"></center></div>' +
+                '<img src="http://sprites.pokecheck.org/icon/598.png"></center></div>' +
                         'Abilities: Iron Barbs/Battle Armor<br />' +
-                        'Movepool: +Rapid Spin</div><br />' +
+                        'Movepool: +Spike Cannon</div><br />' +
                         '<div style="clear:both;"></div>');
         }
         if (target === 'klinklang') {
@@ -1310,7 +1535,7 @@ DUSKMOD DATA
                 '<img src="http://sprites.pokecheck.org/icon/604.png"></center></div>' +
                         'Stats: 85/115/80/115/80/50<br />' +
                         'Abilities: Levitate<br />' +
-                        'Movepool: +Swords Dance , +Agility, +Dragon Dance</div><br />' +
+                        'Movepool: +Swords Dance , +Agility, +Dragon Dance, +Extremespeed</div><br />' +
                         '<div style="clear:both;"></div>');
         }
         if (target === 'chandelure') {
@@ -1362,7 +1587,7 @@ DUSKMOD DATA
                 '<img src="http://sprites.pokecheck.org/icon/617.png"></center></div>' +
                         'Stats: 90/75/50/110/50/145<br />' +
                         'Abilities: Hydration/Sticky Hold<br />' +
-                        'Movepool: +Stealth Rock, +Self Destruct, +Spikes (levelup)</div><br />' +
+                        'Movepool: +Stealth Rock, +Self Destruct, +Spikes (level up), +Spike Cannon</div><br />' +
                         '<div style="clear:both;"></div>');
         }
         if (target === 'mienshao') {
@@ -1376,6 +1601,18 @@ DUSKMOD DATA
                         'Movepool: +Doubleslap, +Icy Wind</div><br />' +
                         '<div style="clear:both;"></div>');
         }
+        if (target === 'druddigon') {
+            matched = true;
+            showOrBroadcastStart(user, cmd, room, socket, message);
+            showOrBroadcast(user, cmd, room, socket,
+                '<div style="float:left;height:50px;width:80px"><center><b>Druddigon</b><br />' +
+                '<img src="http://sprites.pokecheck.org/icon/621.png"></center></div>' +
+                        'Type: Dragon/Fighting<br />' +
+                        'Stats: 80/120/95/65/95/35<br />' +
+                        'Abilities: Intimidate/No Guard/Multiscale<br />' +
+                        'Movepool: +Yawn, +Roost, +Circle Throw, +Drain Punch, +Dragon Rush, +Dynamicpunch</div><br />' +
+                        '<div style="clear:both;"></div>');
+        }
         if (target === 'golurk') {
             matched = true;
             showOrBroadcastStart(user, cmd, room, socket, message);
@@ -1385,6 +1622,17 @@ DUSKMOD DATA
                         'Stats: 75/124/110/75/85/55<br />' +
                         'Abilities: Iron Fist/No Guard<br />' +
                         'Movepool: +Bulk Up, +Drain Punch, +Pain Split</div><br />' +
+                        '<div style="clear:both;"></div>');
+        }
+        if (target === 'bouffalant') {
+            matched = true;
+            showOrBroadcastStart(user, cmd, room, socket, message);
+            showOrBroadcast(user, cmd, room, socket,
+                '<div style="float:left;height:50px;width:80px"><center><b>Bouffalant</b><br />' +
+                '<img src="http://sprites.pokecheck.org/icon/626.png"></center></div>' +
+                        'Abilities: Sap Sipper/Sheer Force/Defiant<br />' +
+                        'Stats: 110/125/95/40/95/55<br />' +
+                        'Movepool: See Head Charge changes</div><br />' +
                         '<div style="clear:both;"></div>');
         }
         if (target === 'bisharp') {
@@ -1533,14 +1781,16 @@ DUSKMOD DATA
                         'Movepool: +Shadow Ball, +Aura Sphere, +Ice Beam</div><br />' +
                         '<div style="clear:both;"></div>');
         }
-        if (target === 'keldeo-Resolute' || target === 'keldeo-r') {
+        if (target === 'keldeo-resolute' || target == 'keldeo-r') {
             matched = true;
             showOrBroadcastStart(user, cmd, room, socket, message);
             showOrBroadcast(user, cmd, room, socket,
                 '<div style="float:left;height:58px;width:80px"><center><b>Keldeo-Resolute</b><br />' +
                 '<img src="http://sprites.pokecheck.org/icon/647-resolution.png"></center></div>' +
-                        'Abilities: Justified/Water Absorb<br />' +
-                        'Movepool: +Shadow Ball, +Aura Sphere, +Ice Beam</div><br />' +
+						'Stats: 72/108/90/129/90/91<br />' +
+                        'Abilities: Justified / Technician<br />' +
+                        'Movepool: +Shadow Ball, +Aura Sphere, +Ice Beam<br />' +
+                        'Important Notes: Can be used without Secret Sword</div><br />' +
                         '<div style="clear:both;"></div>');
         }
         if (target === 'meloetta') {
@@ -1550,7 +1800,7 @@ DUSKMOD DATA
                 '<div style="float:left;height:50px;width:80px"><center><b>Meloetta</b><br />' +
                 '<img src="http://sprites.pokecheck.org/icon/648.png"></center></div>' +
                         'Movepool: +Mach Punch +Vacuum Wave, +Lunar Dance<br />' +
-                        'Important Notes: Relic Song Change</div><br />' +
+                        'Important Notes: See Relic Song</div><br />' +
                         '<div style="clear:both;"></div>');
         }
         if (target === 'genesect') {
@@ -1559,8 +1809,8 @@ DUSKMOD DATA
             showOrBroadcast(user, cmd, room, socket,
                 '<div style="float:left;height:50px;width:80px"><center><b>Genesect</b><br />' +
                 '<img src="http://sprites.pokecheck.org/icon/649.png"></center></div>' +
-                        'Abilities: Motor Drive<br />' +
-                        'Movepool: -Explosion, +Self Destruct</div><br />' +
+                        'Abilities: Motor Drive / Adaptability<br />' +
+                        'Movepool: -Explosion, -Ice Beam, -Blizzard, -Rock Polish</div><br />' +
                         '<div style="clear:both;"></div>');
         }
 		if (!target) {
@@ -1568,9 +1818,10 @@ DUSKMOD DATA
 			showOrBroadcast(user, cmd, room, socket,
 				'<div style="border:1px solid #6688AA;padding:2px 4px">DuskMod v2.1.0!<br />' +
 				'- <a href="http://duskmod.wikia.com/wiki/DuskMod_Wiki" target="_blank">Wiki homepage, and an introduction to DuskMod</a><br />' +
-				'- <a href="http://pastebin.com/KMuszmqL" target="_blank">List of changes</a><br />' +
-				'- <a href="http://pastebin.com/GuQfcM0i" target="_blank">FAQ</a><br />' +
+				'- <a href="http://pastebin.com/raw.php?i=uYzpap2X" target="_blank">List of changes</a><br />' +
+				'- <a href="http://pastebin.com/raw.php?i=GuQfcM0i" target="_blank">FAQ</a><br />' +
 				'- <a href="http://www.smogon.com/forums/showthread.php?t=3473707" target="_blank">Smogon thread</a><br />' +
+				'- Also visit out synirc channel at #duskmod!' +
 				'</div>');
 		}
 		else if (!matched) {
@@ -2250,14 +2501,17 @@ END DUSKMOD DATA
 		}
 		return '/announce '+target;
 		break;
-
+	
+	case '!hotpatch':
 	case 'hotpatch':
 		if (!target) return parseCommand(user, '?', cmd, room, socket);
 		if (!user.can('hotpatch')) {
 			emit(socket, 'console', '/hotpatch - Access denied.');
 			return false;
 		}
-
+		if (cmd === '!hotpatch') {
+				room.log.push('|c|'+user.getIdentity()+'|!hotpatch '+target);
+		}
 		if (target === 'all') {
 			for (var i in require.cache) delete require.cache[i];
 			Tools = require('./tools.js');
@@ -2268,17 +2522,17 @@ END DUSKMOD DATA
 			BattlePokemon = sim.BattlePokemon;
 			BattleSide = sim.BattleSide;
 			Battle = sim.Battle;
-			emit(socket, 'console', 'The game engine has been hot-patched.');
+			logModCommand(room, 'The game engine has been hot-patched.');
 			return false;
 		} else if (target === 'data') {
 			for (var i in require.cache) delete require.cache[i];
 			Tools = require('./tools.js');
-			emit(socket, 'console', 'Game resources have been hot-patched.');
+			logModCommand(room, 'Game resources have been hot-patched.');
 			return false;
 		} else if (target === 'chat') {
 			for (var i in require.cache) delete require.cache[i];
 			parseCommand = require('./chat-commands.js').parseCommand;
-			emit(socket, 'console', 'Chat commands have been hot-patched.');
+			logModCommand(room, 'Chat commands have been hot-patched.');
 			return false;
 		}
 		emit(socket, 'console', 'Your hot-patch command was unrecognized.');
@@ -3277,6 +3531,8 @@ END DUSKMOD DATA
 	if (!canTalk(user, room, socket)) {
 		return false;
 	}
+	else
+	console.log('	['+user.name+'] '+message);
 
 	if (message.match(/\bnimp\.org\b/)) {
 		// spam site

@@ -1,28 +1,4 @@
 exports.BattleAbilities = {
-	"drizzle": {
-		inherit: true,
-		onStart: function(source) {
-			this.setWeather('raindance', source, null);
-		}
-	},
-	"drought": {
-		inherit: true,
-		onStart: function(source) {
-			this.setWeather('sunnyday', source, null);
-		}
-	},
-	"snowwarning": {
-		inherit: true,
-		onStart: function(source) {
-			this.setWeather('hail', source, null);
-		}
-	},
-	"sandstream": {
-		inherit: true,
-		onStart: function(source) {
-			this.setWeather('sandstorm', source, null);
-		}
-	},
 	"heatproof": {
 		inherit: true,
 		onSourceBasePower: function(basePower, attacker, defender, move) {
@@ -36,7 +12,7 @@ exports.BattleAbilities = {
 		inherit: true,
 		onResidual: function(pokemon) {
 			if (!pokemon.hasType('Ghost')) {
-				this.damage(target.maxhp/8);
+				this.damage(pokemon.maxhp/8);
 			}
 		}
 	},

@@ -54,10 +54,6 @@ exports.BattleItems = {
                             this.setWeather('hail');
                             this.weatherData.duration = 3;
                     }
-                    if (pokemon.template.ability === 'Snow Warning') {
-                            this.setWeather('hail');
-                            this.weatherData.duration = 0;
-                    }
             },
             desc: "Hail lasts 8 turns."
     },
@@ -72,10 +68,6 @@ exports.BattleItems = {
                     if (pokemon.template.species === 'Moltres') {
                             this.setWeather('sunnyday');
                             this.weatherData.duration = 3;
-                    }
-                    if (pokemon.template.ability === 'Drought') {
-                            this.setWeather('sunnyday');
-                            this.weatherData.duration = 0;
                     }
             },
             desc: "Sunny Day lasts 8 turns."
@@ -92,10 +84,6 @@ exports.BattleItems = {
                             this.setWeather('raindance');
                             this.weatherData.duration = 3;
                     }
-                    if (pokemon.template.ability === 'Drizzle') {
-                            this.setWeather('raindance');
-                           this.weatherData.duration = 0;
-                    }
             },
             desc: "Rain Dance lasts 8 turns."
 	},
@@ -105,12 +93,6 @@ exports.BattleItems = {
             spritenum: 453,
             fling: {
                     basePower: 10
-            },
-            onStart: function(pokemon) {
-                    if (pokemon.template.ability === 'Sand Stream') {
-                           this.setWeather('sandstorm');
-                           this.weatherData.duration = 0;
-                    }
             },
             desc: "Makes sandstorm last 8 turns."
     }
