@@ -247,7 +247,7 @@ FORMATS
 	ubers: {
 		effectType: 'Format',
 		section: 'Standard',
-		name: "Ubers (suspect test)",//Suspect Test: no evasion clause
+		name: "Ubers",
 		rated: true,
 		challengeShow: true,
 		searchShow: true,

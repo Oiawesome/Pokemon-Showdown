@@ -1821,7 +1821,7 @@ DUSKMOD DATA
 				'- <a href="http://pastebin.com/raw.php?i=uYzpap2X" target="_blank">List of changes</a><br />' +
 				'- <a href="http://pastebin.com/raw.php?i=GuQfcM0i" target="_blank">FAQ</a><br />' +
 				'- <a href="http://www.smogon.com/forums/showthread.php?t=3473707" target="_blank">Smogon thread</a><br />' +
-				'- Also visit out synirc channel at #duskmod!' +
+				'- Also visit our synirc channel at #duskmod!' +
 				'</div>');
 		}
 		else if (!matched) {
