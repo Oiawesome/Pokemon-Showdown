@@ -467,16 +467,6 @@ FORMATS
 		ruleset: ['Pokemon', 'Smogon', 'Team Preview', 'Evasion Clause'],
 		banlist: ['Uber']
 	},
-	equalbst: {
-		effectType: 'Format',
-		name: "Equal BST",
-		mod: "equalbst",
-		challengeShow: true,
-		searchShow: true,
-		isTeambuilderFormat: true,
-		ruleset: ['DW Pokemon', 'Smogon', 'Team Preview', 'Evasion Clause'],
-		banlist: ['Eviolite', 'Light Ball', 'Soul Dew', 'Deepseascale', 'Deepseatooth', 'Lucky Punch', 'Metal Powder', 'Quick Powder', 'Stick', 'Thick Club',]
-	},
 	customgame: {
 		effectType: 'Format',
 		name: "Custom Game",
@@ -504,6 +494,26 @@ FORMATS
 		debug: true,
 		// no restrictions, for serious
 		ruleset: ['Team Preview']
+	},
+	equalbst: {
+		effectType: 'Format',
+		name: "Equal BST",
+		mod: "equalbst",
+		challengeShow: true,
+		searchShow: true,
+		isTeambuilderFormat: true,
+		ruleset: ['DW Pokemon', 'Smogon', 'Team Preview', 'Evasion Clause'],
+		banlist: ['Eviolite', 'Light Ball', 'Soul Dew', 'Deepseascale', 'Deepseatooth', 'Lucky Punch', 'Metal Powder', 'Quick Powder', 'Stick', 'Thick Club',]
+	},
+	nuv2: {
+		effectType: 'Format',
+		name: "NU v2",
+		mod: "nuv2",
+		challengeShow: true,
+		searchShow: true,
+		isTeambuilderFormat: true,
+		ruleset: ['DW Pokemon', 'Smogon', 'Team Preview', 'Evasion Clause'],
+		banlist: ['RU', 'UU', 'OU', 'Uber']
 	},
 /**********************************
 Rule Sets

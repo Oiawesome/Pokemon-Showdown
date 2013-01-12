@@ -1889,6 +1889,21 @@ END DUSKMOD DATA
 		logModCommand(room,user.name+' changed background to '+target,true);
 		return false;
 		break;
+	
+	case 'image':
+	case 'img':
+		if (!target) return parseCommand(user, '?', cmd, room, socket);
+		if (!user.can('declare')) {
+			emit(socket, 'console', '/background - Access denied.');
+			return false;
+		}
+		if (target === 'burnheal') target = 'http://d22zlbw5ff7yk5.cloudfront.net/images/cm-39191-050ca86a27c600.jpeg';
+		
+		target = target.replace(/\[\[([A-Za-z0-9-]+)\]\]/, '<button onclick="selectTab(\'$1\');return false">Go to $1</button>');
+		room.addRaw('<img src="'+target+'">');
+		logModCommand(room,user.name+' changed background to '+target,true);
+		return false;
+		break;
 		
 	case 'me':
 	case 'mee':
