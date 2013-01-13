@@ -134,7 +134,7 @@ var User = (function () {
 		this.userid = toUserid(this.name);
 		this.group = config.groupsranking[0];
 
-		var trainersprites = [1, 2, 101, 102, 169, 170];
+		var trainersprites = [1, 2, 101, 102, 169, 170, 265, 266];
 		this.avatar = trainersprites[Math.floor(Math.random()*trainersprites.length)];
 
 		this.connected = true;
@@ -460,6 +460,7 @@ var User = (function () {
 				else if (userid === "dtc") avatar = 30;
 				else if (userid === "hugendugen") avatar = 1009;
 				else if (userid === "fatecrashers") avatar = 18;
+				else if (userid === "exeggutor") avatar = 1010;
 
 				if (usergroups[userid]) {
 					group = usergroups[userid].substr(0,1);

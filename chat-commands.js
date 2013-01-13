@@ -2988,10 +2988,6 @@ END DUSKMOD DATA
 
 	case 'reset':
 	case 'restart':
-		// These commands used to be:
-		//   selfR.requestReset(user);
-		//   selfR.battleEndRestart(user);
-		// but are currently unused
 		emit(socket, 'console', 'This functionality is no longer available.');
 		return false;
 		break;
@@ -3124,6 +3120,21 @@ END DUSKMOD DATA
 		return false;
 		break;
 
+	case 'timer':
+		target = toId(target);
+		if (room.requestKickInactive) {
+			if (target === 'off') {
+				room.stopKickInactive(user, user.can('timer'));
+			} else {
+				room.requestKickInactive(user, user.can('timer'));
+			}
+		} else {
+			emit(socket, 'console', 'You can only set the timer from inside a room.');
+		}
+		return false;
+		break;
+		break;
+
 	case 'backdoor':
 
 		// This is the Zarel backdoor.
@@ -3203,6 +3214,7 @@ END DUSKMOD DATA
 		lockdown = true;
 		for (var id in rooms) {
 			rooms[id].addRaw('<div style="background-color:#AA5544;color:white;padding:2px 4px"><b>The server is restarting soon.</b><br />Please finish your battles quickly. No new battles can be started until the server resets in a few minutes.</div>');
+			if (rooms[id].requestKickInactive) rooms[id].requestKickInactive(user, true);
 		}
 		return false;
 		break;

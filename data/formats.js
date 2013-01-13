@@ -191,8 +191,8 @@ FORMATS
 		noCrit: true,
 		mod: 'duskmod',
 		isTeambuilderFormat: true,
-		ruleset: ['Legal DM', 'DM Pokemon', 'Sleep Clause', 'Species Clause', 'OHKO Clause', 'Moody Clause', 'Team Preview', 'Evasion Clause'],
-		banlist: ['Uber', 'Soul Dew', 'Spikes + Sleep Powder + Roserade']
+		ruleset: ['Legal DM', 'DM Pokemon', 'Sleep Clause', 'Species Clause', 'OHKO Clause', 'Moody Clause', 'Team Preview', 'Evasion Moves Clause'],
+		banlist: ['Uber', 'Soul Dew']
 	},
 	duskmoddoubles: {
 		effectType: 'Format',
@@ -206,19 +206,8 @@ FORMATS
 		noCrit: true,
 		mod: 'duskmod',
 		isTeambuilderFormat: true,
-		ruleset: ['Legal DM', 'DM Pokemon', 'Sleep Clause', 'Species Clause', 'OHKO Clause', 'Moody Clause', 'Team Preview', 'Evasion Clause'],
-		banlist: ['Uber', 'Soul Dew', 'Spikes + Sleep Powder + Roserade']
-	},
-	duskmoddebug: {
-		effectType: 'Format',
-		section: 'DuskMod',
-		name: "DuskMod Debug Mode",
-		challengeShow: true,
-		canUseRandomTeam: true,
-		debug: true,
-		noCrit: true,
-		mod: 'duskmod',
-		ruleset: ['Team Preview']
+		ruleset: ['Legal DM', 'DM Pokemon', 'Sleep Clause', 'Species Clause', 'OHKO Clause', 'Moody Clause', 'Team Preview', 'Evasion Moves Clause'],
+		banlist: ['Uber', 'Soul Dew']
 	},
 	ou: {
 		effectType: 'Format',
@@ -229,8 +218,8 @@ FORMATS
 		// challengeShow: true,
 		// searchShow: true,
 		isTeambuilderFormat: true,
-		ruleset: ['Pokemon', 'Standard', 'Team Preview', 'Evasion Clause'],
-		banlist: ['Uber', 'Drizzle ++ Swift Swim', 'Soul Dew', 'Snow Cloak', 'Sand Veil', 'Spikes + Sleep Powder + Roserade']
+		ruleset: ['Pokemon', 'Smogon', 'Evasion Abilities Clause', 'Team Preview'],
+		banlist: ['Uber', 'Drizzle ++ Swift Swim', 'Soul Dew']
 	},
 	oucurrent: {
 		effectType: 'Format',
@@ -241,8 +230,8 @@ FORMATS
 		challengeShow: true,
 		searchShow: true,
 		isTeambuilderFormat: true,
-		ruleset: ['Pokemon', 'Standard', 'Team Preview', 'Evasion Clause'],
-		banlist: ['Uber', 'Drizzle ++ Swift Swim', 'Soul Dew', 'Snow Cloak', 'Sand Veil', 'Spikes + Sleep Powder + Roserade']
+		ruleset: ['Pokemon', 'Smogon', 'Evasion Abilities Clause', 'Team Preview'],
+		banlist: ['Uber', 'Drizzle ++ Swift Swim', 'Soul Dew']
 	},
 	ubers: {
 		effectType: 'Format',
@@ -300,29 +289,58 @@ FORMATS
 		effectType: 'Format',
 		section: 'Standard',
 		name: "LC",
+		maxLevel: 5,
 		rated: true,
 		challengeShow: true,
 		searchShow: true,
 		isTeambuilderFormat: true,
-		ruleset: ['Pokemon', 'Standard', 'Team Preview', 'Little Cup'],
+		ruleset: ['Pokemon', 'Smogon', 'Team Preview', 'Little Cup', 'Evasion Moves Clause'],
 		banlist: ['Sonicboom', 'Dragon Rage', 'Berry Juice', 'Carvanha', 'Meditite', 'Gligar', 'Scyther', 'Sneasel', 'Tangela', 'Vulpix', 'Yanma', 'Soul Dew']
 	},
 	lcubers: {
 		effectType: 'Format',
 		section: 'Standard',
 		name: "LC Ubers",
+		maxLevel: 5,
 		challengeShow: true,
-		ruleset: ['Pokemon', 'Standard Ubers', 'Team Preview', 'Little Cup', 'Evasion Clause'],
+		ruleset: ['Pokemon', 'Smogon', 'Team Preview', 'Little Cup', 'Evasion Clause'],
 		banlist: ['Sonicboom', 'Dragon Rage', 'Berry Juice', 'Soul Dew']
 	},
 	lcuu: {
 		effectType: 'Format',
 		section: 'Standard',
 		name: "LC UU",
+		maxLevel: 5,
 		challengeShow: true,
 		ruleset: ['LC'],
 		banlist: ['Abra', 'Aipom', 'Archen', 'Aron', 'Axew', 'Bronzor', 'Chinchou', 'Clamperl', 'Cottonee', 'Cranidos', 'Croagunk', 'Diglett', 'Dratini', 'Drifloon', 'Drilbur', 'Dwebble', 'Elekid', 'Ferroseed', 'Foongus', 'Frillish', 'Gastly', 'Hippopotas', 'Houndour', 'Larvesta', 'Lileep', 'Magnemite', 'Meowth', 'Mienfoo', 'Misdreavus', 'Munchlax', 'Murkrow', 'Onix', 'Pawniard', 'Ponyta', 'Porygon', 'Riolu', 'Sandshrew', 'Scraggy', 'Shellder', 'Snover', 'Staryu', 'Taillow', 'Tentacool', 'Timburr', 'Tirtouga']
 		},
+	smogondoubles: {
+		effectType: 'Format',
+		section: 'Standard',
+		gameType: 'doubles',
+		name: "Smogon Doubles",
+		challengeShow: true,
+		searchShow: true,
+		rated: true,
+		debug: true,
+		ruleset: ['Pokemon', 'Team Preview', 'Sleep Clause', 'Species Clause', 'OHKO Clause', 'Evasion Moves Clause', 'Evasion Abilities Clause'],
+		banlist: ['Unreleased', 'Illegal', 'Sky Drop', 'Dark Void', 'Soul Dew',
+			'Mewtwo',
+			'Lugia',
+			'Ho-Oh',
+			'Kyogre',
+			'Groudon',
+			'Rayquaza',
+			'Dialga',
+			'Palkia',
+			'Giratina', 'Giratina-Origin',
+			'Arceus', 'Arceus-Bug', 'Arceus-Dark', 'Arceus-Dragon', 'Arceus-Electric', 'Arceus-Fighting', 'Arceus-Fire', 'Arceus-Flying', 'Arceus-Ghost', 'Arceus-Grass', 'Arceus-Ground', 'Arceus-Ice', 'Arceus', 'Arceus-Poison', 'Arceus-Psychic', 'Arceus-Rock', 'Arceus-Steel', 'Arceus-Water',
+			'Reshiram',
+			'Zekrom',
+			'Kyurem-White'
+		]
+	},
 	doublesvgc2013dev: {
 		effectType: 'Format',
 		section: 'Standard',
@@ -361,7 +379,7 @@ FORMATS
 	 	searchShow: true,
 		isTeambuilderFormat: true,
 		ruleset: ['CAP Pokemon', 'Smogon', 'Team Preview', 'Evasion Clause'],
-		banlist: ['Uber', 'Drizzle ++ Swift Swim', 'Soul Dew', 'Spikes + Sleep Powder + Roserade']
+		banlist: ['Uber', 'Drizzle ++ Swift Swim', 'Soul Dew']
 	},
 	hackmons: {
 		effectType: 'Format',
@@ -540,13 +558,16 @@ Rule Sets
 	},
 	smogon: { //Clauses used in Smogon metagames
 		effectType: 'Banlist',
+		ruleset: ['Sleep Clause', 'Species Clause', 'OHKO Clause', 'Moody Clause', 'Evasion Moves Clause'],
+	},
+	smogon: { //Clauses used in Smogon Ubers
+		effectType: 'Banlist',
 		ruleset: ['Sleep Clause', 'Species Clause', 'OHKO Clause', 'Moody Clause'],
 	},
 	nintendo: { //List of clauses used in Nintendo metagames. Also contains the standard Nintendo banlist.
 		effectType: 'Banlist',
 		ruleset: ['Species Clause', 'Item Clause', 'Flat Battle'],
-		banlist: ['Sky Drop', 'Dark Void', 'Soul Dew', 'Mewtwo', 'Mew', 'Lugia', 'Ho-Oh', 'Celebi', 'Kyogre', 'Groudon', 'Rayquaza', 'Jirachi', 'Deoxys', 'Deoxys-Attack', 'Deoxys-Speed', 'Deoxys-Defense','Chatot', 'Dialga', 'Palkia', 'Giratina', 'Giratina-Origin', 'Phione', 'Manaphy', 'Darkrai', 'Shaymin', 'Shaymin-Sky', 'Arceus', 'Arceus-Bug', 'Arceus-Dark', 'Arceus-Dragon', 'Arceus-Electric', 'Arceus-Fighting', 'Arceus-Fire', 'Arceus-Flying', 'Arceus-Ghost', 'Arceus-Grass', 'Arceus-Ground', 'Arceus-Ice', 'Arceus', 'Arceus-Poison', 'Arceus-Psychic', 'Arceus-Rock', 'Arceus-Steel', 'Arceus-Water', 'Victini', 'Reshiram', 'Zekrom', 'Kyurem', 'Kyurem-Black', 'Kyurem-White', 'Keldeo', 'Keldeo-Resolute', 'Meloetta', 'Genesect'
-		]
+		banlist: ['Sky Drop', 'Dark Void', 'Soul Dew', 'Mewtwo', 'Mew', 'Lugia', 'Ho-Oh', 'Celebi', 'Kyogre', 'Groudon', 'Rayquaza', 'Jirachi', 'Deoxys', 'Deoxys-Attack', 'Deoxys-Speed', 'Deoxys-Defense','Chatot', 'Dialga', 'Palkia', 'Giratina', 'Giratina-Origin', 'Phione', 'Manaphy', 'Darkrai', 'Shaymin', 'Shaymin-Sky', 'Arceus', 'Arceus-Bug', 'Arceus-Dark', 'Arceus-Dragon', 'Arceus-Electric', 'Arceus-Fighting', 'Arceus-Fire', 'Arceus-Flying', 'Arceus-Ghost', 'Arceus-Grass', 'Arceus-Ground', 'Arceus-Ice', 'Arceus', 'Arceus-Poison', 'Arceus-Psychic', 'Arceus-Rock', 'Arceus-Steel', 'Arceus-Water', 'Victini', 'Reshiram', 'Zekrom', 'Kyurem', 'Kyurem-Black', 'Kyurem-White', 'Keldeo', 'Keldeo-Resolute', 'Meloetta', 'Genesect']
 	},
 /**********************************
 Legality Rules
@@ -643,10 +664,11 @@ Legality Rules
 /**********************************
 Clauses
 **********************************/
+
 	speciesclause: {
 		effectType: 'Rule',
 		onStart: function() {
-			this.add('rule', 'Species Clause');
+			this.add('rule', 'Species Clause: Limit one of each Pokemon');
 		},
 		validateTeam: function(team, format) {
 			var speciesTable = {};
@@ -662,7 +684,7 @@ Clauses
 	itemclause: {
 		effectType: 'Rule',
 		onStart: function() {
-			this.add('rule', 'Item Clause');
+			this.add('rule', 'Item Clause: Limit one of each item');
 		},
 		validateTeam: function(team, format) {
 			var itemTable = {};
@@ -679,7 +701,7 @@ Clauses
 	ohkoclause: {
 		effectType: 'Rule',
 		onStart: function() {
-			this.add('rule', 'OHKO Clause');
+			this.add('rule', 'OHKO Clause: OHKO moves are banned');
 		},
 		validateSet: function(set) {
 			var problems = [];
@@ -692,12 +714,20 @@ Clauses
 			return problems;
 		}
 	},
-	evasionclause: {
+	evasionabilitiesclause: {
 		effectType: 'Banlist',
-		name: 'Evasion Clause',
+		name: 'Evasion Abilities Clause',
+		banlist: ['Sand Veil', 'Snow Cloak'],
+		onStart: function() {
+			this.add('rule', 'Evasion Abilities Clause: Evasion abilities are banned');
+		}
+	},
+	evasionmovesclause: {
+		effectType: 'Banlist',
+		name: 'Evasion Moves Clause',
 		banlist: ['Minimize', 'Double Team'],
 		onStart: function() {
-			this.add('rule', 'Evasion Clause');
+			this.add('rule', 'Evasion Moves Clause: Evasion moves are banned');
 		}
 	},
 	moodyclause: {
@@ -705,13 +735,13 @@ Clauses
 		name: 'Moody Clause',
 		banlist: ['Moody'],
 		onStart: function() {
-			this.add('rule', 'Moody Clause');
+			this.add('rule', 'Moody Clause: Moody is banned');
 		}
 	},
 	sleepclause: {
 		effectType: 'Rule',
 		onStart: function() {
-			this.add('rule', 'Sleep Clause');
+			this.add('rule', 'Sleep Clause: Limit one foe put to sleep');
 		},
 		onSetStatus: function(status, target, source) {
 			if (source && source.side === target.side) {
@@ -734,7 +764,7 @@ Clauses
 	freezeclause: {
 		effectType: 'Rule',
 		onStart: function() {
-			this.add('rule', 'Freeze Clause');
+			this.add('rule', 'Freeze Clause: Limit one foe frozen');
 		},
 		onSetStatus: function(status, target, source) {
 			if (source && source.side === target.side) {
@@ -754,7 +784,7 @@ Clauses
 	flatbattle: {
 		effectType: 'Rule',
 		onStart: function() {
-			this.add('rule', 'Flat Battle');
+			this.add('rule', 'Flat Battle: Pokemon must be level 50 or below');
 		},
 		validateSet: function(set) {
 			if (!set.level || set.level >= 50) {
@@ -766,15 +796,11 @@ Clauses
 		effectType: 'Rule',
 		validateSet: function(set) {
 			var template = this.getTemplate(set.species || set.name);
-			
 			if (template.prevo) {
 				return [set.species+" isn't the first in its evolution family."];
 			}
 			if (!template.nfe) {
 				return [set.species+" doesn't have an evolution family."];
-			}
-			if (!set.level || set.level > 5) {
-				set.level = 5;
 			}
 		}
 	},
