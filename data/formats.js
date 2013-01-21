@@ -216,7 +216,6 @@ FORMATS
 		challengeDefault: true,
 		rated: true,
 		challengeShow: true,
-		searchShow: true,
 		noCrit: true,
 		mod: 'duskmodtwo',
 		isTeambuilderFormat: true,
