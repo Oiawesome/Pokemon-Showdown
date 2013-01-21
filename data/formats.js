@@ -222,19 +222,24 @@ FORMATS
 		ruleset: ['Legal DM', 'DM Pokemon', 'Sleep Clause', 'Species Clause', 'OHKO Clause', 'Moody Clause', 'Team Preview', 'Evasion Moves Clause'],
 		banlist: ['Uber', 'Soul Dew']
 	},
-	ou: {
+	challengecup1vs1: {
 		effectType: 'Format',
-		section: 'Standard',
-		name: "OU",
-		challengeDefault: true,
+		name: "Challenge Cup 1 VS 1",
+		team: 'randomCC',
+		canUseRandomTeam: true,
 		rated: true,
-		// challengeShow: true,
-		// searchShow: true,
-		isTeambuilderFormat: true,
-		ruleset: ['Pokemon', 'Smogon', 'Evasion Abilities Clause', 'Team Preview'],
-		banlist: ['Uber', 'Drizzle ++ Swift Swim', 'Soul Dew']
+		challengeShow: true,
+		ruleset: ['Pokemon', 'Team Preview'],
+		debug: true,
+		onBegin: function() {
+			this.debug('Cutting down to 1');
+			this.p1.pokemon = this.p1.pokemon.slice(0, 1);
+			this.p1.pokemonLeft = this.p1.pokemon.length;
+			this.p2.pokemon = this.p2.pokemon.slice(0, 1);
+			this.p2.pokemonLeft = this.p2.pokemon.length;
+		}
 	},
-	oucurrent: {
+	ou: {
 		effectType: 'Format',
 		section: 'Standard',
 		name: "OU (current)",
@@ -246,6 +251,50 @@ FORMATS
 		ruleset: ['Pokemon', 'Smogon', 'Evasion Abilities Clause', 'Team Preview'],
 		banlist: ['Uber', 'Drizzle ++ Swift Swim', 'Soul Dew']
 	},
+	//oucurrent: {
+	//	effectType: 'Format',
+	//	name: "OU (current)",
+	//	challengeDefault: true,
+	//	rated: true,
+	//	challengeShow: true,
+	//	searchShow: true,
+	//	isTeambuilderFormat: true,
+	//	ruleset: ['Pokemon', 'Standard', 'Evasion Abilities Clause', 'Team Preview'],
+	//	banlist: ['Uber', 'Drizzle ++ Swift Swim', 'Soul Dew']
+	//},
+	// oususpecttest: {
+	// 	effectType: 'Format',
+	// 	name: "OU (suspect test)",
+	// 	challengeDefault: true,
+	// 	rated: true,
+	// 	challengeShow: true,
+	// 	searchShow: true,
+	// 	teambuilderFormat: 'ou',
+	// 	ruleset: ['Pokemon', 'Standard', 'Team Preview'],
+	// 	 banlist: [
+	// 		'Arceus-Bug', 'Arceus-Dark', 'Arceus-Dragon', 'Arceus-Electric', 'Arceus-Fighting', 'Arceus-Fire', 'Arceus-Flying', 'Arceus-Ghost', 'Arceus-Grass', 'Arceus-Ground', 'Arceus-Ice', 'Arceus', 'Arceus-Poison', 'Arceus-Psychic', 'Arceus-Rock', 'Arceus-Steel', 'Arceus-Water', 'Blaziken', 'Darkrai', 'Deoxys', 'Deoxys-Attack', 'Deoxys-Speed', 'Dialga', 'Excadrill', 'Giratina', 'Giratina-Origin', 'Groudon', 'Ho-Oh', 'Kyogre', 'Lugia', 'Manaphy', 'Mewtwo', 'Palkia', 'Rayquaza', 'Reshiram', 'Shaymin-Sky', 'Thundurus', 'Zekrom', 'Kyurem-White', 'Drizzle ++ Swift Swim', 'Soul Dew'
+	// 	] 
+	// 	banlist: ['Uber', 'Drizzle ++ Swift Swim', 'Soul Dew', 'Genesect']
+	// },
+	cap: {
+		effectType: 'Format',
+		name: "CAP",
+		rated: true,
+		challengeShow: true,
+	 	searchShow: true,
+		isTeambuilderFormat: true,
+		ruleset: ['CAP Pokemon', 'Standard', 'Team Preview'],
+		banlist: ['Uber', 'Drizzle ++ Swift Swim', 'Soul Dew']
+	},
+	// capaurumothplaytest: {
+	// 	effectType: 'Format',
+	// 	name: "CAP Aurumoth Playtest",
+	// 	challengeShow: true,
+	// 	searchShow: true,
+	// 	rated: true,
+	// 	ruleset: ['CAP Pokemon', 'Standard', 'Team Preview'],
+	// 	banlist: ['G4CAP','Tomohawk','Necturna','Mollux','Kyurem-Black','Garchomp','ShadowStrike','Paleo Wave','Drizzle ++ Swift Swim', 'Soul Dew','Arceus-Bug', 'Arceus-Dark', 'Arceus-Dragon', 'Arceus-Electric', 'Arceus-Fighting', 'Arceus-Fire', 'Arceus-Flying', 'Arceus-Ghost', 'Arceus-Grass', 'Arceus-Ground', 'Arceus-Ice', 'Arceus', 'Arceus-Poison', 'Arceus-Psychic', 'Arceus-Rock', 'Arceus-Steel', 'Arceus-Water', 'Blaziken', 'Darkrai', 'Deoxys', 'Deoxys-Attack', 'Deoxys-Speed', 'Dialga', 'Excadrill', 'Giratina', 'Giratina-Origin', 'Groudon', 'Ho-Oh', 'Kyogre', 'Lugia', 'Manaphy', 'Mewtwo', 'Palkia', 'Rayquaza', 'Reshiram', 'Shaymin-Sky', 'Thundurus', 'Zekrom', 'Kyurem-White']
+	// },
 	ubers: {
 		effectType: 'Format',
 		section: 'Standard',
@@ -670,6 +719,24 @@ Legality Rules
 				if (set.species === 'Keldeo-Resolution' && set.moves.indexOf('Secret Sword') < 0) {
 					set.species = 'Keldeo';
 				}
+			}
+			if (template.isNonstandard) {
+				problems.push(set.species+' is not a real Pokemon.');
+			}
+			if (set.ability) {
+				var ability = this.getAbility(set.ability);
+				if (ability.isNonstandard) {
+					problems.push(ability.name+' is not a real ability.');
+				}
+			}
+			if (set.moves) for (var i=0; i<set.moves.length; i++) {
+				var move = this.getMove(set.moves[i]);
+				if (move.isNonstandard) {
+					problems.push(move.name+' is not a real move.');
+				}
+			}
+			if (set.moves && set.moves.length > 4) {
+				problems.push((set.name||set.species) + ' has more than four moves.');
 			}
 			return problems;
 		}

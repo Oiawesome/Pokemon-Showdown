@@ -1905,6 +1905,7 @@ END DUSKMOD DATA
 		return false;
 		break;
 		
+
 	case 'me':
 	case 'mee':
 		if (canTalk(user, room)) return true;
@@ -2218,7 +2219,7 @@ END DUSKMOD DATA
 		}
 
 		logModCommand(room,''+targetUser.name+' was kicked to the Rules page by '+user.name+'' + (targets[1] ? " (" + targets[1] + ")" : ""));
-		targetUser.emit('console', {evalRawMessage: 'window.location.href="http://www.smogon.com/sim/rules"'});
+		targetUser.emit('console', {evalRawMessage: 'window.location.href="http://pokemonshowdown.com/rules"'});
 		return false;
 		break;
 
@@ -2380,6 +2381,7 @@ END DUSKMOD DATA
 		break;
 
 	case 'unmute':
+	case 'um':
 		if (!target) return parseCommand(user, '?', cmd, room, socket);
 		var targetid = toUserid(target);
 		var targetUser = Users.get(target);
@@ -2387,7 +2389,7 @@ END DUSKMOD DATA
 			emit(socket, 'console', 'User '+target+' not found.');
 			return false;
 		}
-		if (!user.can('redirect', targetUser)) {
+		if (!user.can('mute', targetUser)) {
 			emit(socket, 'console', '/unmute - Access denied.');
 			return false;
 		}
@@ -2516,7 +2518,7 @@ END DUSKMOD DATA
 		}
 		return '/announce '+target;
 		break;
-	
+
 	case '!hotpatch':
 	case 'hotpatch':
 		if (!target) return parseCommand(user, '?', cmd, room, socket);
@@ -2858,7 +2860,9 @@ END DUSKMOD DATA
 			'- <a href="http://www.smogon.com/forums/showthread.php?t=3463764" target="_blank">Balanced Hackmons</a><br />' +
 			'- <a href="http://www.smogon.com/forums/showthread.php?t=3471810" target="_blank">Dream World OU</a><br />' +
 			'- <a href="http://www.smogon.com/forums/showthread.php?t=3467120" target="_blank">Glitchmons</a><br />' +
-			'- <a href="http://www.smogon.com/forums/showthread.php?t=3476006" target="_blank">Seasonal: Winter Wonderland</a>' +
+			'- <a href="http://www.smogon.com/forums/showthread.php?t=3476006" target="_blank">Seasonal: Winter Wonderland</a><br />' +
+			'- <a href="http://www.smogon.com/forums/showthread.php?t=3476469" target="_blank">Smogon Doubles</a><br />' +
+			'- <a href="http://www.smogon.com/forums/showthread.php?t=3471161" target="_blank">VGC 2013</a>' +
 			'</div>');
 		return false;
 		break;
@@ -2870,8 +2874,47 @@ END DUSKMOD DATA
 		showOrBroadcastStart(user, cmd, room, socket, message);
 		showOrBroadcast(user, cmd, room, socket,
 			'<div style="border:1px solid #6688AA;padding:2px 4px">Please follow the rules:<br />' +
-			'- <a href="http://www.smogon.com/sim/rules" target="_blank">Rules</a><br />' +
+			'- <a href="http://pokemonshowdown.com/rules" target="_blank">Rules</a><br />' +
 			'</div>');
+		return false;
+		break;
+		
+	case 'faq':
+	case '!faq':
+		target = target.toLowerCase();
+		var buffer = '<div style="border:1px solid #6688AA;padding:2px 4px">';
+		var matched = false;
+		if (!target || target === 'all') {
+			matched = true;
+			buffer += '<a href="http://www.smogon.com/sim/faq" target="_blank">Frequently Asked Questions</a><br />';
+		}
+		if (target === 'all' || target === 'deviation') {
+			matched = true;
+			buffer += '<a href="http://www.smogon.com/sim/faq#deviation" target="_blank">Why did this user gain or lose so many points?</a><br />';
+		}
+		if (target === 'all' || target === 'doubles' || target === 'triples' || target === 'rotation') {
+			matched = true;
+			buffer += '<a href="http://www.smogon.com/sim/faq#doubles" target="_blank">Can I play doubles/triples/rotation battles here?</a><br />';
+		}
+		if (target === 'all' || target === 'randomcap') {
+			matched = true;
+			buffer += '<a href="http://www.smogon.com/sim/faq#randomcap" target="_blank">What is this fakemon and what is it doing in my random battle?</a><br />';
+		}
+		if (target === 'all' || target === 'restarts') {
+			matched = true;
+			buffer += '<a href="http://www.smogon.com/sim/faq#restarts" target="_blank">Why is the server restarting?</a><br />';
+		}
+		if (target === 'all' || target === 'staff') {
+			matched = true;
+			buffer += '<a href="http://www.smogon.com/sim/staff_faq" target="_blank">Staff FAQ</a><br />';
+		}
+		if (!matched) {
+			emit(socket, 'console', 'The FAQ entry "'+target+'" was not found. Try /faq for general help.');
+			return false;
+		}
+		buffer += '</div>';
+		showOrBroadcastStart(user, cmd, room, socket, message);
+		showOrBroadcast(user, cmd, room, socket, buffer);
 		return false;
 		break;
 
@@ -3051,13 +3094,32 @@ END DUSKMOD DATA
 			emit(socket, 'message', "The user '"+targets[2]+"' was not found.");
 			return false;
 		}
-		if (typeof target !== 'string') target = 'debugmode';
+		if (targetUser.blockChallenges && !user.can('bypassblocks', targetUser)) {
+			emit(socket, 'message', "The user '"+targets[2]+"' is not accepting challenges right now.");
+			return false;
+		}
+		if (typeof target !== 'string') target = 'customgame';
 		var problems = Tools.validateTeam(user.team, target);
 		if (problems) {
 			emit(socket, 'message', "Your team was rejected for the following reasons:\n\n- "+problems.join("\n- "));
 			return false;
 		}
 		user.makeChallenge(targetUser, target);
+		return false;
+		break;
+		
+	case 'away':
+	case 'idle':
+	case 'blockchallenges':
+		user.blockChallenges = true;
+		emit(socket, 'console', 'You are now blocking all incoming challenge requests.');
+		return false;
+		break;
+
+	case 'back':
+	case 'allowchallenges':
+		user.blockChallenges = false;
+		emit(socket, 'console', 'You are available for challenges from now on.');
 		return false;
 		break;
 
@@ -3453,11 +3515,25 @@ END DUSKMOD DATA
 			emit(socket, 'console', '/calc - Provides a link to a damage calculator');
 			emit(socket, 'console', '!calc - Shows everyone a link to a damage calculator. Requires: + % @ & ~');
 		}
-		if (target === '@' || target === 'altcheck' || target === 'alt' || target === 'alts' || target === 'getalts') {
+		if (target === 'all' || target === 'blockchallenges' || target === 'away' || target === 'idle') {
+			matched = true;
+			emit(socket, 'console', '/away - Blocks challenges so no one can challenge you.');
+		}
+		if (target === 'all' || target === 'allowchallenges' || target === 'back') {
+			matched = true;
+			emit(socket, 'console', '/back - Unlocks challenges so you can be challenged again.');
+		}
+		if (target === 'all' || target === 'faq') {
+			matched = true;
+			text = '/faq [theme] - Provides a link to the FAQ. Add deviation, doubles, randomcap, restart, or staff for a link to these questions. Add all for all of them.<br />';
+			text += '!faq [theme] - Shows everyone a link to the FAQ. Add deviation, doubles, randomcap, restart, or staff for a link to these questions. Add all for all of them. Requires: + % @ & ~';
+			emit(socket, 'console', text);
+		}
+		if (target === '%' || target === 'altcheck' || target === 'alt' || target === 'alts' || target === 'getalts') {
 			matched = true;
 			emit(socket, 'console', '/alts OR /altcheck OR /alt OR /getalts [username] - Get a user\'s alts. Requires: @ & ~');
 		}
-		if (target === '@' || target === 'forcerename' || target === 'fr') {
+		if (target === '%' || target === 'forcerename' || target === 'fr') {
 			matched = true;
 			emit(socket, 'console', '/forcerename OR /fr [username], [reason] - Forcibly change a user\'s name and shows them the [reason]. Requires: @ & ~');
 		}
@@ -3495,7 +3571,7 @@ END DUSKMOD DATA
 		}
 		if (target === '%' || target === 'unmute') {
 			matched = true;
-			emit(socket, 'console', '/unmute [username] - Remove mute from user. Requires: @ & ~');
+			emit(socket, 'console', '/unmute [username] - Remove mute from user. Requires: % @ & ~');
 		}
 		if (target === '&' || target === 'promote') {
 			matched = true;
@@ -3546,12 +3622,12 @@ END DUSKMOD DATA
 			emit(socket, 'console', '/help OR /h OR /? - Gives you help.');
 		}
 		if (!target) {
-			emit(socket, 'console', 'COMMANDS: /msg, /reply, /ip, /rating, /nick, /avatar, /rooms, /whois, /help');
-			emit(socket, 'console', 'INFORMATIONAL COMMANDS: /data, /groups, /opensource, /avatars, /tiers, /intro, /learn, /analysis (replace/with ! to broadcast. (Requires: + % @ & ~))');
+			emit(socket, 'console', 'COMMANDS: /msg, /reply, /ip, /rating, /nick, /avatar, /rooms, /whois, /help, /blockchallenges, /allowchallenges');
+			emit(socket, 'console', 'INFORMATIONAL COMMANDS: /data, /groups, /opensource, /avatars, /tiers, /intro, /learn, /analysis (replace / with ! to broadcast. (Requires: + % @ & ~))');
 			emit(socket, 'console', 'For details on all commands, use /help all');
 			if (user.group !== config.groupsranking[0]) {
-				emit(socket, 'console', 'DRIVER COMMANDS: /mute, /unmute, /announce')
-				emit(socket, 'console', 'MODERATOR COMMANDS: /alts, /forcerename, /ban, /unban, /unbanall, /ip, /modlog, /redirect, /kick');
+				emit(socket, 'console', 'DRIVER COMMANDS: /mute, /unmute, /announce, /forcerename, /alts')
+				emit(socket, 'console', 'MODERATOR COMMANDS: /ban, /unban, /unbanall, /ip, /modlog, /redirect, /kick');
 				emit(socket, 'console', 'LEADER COMMANDS: /promote, /demote, /forcerenameto, /namelock, /nameunlock, /forcewin, /forcetie, /declare');
 				emit(socket, 'console', 'For details on all moderator commands, use /help @');
 			}
@@ -3685,7 +3761,7 @@ function splitTarget(target, exactName) {
 		return [Users.get(target, exactName), '', target];
 	}
 	var targetUser = Users.get(target.substr(0, commaIndex), exactName);
-	if (!targetUser || !targetUser.connected) {
+	if (!targetUser) {
 		targetUser = null;
 	}
 	return [targetUser, target.substr(commaIndex+1).trim(), target.substr(0, commaIndex)];

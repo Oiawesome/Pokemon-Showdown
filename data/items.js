@@ -432,8 +432,8 @@ exports.BattleItems = {
 		onModifyMove: function(move, pokemon) {
 			pokemon.addVolatile('choicelock');
 		},
-		onModifyStats: function(stats) {
-			stats.atk *= 1.5;
+		onModifyAtk: function(atk) {
+			return atk * 1.5;
 		},
 		isChoice: true,
 		desc: "Hold item which raises Attack 50%, but locks holder into one move."
@@ -454,8 +454,8 @@ exports.BattleItems = {
 		onModifyMove: function(move, pokemon) {
 			pokemon.addVolatile('choicelock');
 		},
-		onModifyStats: function(stats) {
-			stats.spe *= 1.5;
+		onModifySpe: function(spe) {
+			return spe * 1.5;
 		},
 		isChoice: true,
 		desc: "Hold item which raises Speed 50%, but locks holder into one move."
@@ -476,8 +476,8 @@ exports.BattleItems = {
 		onModifyMove: function(move, pokemon) {
 			pokemon.addVolatile('choicelock');
 		},
-		onModifyStats: function(stats) {
-			stats.spa *= 1.5;
+		onModifySpa: function(spa) {
+			return spa * 1.5;
 		},
 		isChoice: true,
 		desc: "Hold item which raises Special Attack 50%, but locks holder into one move."
@@ -589,7 +589,7 @@ exports.BattleItems = {
 				}
 			}
 		},
-		desc: "Activates at 25% HP. Next move used goes first. Unobtainable in BW. One-time use."
+		desc: "Activates at 25% HP. Next move used goes first. One-time use."
 	},
 	"damprock": {
 		id: "damprock",
@@ -622,9 +622,9 @@ exports.BattleItems = {
 		fling: {
 			basePower: 30
 		},
-		onModifyStats: function(stats, pokemon) {
+		onModifySpD: function(spd, pokemon) {
 			if (pokemon.template.species === 'Clamperl') {
-				stats.spd *= 2;
+				return spd * 2;
 			}
 		},
 		desc: "Doubles Clamperl's Special Defence. Evolves Clamperl into Gorebyss."
@@ -636,9 +636,9 @@ exports.BattleItems = {
 		fling: {
 			basePower: 90
 		},
-		onModifyStats: function(stats, pokemon) {
+		onModifySpA: function(spa, pokemon) {
 			if (pokemon.template.species === 'Clamperl') {
-				stats.spa *= 2;
+				return spa * 2;
 			}
 		},
 		desc: "Doubles Clamperl's Special Attack. Evolves Clamperl into Huntail."
@@ -844,10 +844,14 @@ exports.BattleItems = {
 		fling: {
 			basePower: 40
 		},
-		onModifyStats: function(stats, pokemon) {
+		onModifyDef: function(def, pokemon) {
 			if (pokemon.baseTemplate.nfe) {
-				stats.def *= 1.5;
-				stats.spd *= 1.5;
+				return def * 1.5;
+			}
+		},
+		onModifySpD: function(spd, pokemon) {
+			if (pokemon.baseTemplate.nfe) {
+				return spd * 1.5;
 			}
 		},
 		desc: "Boosts Defense and Special Defense of holder by 50% if it is an NFE Pokemon."
@@ -1291,8 +1295,8 @@ exports.BattleItems = {
 		onModifyPokemon: function(pokemon) {
 			pokemon.negateImmunity['Ground'] = true;
 		},
-		onModifyStats: function(stats, pokemon) {
-			stats.spe /= 2;
+		onModifySpe: function(spe) {
+			return spe / 2;
 		},
 		desc: "Reduces Speed 50% and removes holder's Ground-type immunity."
 	},
@@ -1315,7 +1319,6 @@ exports.BattleItems = {
 		id: "jabocaberry",
 		name: "Jaboca Berry",
 		spritenum: 230,
-		isUnreleased: true,
 		isBerry: true,
 		naturalGift: {
 			basePower: 80,
@@ -1329,7 +1332,7 @@ exports.BattleItems = {
 			}
 		},
 		onEat: function() { },
-		desc: "If hit by a physical attack, the attacker takes 12.5% damage. Unobtainable in BW. One-time use."
+		desc: "If hit by a physical attack, the attacker takes 12.5% damage. One-time use."
 	},
 	"kasibberry": {
 		id: "kasibberry",
@@ -1551,10 +1554,14 @@ exports.BattleItems = {
 			basePower: 30,
 			status: 'par'
 		},
-		onModifyStats: function(stats, pokemon) {
+		onModifyAtk: function(atk, pokemon) {
 			if (pokemon.template.species === 'Pikachu') {
-				stats.atk *= 2;
-				stats.spa *= 2;
+				return atk * 2;
+			}
+		},
+		onModifySpA: function(spa, pokemon) {
+			if (pokemon.template.species === 'Pikachu') {
+				return spa * 2;
 			}
 		},
 		desc: "Doubles Pikachu's Attack and Special Attack."
@@ -1624,8 +1631,8 @@ exports.BattleItems = {
 		fling: {
 			basePower: 60
 		},
-		onModifyStats: function(stats, pokemon) {
-			stats.spe /= 2;
+		onModifySpe: function(spe) {
+			return spe / 2;
 		},
 		desc: "Reduces Speed 50%. Doubles EVs gained."
 	},
@@ -1744,9 +1751,9 @@ exports.BattleItems = {
 			basePower: 10
 		},
 		spritenum: 287,
-		onModifyStats: function(stats, pokemon) {
+		onModifyDef: function(def, pokemon) {
 			if (pokemon.template.species === 'Ditto') {
-				stats.def *= 2;
+				return def * 2;
 			}
 		},
 		desc: "Raises Ditto's Defense and Special Defense by 50%."
@@ -2193,9 +2200,9 @@ exports.BattleItems = {
 		fling: {
 			basePower: 10
 		},
-		onModifyStats: function(stats, pokemon) {
+		onModifySpe: function(spe, pokemon) {
 			if (pokemon.template.species === 'Ditto') {
-				stats.spe *= 2;
+				return spe * 2;
 			}
 		},
 		desc: "Doubles Ditto's Speed."
@@ -2640,13 +2647,17 @@ exports.BattleItems = {
 		fling: {
 			basePower: 30
 		},
-		onModifyStats: function(stats, pokemon) {
+		onModifySpA: function(spa, pokemon) {
 			if (pokemon.template.species === 'Latios' || pokemon.template.species === 'Latias') {
-				stats.spa *= 1.5;
-				stats.spd *= 1.5;
+				return spa * 1.5;
 			}
 		},
-		desc: "Raises Special Attack and Special Defense by 50% if the holder is Latias or Latios. Unobtainable in BW."
+		onModifySpD: function(spd, pokemon) {
+			if (pokemon.template.species === 'Latios' || pokemon.template.species === 'Latias') {
+				return spd * 1.5;
+			}
+		},
+		desc: "Raises Special Attack and Special Defense by 50% if the holder is Latias or Latios."
 	},
 	"spelltag": {
 		id: "spelltag",
@@ -2836,9 +2847,9 @@ exports.BattleItems = {
 		fling: {
 			basePower: 90
 		},
-		onModifyStats: function(stats, pokemon) {
+		onModifyAtk: function(atk, pokemon) {
 			if (pokemon.template.species === 'Cubone' || pokemon.template.species === 'Marowak') {
-				stats.atk *= 2;
+				return atk * 2;
 			}
 		},
 		desc: "Doubles Cubone's and Marowak's Attack."

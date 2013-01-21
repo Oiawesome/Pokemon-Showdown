@@ -25,9 +25,9 @@ exports.BattleStatuses = {
 		onStart: function(target) {
 			this.add('-status', target, 'par');
 		},
-		onModifyStats: function(stats, pokemon) {
+		onModifySpe: function(spe, pokemon) {
 			if (pokemon.ability !== 'quickfeet') {
-				stats.spe /= 4;
+				return spe / 4;
 			}
 		},
 		onBeforeMovePriority: 2,
@@ -294,13 +294,27 @@ exports.BattleStatuses = {
 	stall: {
 		// Protect, Detect, Endure counter
 		duration: 2,
+		counterMax: 256,
 		onStart: function() {
 			this.effectData.counter = 2;
 		},
+		onStallMove: function() {
+			// this.effectData.counter should never be undefined here.
+			// However, just in case, use 1 if it is undefined.
+			var counter = this.effectData.counter || 1;
+			if (counter >= 256) {
+				// 2^32 - special-cased because Battle.random(n) can't handle n > 2^16 - 1
+				return (this.random()*4294967296 < 1);
+			}
+			this.debug("Success chance: "+Math.round(100/counter)+"%");
+			return (this.random(counter) === 0);
+		},
 		onRestart: function() {
-			this.effectData.counter *= 2;
+			if (this.effectData.counter < this.effect.counterMax) {
+				this.effectData.counter *= 2;
+			}
 			this.effectData.duration = 2;
-		}
+		},
 	},
 
 	// weather
@@ -391,9 +405,9 @@ exports.BattleStatuses = {
 			}
 			return 5;
 		},
-		onModifyStats: function(stats, pokemon) {
+		onModifySpD: function(spd, pokemon) {
 			if (pokemon.hasType('Rock')) {
-				stats.spd *= 3/2;
+				return spd * 3/2;
 			}
 		},
 		onStart: function(battle, source, effect) {

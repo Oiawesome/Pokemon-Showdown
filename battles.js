@@ -259,14 +259,6 @@ function BattlePokemon(set, side) {
 	this.hpType = hpTypes[Math.floor(hpTypeX * 15 / 63)];
 	this.hpPower = Math.floor(hpPowerX * 40 / 63) + 30;
 
-	this.stats = {
-		hp: 0,
-		atk: 0,
-		def: 0,
-		spa: 0,
-		spd: 0,
-		spe: 0
-	};
 	this.boosts = {
 		atk: 0,
 		def: 0,
@@ -285,15 +277,6 @@ function BattlePokemon(set, side) {
 		accuracy: 0,
 		evasion: 0
 	};
-	this.unboostedStats = {
-		atk: 0,
-		def: 0,
-		spa: 0,
-		spd: 0,
-		spe: 0,
-		accuracy: 0,
-		evasion: 0
-	};
 	this.baseStats = this.template.baseStats;
 	this.bst = 0;
 	for (var i in this.baseStats) {
@@ -301,10 +284,8 @@ function BattlePokemon(set, side) {
 	}
 	this.bst = this.bst || 10;
 
-	this.stats['hp'] = Math.floor(Math.floor(2*selfP.baseStats['hp']+selfP.set.ivs['hp']+Math.floor(selfP.set.evs['hp']/4)+100)*selfP.level / 100 + 10);
-	if (this.baseStats['hp'] === 1) this.stats['hp'] = 1; // shedinja
-	this.unboostedStats['hp'] = this.stats['hp'];
-	this.maxhp = this.stats['hp'];
+	this.maxhp = Math.floor(Math.floor(2*selfP.baseStats['hp']+selfP.set.ivs['hp']+Math.floor(selfP.set.evs['hp']/4)+100)*selfP.level / 100 + 10);
+	if (this.baseStats['hp'] === 1) this.maxhp = 1; // shedinja
 	this.hp = this.hp || this.maxhp;
 
 	this.toString = function() {
@@ -335,52 +316,49 @@ function BattlePokemon(set, side) {
 		for (var i in selfP.moveset) {
 			if (selfP.moveset[i]) selfP.moveset[i].disabled = false;
 		}
-		for (var i in selfP.stats) {
-			var stat = selfP.baseStats[i];
-			/* if (selfP.set.bstscale && selfP.bst > 520 * 1.06) {
-				stat *= 520 / selfP.bst * 1.06; // stat scaling in progress
-			}
-			if (selfP.set.bstscale && selfP.bst < 520 * 0.94) {
-				stat *= 520 / selfP.bst * 0.94; // stat scaling in progress
-			} */
-			if (i==='hp') {
-				continue;
-			} else {
-				selfP.unboostedStats[i] = Math.floor(Math.floor(2*stat+selfP.set.ivs[i]+Math.floor(selfP.set.evs[i]/4))*selfP.level / 100 + 5);
-			}
-			selfP.stats[i] = selfP.unboostedStats[i];
-		}
 		for (var i in selfP.baseBoosts) {
 			selfP.boosts[i] = selfP.baseBoosts[i];
 		}
-		selfB.natureModify(selfP.stats, selfP.set.nature);
-		selfP.unmodifiedStats = {};
-		for (var i in selfP.stats) {
-			selfP.stats[i] = Math.floor(selfP.stats[i]);
-			selfP.unmodifiedStats[i] = selfP.stats[i];
-		}
 		if (init) return;
 
-		selfB.runEvent('ModifyStats', selfP, null, null, selfP.stats);
-
-		for (var i in selfP.stats) {
-			selfP.stats[i] = Math.floor(selfP.stats[i]);
-			selfP.unboostedStats[i] = selfP.stats[i];
-		}
-
-		var boostTable = [1,1.5,2,2.5,3,3.5,4];
-		for (i in selfP.boosts) {
-			if (selfP.boosts[i] > 6) selfP.boosts[i] = 6;
-			if (selfP.boosts[i] < -6) selfP.boosts[i] = -6;
-			if (i === 'accuracy' || i === 'evasion' || i === 'hp') continue; // hp should never happen
-			if (selfP.boosts[i] >= 0) {
-				selfP.stats[i] = Math.floor(selfP.unboostedStats[i] * boostTable[selfP.boosts[i]]);
-			} else {
-				selfP.stats[i] = Math.floor(selfP.unboostedStats[i] / boostTable[-selfP.boosts[i]]);
-			}
-		}
-
 		selfB.runEvent('ModifyPokemon', selfP);
+	};
+	this.getStat = function(statName, unboosted, unmodified) {
+		statName = toId(statName);
+		var boost = selfP.boosts[statName];
+
+		if (statName === 'hp') return selfP.maxhp; // please just read .maxhp directly
+
+		// base stat
+		var stat = selfP.baseStats[statName];
+		stat = Math.floor(Math.floor(2*stat+selfP.set.ivs[statName]+Math.floor(selfP.set.evs[statName]/4))*selfP.level / 100 + 5);
+
+		// nature
+		var nature = selfB.getNature(selfP.set.nature);
+		if (statName === nature.plus) stat *= 1.1;
+		if (statName === nature.minus) stat *= 0.9;
+		stat = Math.floor(stat);
+
+		if (unmodified) return stat;
+
+		// stat modifier effects
+		var statTable = {atk:'Atk', def:'Def', spa:'SpA', spd:'SpD', spe:'Spe'};
+		stat = selfB.runEvent('Modify'+statTable[stat], selfP, null, null, stat);
+		stat = Math.floor(stat);
+
+		if (unboosted) return stat;
+
+		// stat boosts
+		var boostTable = [1,1.5,2,2.5,3,3.5,4];
+		if (boost > 6) boost = 6;
+		if (boost < -6) boost = -6;
+		if (boost >= 0) {
+			stat = Math.floor(stat * boostTable[boost]);
+		} else {
+			stat = Math.floor(stat / boostTable[-boost]);
+		}
+
+		return stat;
 	};
 	this.getMoveData = function(move) {
 		move = selfB.getMove(move);
@@ -1372,8 +1350,8 @@ function Battle(roomid, format, rated) {
 			}
 		}
 		actives.sort(function(a, b) {
-			if (b.stats.spe - a.stats.spe) {
-				return b.stats.spe - a.stats.spe;
+			if (b.getStat('spe') - a.getStat('spe')) {
+				return b.getStat('spe') - a.getStat('spe');
 			}
 			return Math.random()-0.5;
 		});
@@ -1476,18 +1454,20 @@ function Battle(roomid, format, rated) {
 		}
 		for (var i=0; i<statuses.length; i++) {
 			var status = statuses[i].status;
-			if (statuses[i].thing.fainted) continue;
+			var thing = statuses[i].thing;
+			if (thing.fainted) continue;
 			//selfB.debug('match '+eventid+': '+status.id+' '+status.effectType);
-			if (status.effectType === 'Status' && statuses[i].thing.status !== status.id) {
+			if (status.effectType === 'Status' && thing.status !== status.id) {
 				// it's changed; call it off
 				continue;
 			}
-			if (statuses[i].thing.ignore && statuses[i].thing.ignore[status.effectType] === 'A') {
+			if (thing.ignore && thing.ignore[status.effectType] === 'A') {
 				// ignore attacking events
 				var AttackingEvents = {
 					BeforeMove: 1,
 					BasePower: 1,
 					Immunity: 1,
+					Accuracy: 1,
 					Damage: 1,
 					SubDamage: 1,
 					Heal: 1,
@@ -1497,7 +1477,7 @@ function Battle(roomid, format, rated) {
 					SetStatus: 1,
 					CriticalHit: 1,
 					ModifyPokemon: 1,
-					ModifyStats: 1,
+					ModifyAtk: 1, ModifyDef: 1, ModifySpA: 1, ModifySpD: 1, ModifySpe: 1,
 					TryHit: 1,
 					TrySecondaryHit: 1,
 					Hit: 1,
@@ -1505,16 +1485,19 @@ function Battle(roomid, format, rated) {
 					Boost: 1,
 					DragOut: 1
 				};
-				if (AttackingEvents[eventid]) {
-					if (eventid !== 'ModifyPokemon' && eventid !== 'ModifyStats') {
+				if (eventid in AttackingEvents) {
+					if (eventid !== 'ModifyPokemon') {
 						selfB.debug(eventid+' handler suppressed by Mold Breaker');
 					}
 					continue;
 				}
-			} else if (statuses[i].thing.ignore && statuses[i].thing.ignore[status.effectType]) {
-				selfB.debug(eventid+' handler suppressed by Klutz or Magic Room');
+			} else if (thing.ignore && thing.ignore[status.effectType]) {
+				if (eventid !== 'ModifyPokemon' && eventid !== 'Update') {
+					selfB.debug(eventid+' handler suppressed by Klutz or Magic Room');
+				}
 				continue;
-			} else if (target.ignore && target.ignore[status.effectType+'Target']) {
+			}
+			if (target.ignore && target.ignore[status.effectType+'Target']) {
 				selfB.debug(eventid+' handler suppressed by Air Lock');
 				continue;
 			}
@@ -1525,7 +1508,7 @@ function Battle(roomid, format, rated) {
 				var parentEvent = selfB.event;
 				selfB.effect = statuses[i].status;
 				selfB.effectData = statuses[i].statusData;
-				selfB.effectData.target = statuses[i].thing;
+				selfB.effectData.target = thing;
 				selfB.event = {id: eventid, target: target, source: source, effect: effect};
 				selfB.eventDepth++;
 				returnVal = statuses[i].callback.apply(selfB, args);
@@ -1563,7 +1546,7 @@ function Battle(roomid, format, rated) {
 		status.order = order;
 		status.priority = priority;
 		status.subOrder = subOrder;
-		if (status.thing && status.thing.stats) status.speed = status.thing.stats.spe;
+		if (status.thing && status.thing.getStat) status.speed = status.thing.getStat('spe');
 	};
 	// bubbles up to parents
 	this.getRelevantEffects = function(thing, callbackType, foeCallbackType, foeThing, checkChildren) {
@@ -1730,6 +1713,7 @@ function Battle(roomid, format, rated) {
 				return !a.fainted;
 			}
 			function shouldSwitch(a) {
+				if (!a) return false;
 				if (!switchablesLeft) {
 					a.switchFlag = false;
 					return false;
@@ -2264,26 +2248,26 @@ function Battle(roomid, format, rated) {
 		if (move.useTargetOffensive) attacker = target;
 		if (move.useSourceDefensive) defender = pokemon;
 
-		var attack = move.category==='Physical'?attacker.stats.atk:attacker.stats.spa;
-		var defense = move.defensiveCategory==='Physical'?defender.stats.def:defender.stats.spd;
+		var attack = attacker.getStat(move.category==='Physical'?'atk':'spa');
+		var defense = defender.getStat(move.defensiveCategory==='Physical'?'def':'spd');
 
 		if (move.crit) {
 			move.ignoreNegativeOffensive = true;
 			move.ignorePositiveDefensive = true;
 		}
-		if (move.ignoreNegativeOffensive && attack < (move.category==='Physical'?attacker.unboostedStats.atk:attacker.unboostedStats.spa)) {
+		if (move.ignoreNegativeOffensive && attack < attacker.getStat(move.category==='Physical'?'atk':'spa', true)) {
 			move.ignoreOffensive = true;
 		}
 		if (move.ignoreOffensive) {
 			selfB.debug('Negating (sp)atk boost/penalty.');
-			attack = (move.category==='Physical'?attacker.unboostedStats.atk:attacker.unboostedStats.spa);
+			attack = attacker.getStat(move.category==='Physical'?'atk':'spa', true);
 		}
-		if (move.ignorePositiveDefensive && defense > (move.defensiveCategory==='Physical'?target.unboostedStats.def:target.unboostedStats.spd)) {
+		if (move.ignorePositiveDefensive && defense > target.getStat(move.defensiveCategory==='Physical'?'def':'spd', true)) {
 			move.ignoreDefensive = true;
 		}
 		if (move.ignoreDefensive) {
 			selfB.debug('Negating (sp)def boost/penalty.');
-			defense = move.defensiveCategory==='Physical'?target.unboostedStats.def:target.unboostedStats.spd;
+			defense = target.getStat(move.defensiveCategory==='Physical'?'def':'spd', true);
 		}
 
 		//int(int(int(2*L/5+2)*A*P/D)/50);
@@ -2339,6 +2323,9 @@ function Battle(roomid, format, rated) {
 
 		return Math.floor(baseDamage);
 	};
+	/**
+	 * Returns whether a proposed target for a move is valid.
+	 */
 	this.validTargetLoc = function(targetLoc, source, targetType) {
 		var numSlots = source.side.active.length;
 		if (!Math.abs(targetLoc) && Math.abs(targetLoc) > numSlots) return false;
@@ -2349,6 +2336,7 @@ function Battle(roomid, format, rated) {
 		var isSelf = (sourceLoc === targetLoc);
 
 		switch (targetType) {
+		case 'randomNormal':
 		case 'normal':
 			return isAdjacent && !isSelf;
 		case 'adjacentAlly':
@@ -2374,7 +2362,8 @@ function Battle(roomid, format, rated) {
 	this.getTarget = function(decision) {
 		var move = selfB.getMove(decision.move);
 		var target;
-		if (selfB.validTargetLoc(decision.targetLoc, decision.pokemon, move.target)) {
+		if ((move.target !== 'randomNormal') &&
+				selfB.validTargetLoc(decision.targetLoc, decision.pokemon, move.target)) {
 			if (decision.targetLoc > 0) {
 				target = decision.pokemon.side.foe.active[decision.targetLoc-1];
 			} else {
@@ -2482,7 +2471,7 @@ function Battle(roomid, format, rated) {
 					decision.pokemon.switchCopyFlag = decision.pokemon.switchFlag;
 				}
 				decision.pokemon.switchFlag = false;
-				if (!decision.speed && decision.pokemon && decision.pokemon.isActive) decision.speed = decision.pokemon.stats.spe;
+				if (!decision.speed && decision.pokemon && decision.pokemon.isActive) decision.speed = decision.pokemon.getStat('spe');
 			}
 			if (decision.move) {
 				var target;
@@ -2501,8 +2490,8 @@ function Battle(roomid, format, rated) {
 				}
 			}
 			if (!decision.pokemon && !decision.speed) decision.speed = 1;
-			if (!decision.speed && decision.choice === 'switch' && decision.target) decision.speed = decision.target.stats.spe;
-			if (!decision.speed) decision.speed = decision.pokemon.stats.spe;
+			if (!decision.speed && decision.choice === 'switch' && decision.target) decision.speed = decision.target.getStat('spe');
+			if (!decision.speed) decision.speed = decision.pokemon.getStat('spe');
 
 			if (decision.choice === 'switch' && !decision.side.pokemon[0].isActive) {
 				// if there's no actives, switches happen before activations

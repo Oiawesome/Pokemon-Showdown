@@ -17,6 +17,9 @@ function getUser(name, exactName) {
 	}
 	return users[userid];
 }
+function getExactUser(name) {
+	return getUser(name, true);
+}
 function searchUser(name) {
 	var userid = toUserid(name);
 	while (userid && !users[userid]) {
@@ -161,6 +164,8 @@ var User = (function () {
 			this.rename(name,token);
 		}
 	}
+
+	User.prototype.blockChallenges = false;
 
 	User.prototype.emit = function(message, data) {
 		var roomid = false;
@@ -461,6 +466,8 @@ var User = (function () {
 				else if (userid === "hugendugen") avatar = 1009;
 				else if (userid === "fatecrashers") avatar = 18;
 				else if (userid === "exeggutor") avatar = 1010;
+				else if (userid === "mjb") avatar = 1011;
+				else if (userid === "marty") avatar = 1012;
 
 				if (usergroups[userid]) {
 					group = usergroups[userid].substr(0,1);
@@ -813,6 +820,9 @@ var User = (function () {
 		if (!user || this.challengeTo) {
 			return false;
 		}
+		if (user.blockChallenges && !this.can('bypassblocks', user)) {
+			return false;
+		}
 		if (new Date().getTime() < this.lastChallenge + 10000) {
 			// 10 seconds ago
 			return false;
@@ -983,6 +993,7 @@ function ipSearch(ip, table) {
 }
 
 exports.get = getUser;
+exports.getExact = getExactUser;
 exports.searchUser = searchUser;
 exports.connectUser = connectUser;
 exports.users = users;
