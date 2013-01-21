@@ -209,6 +209,20 @@ FORMATS
 		ruleset: ['Legal DM', 'DM Pokemon', 'Sleep Clause', 'Species Clause', 'OHKO Clause', 'Moody Clause', 'Team Preview', 'Evasion Moves Clause'],
 		banlist: ['Uber', 'Soul Dew']
 	},
+	duskmodrewrite: {
+		effectType: 'Format',
+		section: 'DuskMod',
+		name: "DuskMod OU (rewrite)",
+		challengeDefault: true,
+		rated: true,
+		challengeShow: true,
+		searchShow: true,
+		noCrit: true,
+		mod: 'duskmodtwo',
+		isTeambuilderFormat: true,
+		ruleset: ['Legal DM', 'DM Pokemon', 'Sleep Clause', 'Species Clause', 'OHKO Clause', 'Moody Clause', 'Team Preview', 'Evasion Moves Clause'],
+		banlist: ['Uber', 'Soul Dew']
+	},
 	ou: {
 		effectType: 'Format',
 		section: 'Standard',
@@ -531,7 +545,7 @@ FORMATS
 		searchShow: true,
 		isTeambuilderFormat: true,
 		ruleset: ['DW Pokemon', 'Smogon', 'Team Preview', 'Evasion Clause'],
-		banlist: ['RU', 'UU', 'OU', 'Uber']
+		banlist: ['BL3', 'RU', 'BL2', 'UU', 'BL', 'OU', 'Uber']
 	},
 /**********************************
 Rule Sets
