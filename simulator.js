@@ -109,6 +109,11 @@ var Simulator = (function(){
 			}
 			break;
 
+		case 'resendrequest':
+			var player = this.getPlayer(lines[2]);
+			this.resendRequest(player);
+			break;
+
 		case 'log':
 			this.logData = JSON.parse(lines[2]);
 			break;
@@ -119,6 +124,12 @@ var Simulator = (function(){
 		}
 	};
 
+	Simulator.prototype.resendRequest = function(user) {
+		// The !user condition can occur. Do not remove this check.
+		if (!user) return;
+		user.emit('update', JSON.parse(this.requests[user.userid]));
+		user.sendTo(this.id, '|callback|decision');
+	};
 	Simulator.prototype.win = function(user) {
 		if (!user) {
 			this.tie();
@@ -232,4 +243,9 @@ exports.simulators = simulators;
 exports.create = function(id, format, rated, room) {
 	if (simulators[id]) return simulators[id];
 	return new Simulator(id, format, rated, room);
+}
+
+exports.eval = function(code) {
+	// evaluate code in a simulator process.
+	Battles.send('|eval|'+code);
 }

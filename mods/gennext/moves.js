@@ -1,7 +1,7 @@
 exports.BattleMovedex = {
 	/******************************************************************
 	Perfect accuracy moves:
-	- base power increased 60 to 80 (physical) or 90 (special)
+	- base power increased 60 to 90
 
 	Justification:
 	- perfect accuracy is too underpowered to have such low base power
@@ -14,19 +14,19 @@ exports.BattleMovedex = {
 	******************************************************************/
 	aerialace: {
 		inherit: true,
-		basePower: 80
+		basePower: 90
 	},
 	faintattack: {
 		inherit: true,
-		basePower: 80
+		basePower: 90
 	},
 	shadowpunch: {
 		inherit: true,
-		basePower: 80
+		basePower: 90
 	},
 	magnetbomb: {
 		inherit: true,
-		basePower: 80
+		basePower: 90
 	},
 	magicalleaf: {
 		inherit: true,
@@ -830,17 +830,11 @@ exports.BattleMovedex = {
 	- move types around, buff Leech Life
 
 	Justification:
-	- Poison, Bug, and Grass make sense for draining moves. Fighting
-	  really doesn't.
+	- Poison, Bug, Grass, and Ghost make sense for draining types.
 	******************************************************************/
 	leechlife: {
 		inherit: true,
 		basePower: 75
-	},
-	drainpunch: {
-		inherit: true,
-		basePower: 80,
-		type: 'Poison'
 	},
 	/******************************************************************
 	Flying moves:
@@ -895,6 +889,29 @@ exports.BattleMovedex = {
 		secondary: {
 			chance: 30,
 			status: 'frz'
+		}
+	},
+	/******************************************************************
+	Special Ghost and Fighting:
+	- buff Ghost, nerf Fighting
+
+	Justification:
+	- Special Fighting shouldn't be so strong.
+	- Special Ghost is buffed to compensate for having to use HP
+	  Fighting after this
+	******************************************************************/
+	focusblast: {
+		inherit: true,
+		accuracy: 50
+	},
+	shadowball: {
+		inherit: true,
+		basePower: 90,
+		secondary: {
+			chance: 30,
+			boosts: {
+				spd: -1
+			}
 		}
 	},
 	/******************************************************************
@@ -1292,6 +1309,14 @@ exports.BattleMovedex = {
 		boosts: {
 			spe: 3
 		}
+	},
+	dizzypunch: {
+		inherit: true,
+		basePower: 90,
+		secondary: {
+			chance: 50,
+			volatileStatus: 'confusion'
+		},
 	},
 	nightdaze: {
 		inherit: true,

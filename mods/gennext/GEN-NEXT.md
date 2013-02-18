@@ -126,8 +126,6 @@ Major changes:
 
 - Twister is now a 80 base power Flying move with a 30% confusion chance
 
-- Drain Punch is now an 80 Base Power Poison-type move
-
 New mechanic: Signature Pokemon:
 
 - Certain moves have a Signature Pokemon associated with them. A move will
@@ -194,15 +192,23 @@ New mechanic: Intrinsics:
 
   - Cryogonal: Ice Body
 
+  - Gengar: Cursed Body
+
+  - Mismagius: Cursed Body
+
 Minor move changes:
 
 - all 95%-accurate moves, as well as Charge Beam and Rock Slide, are now 100%
   accurate (except Jump Kick, which will be rebalanced later)
 
+- Focus Blast has 50% accuracy (use HP Fighting unless you have No Guard)
+
 - Close Combat has been nerfed: it now gives -2 Def, -2 SpD
 
 - Perfect accuracy moves with a base power of 60 have their base power
-  increased to 80 (physical) or 90 (special)
+  increased to 90
+
+- Shadow Ball now has 90 base power and 30% -SpD
 
 - Drives grant a 1.1x damage bonus to Techno Blast
 
@@ -265,6 +271,8 @@ Minor move changes:
 
 - Double Hit is now 40 base power
 
+- Dizzy Punch is 90 base power, 50% confusion chance
+
 Minor learnset changes:
 
 - Azumarill now gets Belly Drum with no incompatibilities
@@ -284,12 +292,31 @@ Minor learnset changes:
 
 - Milotic, Scolipede, and Steelix get Coil
 
+- Spinda gets Superpower with no incompatibilities
+
 - Rotom formes learn more things:
   - Rotom-Wash: BubbleBeam
   - Rotom-Fan: Hurricane, Twister
   - Rotom-Frost: Frost Breath
   - Rotom-Heat: Heat Wave
   - Rotom-Mow: Magical Leaf
+     
+- Starters get new abilities
+  - Venusaur: Leaf Guard
+  - Charizard: Flash Fire
+  - Blastoise: Shell Armor
+  - Meganium: Harvest
+  - Typhlosion: Flame Body
+  - Feraligatr: Intimidate
+  - Sceptile: Limber
+  - Blaziken: Reckless
+  - Swampert: Hydration
+  - Torterra: Weak Armor
+  - Infernape: No Guard
+  - Empoleon: Ice Body
+  - Serperior: Own Tempo
+  - Emboar: Sheer Force
+  - Samurott: Technician
 
 Minor ability changes:
 
@@ -330,6 +357,9 @@ Minor ability changes:
 - Aftermath no longer requires contact, and its damage is buffed to 1/3 of the
   foe's max HP
 
+- Cursed Body works like Afermath now, but instead of dealing damage, it
+  causes the foe to be Cursed (like Ghost-type Curse)
+
 - Gluttony allows a Pokemon to use a Berry twice.
 
 - Guts, Quick Feet, and Toxic Boost take half damage from poisoning
@@ -338,6 +368,9 @@ Minor ability changes:
 
 - Water Veil and Sand Veil grant 20% damage reduction in rain and sand,
   respectively (this replaces Sand Veil's usual effect, but not Water Veil's)
+
+- Multiscale decreases damage by 1/3 rather than 1/2 (Sorry, Dragonite,
+  this is in return for a usable physical Flying STAB in Aerial Ace)
 
 Minor item changes:
 

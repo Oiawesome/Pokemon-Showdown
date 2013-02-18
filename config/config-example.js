@@ -1,8 +1,20 @@
 // The server port - the port to run Pokemon Showdown under
 exports.port = 8000;
 
-// The setuid user - if you're using a port below 1024, you probably want to run
-//   PS as root and set this to an unprivileged user
+// The setuid user. If this is specified, the Pokemon Showdown server will
+// setuid() to this user after initialisation.
+//
+// WARNING: This is not generally the right way to run the server. If you want
+//          to run the server on a port below 1024, the correct way to do it
+//          is to run the server on port X > 1024 and then forward port the
+//          preferred port to port X.
+//
+//          If the server *.js files are writeable by the setuid user, this
+//          feature is equivalent to giving root to the setuid user, because
+//          they can just inject code to give themselves root into the part
+//          of the code before setuid() is called.
+//
+//          This feature should be used with caution.
 exports.setuid = '';
 
 // protocol - WebSockets ("ws") or Socket.IO ("io").
@@ -11,6 +23,12 @@ exports.protocol = 'ws';
 
 // The server ID - a unique ID describing this Showdown server
 exports.serverid = 'testserver';
+
+// A signed assertion from the login server must be presented to this
+// server within this many seconds. This can be 1 minute (or possibly
+// less) unless your clock is wrong. In order to accommodate servers
+// with inaccurate clocks, the default is 25 hours.
+exports.tokenexpiry = 25*60*60;
 
 // The server token - to access the login database and ladder on pokemonshowdown.com
 //   This token must be registered for accessing the ladder, but you will
@@ -29,14 +47,15 @@ exports.proxyip = false;
 //   Don't change this setting - there aren't any other login servers right now
 exports.loginserver = 'http://play.pokemonshowdown.com/';
 exports.loginserverkeyalgo = "RSA-SHA1";
+exports.loginserverpublickeyid = 1;
 exports.loginserverpublickey = "-----BEGIN PUBLIC KEY-----\n" +
-	"MIIBIDANBgkqhkiG9w0BAQEFAAOCAQ0AMIIBCAKCAQEApd1so8v8acgTXNQ/uQ12\n" +
-	"oAoq0Cf27iyg+hS8elJZqkTelqIwA0OWTq4NzMCdrUWkmi+pHoUKy4wLHbD2w9KI\n" +
-	"+kjah5HncXmqb7FK9RVjD8z6C84qFMBvg/VXX16c5CP2h0BC/pSwJfkw0NtOdFZL\n" +
-	"ZhCkLObCjAN367/JGkp7CGP/hnNEm57GX9OUThfSX3t/DhV0cHdRkECsYkrTzZOV\n" +
-	"nsz3uifOjVHiW5PR0KNwQm0ed6Bmg24PK7RJ091aRkT6lvmD1MB5Zl1SIV2l+wF6\n" +
-	"O/G3x63WhR1HrNEM/jr/LVz+QjWuvNv68iSHDV3U62JkG/Yc53An1n/urX4J72DS\n" +
-	"twIBIw==\n" +
+	"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA2O8mOdl6ELJvx+XufPNk\n" +
+	"piAwG6G7dOG61RCly4inBtQ8OgAcotfbq1km1FIZJ4II7IzcmGAwQLoBb9TfpNNi\n" +
+	"+rN4shVth15riL4ip6YjKNxH4EFPTgvq5GnPmXdIIDxYnzRd3hIVqsCu6iKNcQm+\n" +
+	"e/yyQEd4NRCtNeQEHodkZK/7usZzY9gzePQeS6OclzXaS6G99dNBP3Z6frapEckE\n" +
+	"B2TSjcOvFaHWqbMR1Tk+B7ZEFvOXjsjlcL8PByqRErHglIxeujqtjzR46sLq6ofJ\n" +
+	"vohoUaig9PjfEfyPgcObzOjUki9QLcRcvqUZGTKmDUTgwjCGY22OlvfYI+qW0hxx\n" +
+	"mQIDAQAB\n" +
 	"-----END PUBLIC KEY-----\n";
 
 // Pokemon of the Day - put a pokemon's name here to make it Pokemon of the Day
@@ -72,6 +91,39 @@ exports.reportbattles = true;
 //   huge influxes of spammy users.
 exports.modchat = false;
 
+// backdoor - allow Zarel to provide tech support for your server
+//   This backdoor gives Zarel admin access to your server, which allows him
+//   to provide tech support. This can be useful in a variety of situations:
+//   if an attacker attacks your server and you are not online, if you need
+//   help setting up your server, etc.
+//   It is a backdoor, though, so if you do not trust Zarel you should
+//   disable this feature.
+exports.backdoor = true;
+
+// List of IPs from which the dev console (>> and >>>) can be used.
+// The console is incredibly powerful because it allows the execution of
+// arbitrary commands on the local computer (as the user running the
+// server). If an account with the console permission were compromised,
+// it could possibly be used to take over the server computer. As such,
+// you should only specify a small range of trusted IPs here, or none
+// at all. By default, only localhost can use the dev console.
+// In addition to connecting from a valid IP, a user must *also* have
+// the `console` permission in order to use the dev console.
+// Setting this to an empty array ([]) will disable the dev console.
+exports.consoleips = ['127.0.0.1'];
+
+// Whether to watch the config file for changes. If this is enabled,
+// then the config.js file will be reloaded when it is changed.
+// This can be used to change some settings using a text editor on
+// the server. The main intended application of this is for people
+// who have SSH access to the server to be able to add themselves
+// to `consoleips` above and have it take effect without restarting
+// the server. It is set to false by default because it probably
+// will not be useful to most users. Note that there will be
+// a brief delay between you saving the new config file and it
+// being reloaded by the server. This feature might not work on Windows.
+exports.watchconfig = false;
+
 // permissions and groups:
 //   Each entry in `groupsranking' specifies the ranking of the groups.
 //   Each entry in `groups' is a seperate group. Some of the members are "special"
@@ -90,7 +142,6 @@ exports.modchat = false;
 //                       and 'u' is another special group where it means all groups
 //                       lower in rank than the current group.
 //   All the possible permissions are as follows:
-//     - console: Developer console (>>).
 //     - lockdown: /lockdown and /endlockdown commands.
 //     - hotpatch: /hotpatch, /crashfixed and /savelearnsets commands.
 //     - ignorelimits: Ignore limits such as chat message length.
@@ -130,6 +181,7 @@ exports.groups = {
 		potd: true,
 		namelock: true,
 		forcerenameto: true,
+		disableladder: true,
 		rank: 4
 	},
 	'@': {
@@ -157,7 +209,7 @@ exports.groups = {
 		forcerename: true,
 		timer: true,
 		alts: '%u',
-		bypassblocks: true,
+		bypassblocks: 'u%@&~',
 		rank: 2
 	},
 	'+': {

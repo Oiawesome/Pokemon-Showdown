@@ -325,9 +325,7 @@ exports.BattleAbilities = {
 		onAfterDamage: function(damage, target, source, move) {
 			if (move && move.isContact) {
 				if (this.random(10) < 3) {
-					if (source.addVolatile('attract', target)) {
-						this.add('-start', source, 'Attract', '[from] Cute Charm', '[of] '+target);
-					}
+					source.addVolatile('attract', target);
 				}
 			}
 		},
@@ -671,6 +669,12 @@ exports.BattleAbilities = {
 		shortDesc: "This Pokemon's allies receive 3/4 damage from other Pokemon's attacks.",
 		id: "friendguard",
 		name: "Friend Guard",
+		onAnyBasePower: function(basePower, attacker, defender, move) {
+			var target = this.effectData.target;
+			if (defender !== target && defender.side === target.side) {
+				return basePower * 3/4;
+			}
+		},
 		rating: 0,
 		num: 132
 	},
@@ -734,6 +738,17 @@ exports.BattleAbilities = {
 		name: "Healer",
 		onResidualOrder: 5,
 		onResidualSubOrder: 1,
+		onResidual: function(pokemon) {
+			var allyActive = pokemon.side.active;
+			if (allyActive.length === 1) {
+				return;
+			}
+			for (var i=0; i<allyActive.length; i++) {
+				if (allyActive[i] && this.isAdjacent(pokemon, allyActive[i]) && allyActive[i].status && this.random(10) < 3) {
+					allyActive[i].cureStatus();
+				}
+			}
+		},
 		rating: 0,
 		num: 131
 	},
@@ -788,7 +803,7 @@ exports.BattleAbilities = {
 	"hustle": {
 		desc: "This Pokemon's Attack receives a 50% boost but its Physical attacks receive a 20% drop in Accuracy. For example, a 100% accurate move would become an 80% accurate move. The accuracy of moves that never miss, such as Aerial Ace, remains unaffected.",
 		shortDesc: "This Pokemon's Attack is 1.5x and accuracy of its physical attacks is 0.8x.",
-		onModifyAtk: function(stats) {
+		onModifyAtk: function(atk) {
 			return atk * 1.5;
 		},
 		onModifyMove: function(move) {
@@ -869,7 +884,7 @@ exports.BattleAbilities = {
 			if (pokemon === pokemon.side.pokemon[i]) return;
 			pokemon.illusion = pokemon.side.pokemon[i];
 		},
-		onDamage: function(damage, pokemon, source, effect) {
+		onAfterDamage: function(damage, pokemon, source, effect) {
 			if (pokemon.illusion && effect && effect.effectType === 'Move') {
 				this.debug('illusion cleared');
 				pokemon.illusion = null;
@@ -1214,6 +1229,17 @@ exports.BattleAbilities = {
 	"minus": {
 		desc: "This Pokemon's Special Attack receives a 50% boost in double battles if its partner has the Plus ability.",
 		shortDesc: "If another ally has this Ability or the Plus Ability, this Pokemon's Sp. Atk is 1.5x.",
+		onModifySpA: function(spa, pokemon) {
+			var allyActive = pokemon.side.active;
+			if (allyActive.length === 1) {
+				return;
+			}
+			for (var i=0; i<allyActive.length; i++) {
+				if (allyActive[i] && allyActive[i].position !== pokemon.position && !allyActive[i].fainted && (allyActive[i].ability === 'minus' || allyActive[i].ability === 'plus')) {
+					return spa * 1.5
+				}
+			}
+		},
 		id: "minus",
 		name: "Minus",
 		rating: 0,
@@ -1510,6 +1536,17 @@ exports.BattleAbilities = {
 	"plus": {
 		desc: "This Pokemon's Special Attack receives a 50% boost in double battles if its partner has the Minus ability.",
 		shortDesc: "If another ally has this Ability or the Minus Ability, this Pokemon's Sp. Atk is 1.5x.",
+		onModifySpA: function(spa, pokemon) {
+			var allyActive = pokemon.side.active;
+			if (allyActive.length === 1) {
+				return;
+			}
+			for (var i=0; i<allyActive.length; i++) {
+				if (allyActive[i] && allyActive[i].position !== pokemon.position && !allyActive[i].fainted && (allyActive[i].ability === 'minus' || allyActive[i].ability === 'plus')) {
+					return spa * 1.5
+				}
+			}
+		},
 		id: "plus",
 		name: "Plus",
 		rating: 0,
@@ -1594,7 +1631,7 @@ exports.BattleAbilities = {
 	"purepower": {
 		desc: "This Pokemon's Attack stat is doubled. Therefore, if this Pokemon's Attack stat on the status screen is 200, it effectively has an Attack stat of 400; which is then subject to the full range of stat boosts and reductions.",
 		shortDesc: "This Pokemon's Attack is doubled.",
-		onModifyAtk: function(stats) {
+		onModifyAtk: function(atk) {
 			return atk * 2;
 		},
 		id: "purepower",

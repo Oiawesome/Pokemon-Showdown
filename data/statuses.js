@@ -115,8 +115,8 @@ exports.BattleStatuses = {
 	},
 	confusion: {
 		// this is a volatile status
-		onStart: function(target) {
-			var result = this.runEvent('TryConfusion');
+		onStart: function(target, source) {
+			var result = this.runEvent('TryConfusion', target, source);
 			if (!result) return result;
 			this.add('-start', target, 'confusion');
 			this.effectData.time = this.random(2,6);
@@ -164,6 +164,9 @@ exports.BattleStatuses = {
 		durationCallback: function(target, source) {
 			if (source.item === 'gripclaw') return 6;
 			return this.random(5,7);
+		},
+		onStart: function(pokemon, source) {
+			this.add('-activate', pokemon, 'move: ' +this.effectData.sourceEffect, '[of] '+source);
 		},
 		onResidualOrder: 11,
 		onResidual: function(pokemon) {

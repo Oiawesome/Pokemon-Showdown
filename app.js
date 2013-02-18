@@ -1,14 +1,24 @@
 const LOGIN_SERVER_TIMEOUT = 15000;
 const LOGIN_SERVER_BATCH_TIME = 1000;
 
-try {
-	require('nodetime').profile({
-		accountKey: '42437e1e248457af9645471075b01b12c01d8493',
-		appName: 'Pokemon Showdown'
-	});
-} catch(e) {}
+/**
+ * Require a module, but display a helpful error message if it fails.
+ * This is currently only used in this file, and only for modules which are
+ * not bundled with node.js, because that should be adequate to convey the
+ * point to the user.
+ */
+function requireGracefully(path) {
+	try {
+		return require(path);
+	} catch (e) {
+		console.error("ERROR: " + e.message + ". Please run\n\n" +
+			"           npm install\n\n" +
+			"       or refer to README.md for more help running Pokemon Showdown.");
+		process.exit(1);
+	}
+}
 
-require('sugar');
+requireGracefully('sugar');
 
 fs = require('fs');
 if (!fs.existsSync) {
@@ -215,25 +225,30 @@ if (!fs.existsSync('./config/config.js')) {
 
 config = require('./config/config.js');
 
-/*
-var app = require('http').createServer()
-  , io = require('socket.io').listen(app)
-  , fs = require('fs');
-
-function handler (req, res) {
-	fs.readFile(__dirname + '/index.html',
-	function (err, data) {
-		if (err) {
-			res.writeHead(500);
-			return res.end('Error loading index.html');
-		}
-
-		res.writeHead(200);
-		res.end(data);
+if (config.watchconfig) {
+	fs.watchFile('./config/config.js', function(curr, prev) {
+		if (curr.mtime <= prev.mtime) return;
+		try {
+			for (var i in require.cache) delete require.cache[i];
+			config = require('./config/config.js');
+			console.log('Reloaded config/config.js');
+		} catch (e) {}
 	});
 }
 
-app.listen(8000); */
+if ((config.loginserverpublickeyid === undefined) ||
+		(config.loginserverpublickeyid === 0)) {
+	console.log('Note: You are using the original login server public key. We suggest you');
+	console.log('      upgrade to the new public key by copying the values of the following');
+	console.log('      config settings from config/config-example.js to config/config.js:');
+	console.log('');
+	console.log('          exports.loginserverpublickeyid');
+	console.log('          exports.loginserverpublickey');
+	console.log('');
+	console.log('      The original public key will continue to work for now, but you should');
+	console.log('      upgrade at your earliest convenience.');
+	console.log('');
+}
 
 if (process.argv[2] && parseInt(process.argv[2])) {
 	config.port = parseInt(process.argv[2]);
@@ -247,14 +262,14 @@ if (config.protocol !== 'io' && config.protocol !== 'eio') config.protocol = 'ws
 var app;
 var server;
 if (config.protocol === 'io') {
-	server = require('socket.io').listen(config.port).set('log level', 1);
+	server = requireGracefully('socket.io').listen(config.port).set('log level', 1);
 	server.set('transports', ['websocket', 'htmlfile', 'xhr-polling']); // temporary hack until https://github.com/LearnBoost/socket.io/issues/609 is fixed
 } else if (config.protocol === 'eio') {
 	app = require('http').createServer().listen(config.port);
 	server = require('engine.io').attach(app);
 } else {
 	app = require('http').createServer();
-	server = require('sockjs').createServer({sockjs_url: "http://cdn.sockjs.org/sockjs-0.3.min.js", log: function(severity, message) {
+	server = requireGracefully('sockjs').createServer({sockjs_url: "http://cdn.sockjs.org/sockjs-0.3.min.js", log: function(severity, message) {
 		if (severity === 'error') console.log('ERROR: '+message);
 	}});
 }
@@ -404,9 +419,9 @@ if (config.crashguard) {
 // event functions
 var events = {
 	join: function(data, socket, you) {
-		if (!data || typeof data.room !== 'string' || typeof data.name !== 'string') return;
+		if (!data || typeof data.room !== 'string') return;
 		if (!you) {
-			you = Users.connectUser(data.name, socket, data.token, data.room);
+			you = Users.connectUser(socket, data.room);
 			return you;
 		} else {
 			var youUser = resolveUser(you, socket);

@@ -90,6 +90,8 @@ Tools = require('./tools.js');
 
 var Battles = {};
 
+// Receive and process a message sent using Simulator.prototype.send in
+// another process.
 process.on('message', function(message) {
 	//console.log('CHILD MESSAGE RECV: "'+message+'"');
 	var nlIndex = message.indexOf("\n");
@@ -109,6 +111,10 @@ process.on('message', function(message) {
 	} else {
 		if (Battles[data[0]]) {
 			Battles[data[0]].receive(data, more);
+		} else if (data[1] === 'eval') {
+			try {
+				eval(data[2]);
+			} catch (e) {}
 		}
 	}
 });
@@ -200,9 +206,11 @@ function BattlePokemon(set, side) {
 			var move = selfB.getMove(this.set.moves[i]);
 			if (!move.id) continue;
 			if (move.id === 'hiddenpower') {
-				this.hpType = move.type;
+				if (!this.set.ivs || Object.values(this.set.ivs).every(31)) {
+					this.set.ivs = selfB.getType(move.type).HPivs;
+				}
+				move = selfB.getMove('hiddenpower');
 			}
-			if (!this.set.ivs) this.set.ivs = selfB.getType(this.hpType).HPivs;
 			this.baseMoveset.push({
 				move: move.name,
 				id: move.id,
@@ -212,28 +220,18 @@ function BattlePokemon(set, side) {
 				disabled: false,
 				used: false
 			});
-			this.moves.push(toId(move.name));
+			this.moves.push(move.id);
 		}
 	}
 
 	if (!this.set.evs) {
 		this.set.evs = {
-			hp: 84,
-			atk: 84,
-			def: 84,
-			spa: 84,
-			spd: 84,
-			spe: 84
+			hp: 84, atk: 84, def: 84, spa: 84, spd: 84, spe: 84
 		};
 	}
 	if (!this.set.ivs) {
 		this.set.ivs = {
-			hp: 31,
-			atk: 31,
-			def: 31,
-			spa: 31,
-			spd: 31,
-			spe: 31
+			hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31
 		};
 	}
 	var stats = { hp: 31, atk: 31, def: 31, spe: 31, spa: 31, spd: 31};
@@ -247,6 +245,7 @@ function BattlePokemon(set, side) {
 	for (var i in this.set.ivs) {
 		this.set.ivs[i] = clampIntRange(this.set.ivs[i], 0, 31);
 	}
+	this.speed = 0;
 
 	var hpTypeX = 0, hpPowerX = 0;
 	var i = 1;
@@ -260,22 +259,12 @@ function BattlePokemon(set, side) {
 	this.hpPower = Math.floor(hpPowerX * 40 / 63) + 30;
 
 	this.boosts = {
-		atk: 0,
-		def: 0,
-		spa: 0,
-		spd: 0,
-		spe: 0,
-		accuracy: 0,
-		evasion: 0
+		atk: 0, def: 0, spa: 0, spd: 0, spe: 0,
+		accuracy: 0, evasion: 0
 	};
 	this.baseBoosts = {
-		atk: 0,
-		def: 0,
-		spa: 0,
-		spd: 0,
-		spe: 0,
-		accuracy: 0,
-		evasion: 0
+		atk: 0, def: 0, spa: 0, spd: 0, spe: 0,
+		accuracy: 0, evasion: 0
 	};
 	this.baseStats = this.template.baseStats;
 	this.bst = 0;
@@ -322,6 +311,8 @@ function BattlePokemon(set, side) {
 		if (init) return;
 
 		selfB.runEvent('ModifyPokemon', selfP);
+
+		selfP.speed = selfP.getStat('spe');
 	};
 	this.getStat = function(statName, unboosted, unmodified) {
 		statName = toId(statName);
@@ -343,7 +334,7 @@ function BattlePokemon(set, side) {
 
 		// stat modifier effects
 		var statTable = {atk:'Atk', def:'Def', spa:'SpA', spd:'SpD', spe:'Spe'};
-		stat = selfB.runEvent('Modify'+statTable[stat], selfP, null, null, stat);
+		stat = selfB.runEvent('Modify'+statTable[statName], selfP, null, null, stat);
 		stat = Math.floor(stat);
 
 		if (unboosted) return stat;
@@ -384,8 +375,8 @@ function BattlePokemon(set, side) {
 			}
 			success = true;
 		}
-		selfP.lastMove = move.id;
 		if (!amount) {
+			selfP.lastMove = move.id;
 			selfP.movedThisTurn = true;
 		}
 		return success;
@@ -428,7 +419,19 @@ function BattlePokemon(set, side) {
 			} else if (!move.disabled) {
 				hasValidMove = true;
 			}
-			moves.push(move);
+			var moveName = move.move;
+			if (move.id === 'hiddenpower') {
+				moveName = 'Hidden Power '+selfP.hpType;
+				if (selfP.hpPower != 70) moveName += ' '+selfP.hpPower;
+			}
+			moves.push({
+				move: moveName,
+				id: move.id,
+				pp: move.pp,
+				maxpp: move.maxpp,
+				target: move.target,
+				disabled: move.disabled
+			});
 		}
 		if (lockedMove) {
 			return [{
@@ -984,6 +987,7 @@ function BattleSide(name, battle, n, team) {
 	this.pokemonLeft = 0;
 	this.active = [null];
 	this.decision = null;
+	this.ackRequest = -1;
 	this.foe = null;
 	this.sideConditions = {};
 
@@ -1021,7 +1025,12 @@ function BattleSide(name, battle, n, team) {
 				details: pokemon.details,
 				condition: pokemon.getHealth(true),
 				active: (pokemon.position < pokemon.side.active.length),
-				moves: pokemon.moves,
+				moves: pokemon.moves.map(function(move) {
+					if (move === 'hiddenpower') {
+						return move + toId(pokemon.hpType) + (pokemon.hpPower == 70?'':pokemon.hpPower);
+					}
+					return move;
+				}),
 				baseAbility: pokemon.baseAbility,
 				item: pokemon.item
 			});
@@ -1107,7 +1116,7 @@ function BattleSide(name, battle, n, team) {
 
 		selfS = null;
 	};
-}
+} // function BattleSide
 
 function Battle(roomid, format, rated) {
 	var selfB = this;
@@ -1350,8 +1359,8 @@ function Battle(roomid, format, rated) {
 			}
 		}
 		actives.sort(function(a, b) {
-			if (b.getStat('spe') - a.getStat('spe')) {
-				return b.getStat('spe') - a.getStat('spe');
+			if (b.speed - a.speed) {
+				return b.speed - a.speed;
 			}
 			return Math.random()-0.5;
 		});
@@ -1546,7 +1555,7 @@ function Battle(roomid, format, rated) {
 		status.order = order;
 		status.priority = priority;
 		status.subOrder = subOrder;
-		if (status.thing && status.thing.getStat) status.speed = status.thing.getStat('spe');
+		if (status.thing && status.thing.getStat) status.speed = status.thing.speed;
 	};
 	// bubbles up to parents
 	this.getRelevantEffects = function(thing, callbackType, foeCallbackType, foeThing, checkChildren) {
@@ -2037,7 +2046,7 @@ function Battle(roomid, format, rated) {
 		if (!target || !target.hp) return 0;
 		effect = selfB.getEffect(effect);
 		if (!(damage || damage === 0)) return damage;
-		damage = clampIntRange(damage, 1);
+		if (damage !== 0) damage = clampIntRange(damage, 1);
 
 		if (effect.id !== 'struggle-recoil') { // Struggle recoil is not affected by effects
 			if (effect.effectType === 'Weather' && !target.runImmunity(effect.id)) {
@@ -2274,6 +2283,12 @@ function Battle(roomid, format, rated) {
 		var baseDamage = Math.floor(Math.floor(Math.floor(2*level/5+2) * basePower * attack/defense)/50) + 2;
 
 		// multi-target modifier (doubles only)
+		if (move.spreadHit) {
+			var spreadModifier = move.spreadModifier || 0.75;
+			selfB.debug('Spread modifier: ' + spreadModifier);
+			baseDamage = selfB.modify(baseDamage, spreadModifier);
+		}
+
 		// weather modifier (TODO: relocate here)
 		// crit
 		if (move.crit) {
@@ -2315,10 +2330,6 @@ function Battle(roomid, format, rated) {
 
 		if (basePower && !Math.floor(baseDamage)) {
 			return 1;
-		}
-
-		if (move.spreadHit) {
-			baseDamage = selfB.modify(baseDamage, move.spreadModifier || 0.75);
 		}
 
 		return Math.floor(baseDamage);
@@ -2471,7 +2482,7 @@ function Battle(roomid, format, rated) {
 					decision.pokemon.switchCopyFlag = decision.pokemon.switchFlag;
 				}
 				decision.pokemon.switchFlag = false;
-				if (!decision.speed && decision.pokemon && decision.pokemon.isActive) decision.speed = decision.pokemon.getStat('spe');
+				if (!decision.speed && decision.pokemon && decision.pokemon.isActive) decision.speed = decision.pokemon.speed;
 			}
 			if (decision.move) {
 				var target;
@@ -2490,8 +2501,8 @@ function Battle(roomid, format, rated) {
 				}
 			}
 			if (!decision.pokemon && !decision.speed) decision.speed = 1;
-			if (!decision.speed && decision.choice === 'switch' && decision.target) decision.speed = decision.target.getStat('spe');
-			if (!decision.speed) decision.speed = decision.pokemon.getStat('spe');
+			if (!decision.speed && decision.choice === 'switch' && decision.target) decision.speed = decision.target.speed;
+			if (!decision.speed) decision.speed = decision.pokemon.speed;
 
 			if (decision.choice === 'switch' && !decision.side.pokemon[0].isActive) {
 				// if there's no actives, switches happen before activations
@@ -2503,6 +2514,20 @@ function Battle(roomid, format, rated) {
 		if (!noSort) {
 			selfB.queue.sort(selfB.comparePriority);
 		}
+	};
+	this.prioritizeQueue = function(decision, source, sourceEffect) {
+		if (selfB.event) {
+			if (!source) source = selfB.event.source;
+			if (!sourceEffect) sourceEffect = selfB.effect;
+		}
+		for (var i=0; i<this.queue.length; i++) {
+			if (this.queue[i] === decision) {
+				this.queue.splice(i,1);
+				break;
+			}
+		}
+		decision.sourceEffect = sourceEffect;
+		this.queue.unshift(decision);
 	};
 	this.willAct = function() {
 		for (var i=0; i<selfB.queue.length; i++) {
@@ -2576,7 +2601,7 @@ function Battle(roomid, format, rated) {
 		case 'move':
 			if (!decision.pokemon.isActive) return false;
 			if (decision.pokemon.fainted) return false;
-			selfB.runMove(decision.move, decision.pokemon, selfB.getTarget(decision));
+			selfB.runMove(decision.move, decision.pokemon, selfB.getTarget(decision), decision.sourceEffect);
 			break;
 		case 'beforeTurnMove':
 			if (!decision.pokemon.isActive) return false;
@@ -2593,17 +2618,18 @@ function Battle(roomid, format, rated) {
 
 			if (decision.team[1]) {
 				// validate the choice
-				var newPokemon = [null,null,null,null,null,null];
-				for (var j=0; j<6; j++) {
+				var len = decision.side.pokemon.length;
+				var newPokemon = [null,null,null,null,null,null].slice(0, len);
+				for (var j=0; j<len; j++) {
 					var i = parseInt(decision.team[j], 10)-1;
 					newPokemon[j] = decision.side.pokemon[i];
 				}
 				var reject = false;
-				for (var j=0; j<6; j++) {
+				for (var j=0; j<len; j++) {
 					if (!newPokemon[j]) reject = true;
 				}
 				if (!reject) {
-					for (var j=0; j<6; j++) {
+					for (var j=0; j<len; j++) {
 						newPokemon[j].position = j;
 					}
 					decision.side.pokemon = newPokemon;
@@ -2760,12 +2786,26 @@ function Battle(roomid, format, rated) {
 	 * Takes a choice string passed from the client. Starts the next
 	 * turn if all required choices have been made.
 	 */
-	this.choose = function(sideid, choice) {
+	this.choose = function(sideid, choice, rqid) {
 		var side = null;
 		if (sideid === 'p1' || sideid === 'p2') side = selfB[sideid];
+		// This condition should be impossible because the sideid comes
+		// from our forked process and if the player id were invalid, we would
+		// not have even got to this function.
 		if (!side) return; // wtf
+
+		// This condition can occur if the client sends a decision at the
+		// wrong time.
 		if (!side.currentRequest) return;
 
+		// Make sure the decision is for the right request.
+		if ((rqid !== undefined) && (parseInt(rqid, 10) !== selfB.rqid)) {
+			return;
+		}
+
+		// It should be impossible for choice not to be a string. Choice comes
+		// from splitting the string sent by our forked process, not from the
+		// client. However, just in case, we maintain this check for now.
 		if (typeof choice === 'string') choice = choice.split(',');
 
 		side.decision = selfB.parseChoice(choice, side);
@@ -2791,7 +2831,10 @@ function Battle(roomid, format, rated) {
 	this.undoChoice = function(sideid) {
 		var side = null;
 		if (sideid === 'p1' || sideid === 'p2') side = selfB[sideid];
+		// The following condition can never occur for the reasons given in
+		// the choose() function above.
 		if (!side) return; // wtf
+		// This condition can occur.
 		if (!side.currentRequest) return;
 
 		side.decision = false;
@@ -2924,6 +2967,7 @@ function Battle(roomid, format, rated) {
 					move = data;
 				}
 				if (!pokemon.canUseMove(move)) move = pokemon.getValidMoves()[0];
+				move = selfB.getMove(move).id;
 
 				decisions.push({
 					choice: 'move',
@@ -3009,10 +3053,13 @@ function Battle(roomid, format, rated) {
 	// IPC
 
 	this.messageLog = [];
+	// Messages sent by this function are received and handled in
+	// Simulator.prototype.receive in simulator.js (in another process).
 	this.send = function(type, data) {
 		if (Array.isArray(data)) data = data.join("\n");
 		process.send(this.id+"\n"+type+"\n"+data);
 	};
+	// This function is called by this process's 'message' event.
 	this.receive = function(data, more) {
 		this.messageLog.push(data.join(' '));
 		var logPos = selfB.log.length;
@@ -3047,7 +3094,7 @@ function Battle(roomid, format, rated) {
 			break;
 
 		case 'choose':
-			this.choose(data[2], data[3]);
+			this.choose(data[2], data[3], data[4]);
 			break;
 
 		case 'undo':
@@ -3061,11 +3108,10 @@ function Battle(roomid, format, rated) {
 			var p1active = p1?p1.active[0]:null;
 			var p2active = p2?p2.active[0]:null;
 			try {
-				this.send('update', '|chat|~|<<< '+eval(data[2]));
+				this.add('chat', '~', '<<< '+eval(data[2]));
 			} catch (e) {
-				this.send('update', '|chatmsg|<<< error: '+e.message);
+				this.add('chatmsg', '<<< error: '+e.message);
 			}
-			return;
 			break;
 		}
 

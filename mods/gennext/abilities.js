@@ -303,6 +303,15 @@ exports.BattleAbilities = {
 			}
 		}
 	},
+	"multiscale": {
+		inherit: true,
+		onSourceBasePower: function(basePower, attacker, defender, move) {
+			if (defender.hp >= defender.maxhp) {
+				this.debug('Multiscale weaken');
+				return basePower*2/3;
+			}
+		}
+	},
 	"ironfist": {
 		inherit: true,
 		onBasePower: function(basePower, attacker, defender, move) {
@@ -334,6 +343,19 @@ exports.BattleAbilities = {
 				this.damage(source.maxhp/3, source, target);
 			}
 		}
+	},
+	"cursedbody": {
+		desc: "When this Pokemon faints, attacker is Cursed.",
+		shortDesc: "When this Pokemon faints, attacker is Cursed.",
+		onFaint: function(target, source, effect) {
+			if (effect && effect.effectType === 'Move' && source) {
+				source.addVolatile('curse');
+			}
+		},
+		id: "cursedbody",
+		name: "Cursed Body",
+		rating: 3,
+		num: 130
 	},
 	"gluttony": {
 		inherit: true,

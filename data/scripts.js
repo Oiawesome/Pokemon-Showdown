@@ -1,6 +1,6 @@
 exports.BattleScripts = {
 	gen: 5,
-	runMove: function(move, pokemon, target) {
+	runMove: function(move, pokemon, target, sourceEffect) {
 		move = this.getMove(move);
 		if (!target) target = this.resolveTarget(pokemon, move);
 
@@ -21,9 +21,9 @@ exports.BattleScripts = {
 		var lockedMove = this.runEvent('LockMove', pokemon);
 		if (lockedMove === true) lockedMove = false;
 		if (!lockedMove) {
-			pokemon.deductPP(move, 1, target);
+			pokemon.deductPP(move, null, target);
 		}
-		this.useMove(move, pokemon, target);
+		this.useMove(move, pokemon, target, sourceEffect);
 		this.runEvent('AfterMove', target, pokemon, move);
 		this.runEvent('AfterMoveSelf', pokemon, target, move);
 	},
@@ -190,10 +190,7 @@ exports.BattleScripts = {
 				// yes, it's hardcoded... meh
 				if (hits[0] === 2 && hits[1] === 5) {
 					var roll = this.random(6);
-					if (roll < 2) hits = 2;
-					else if (roll < 4) hits = 3;
-					else if (roll < 5) hits = 4;
-					else hits = 5;
+					hits = [2,2,3,3,4,5][roll];
 				} else {
 					hits = this.random(hits[0],hits[1]+1);
 				}
@@ -201,9 +198,12 @@ exports.BattleScripts = {
 			hits = Math.floor(hits);
 			for (var i=0; i<hits && target.hp && pokemon.hp; i++) {
 				var moveDamage = this.moveHit(target, pokemon, move);
-				if (moveDamage === false) return true;
-				damage += (moveDamage || 0);
+				if (moveDamage === false) break;
+				// Damage from each hit is individually counted for the
+				// purposes of Counter, Metal Burst, and Mirror Coat.
+				damage = (moveDamage || 0);
 			}
+			if (i === 0) return true;
 			this.add('-hitcount', target, i);
 		} else {
 			damage = this.moveHit(target, pokemon, move);
@@ -419,6 +419,11 @@ exports.BattleScripts = {
 		}
 		return damage;
 	},
+	isAdjacent: function(pokemon1, pokemon2) {
+		if (!pokemon1.fainted && !pokemon2.fainted && pokemon2.position !== pokemon1.position && Math.abs(pokemon2.position-pokemon1.position) <= 1) {
+			return true;
+		}
+	},
 	getTeam: function(side, team) {
 		var format = side.battle.getFormat();
 		if (format.team === 'random') {
@@ -454,7 +459,7 @@ exports.BattleScripts = {
 			//choose forme
 			var formes = [];
 			for (var j in this.data.Pokedex) {
-				if (this.data.Pokedex[j].num === teamdexno[i] && this.getTemplate(this.data.Pokedex[j].species).learnset) {
+				if (this.data.Pokedex[j].num === teamdexno[i] && this.getTemplate(this.data.Pokedex[j].species).learnset && this.data.Pokedex[j].species !== 'Pichu-Spiky-eared') {
 					formes.push(this.data.Pokedex[j].species);
 				}
 			}
@@ -862,13 +867,6 @@ exports.BattleScripts = {
 					if (hasMove['trick'] || hasMove['switcheroo']) rejected = true;
 					break;
 				}
-				// handle HP IVs
-				if (move.id === 'hiddenpower') {
-					var HPivs = this.getType(move.name.substr(13)).HPivs;
-					for (var iv in HPivs) {
-						ivs[iv] = HPivs[iv];
-					}
-				}
 				if (k===3) {
 					if (counter['Status']>=4) {
 						// taunt bait, not okay
@@ -896,6 +894,14 @@ exports.BattleScripts = {
 				if (rejected && j<moveKeys.length) {
 					moves.splice(k,1);
 					break;
+				}
+
+				// handle HP IVs
+				if (move.id === 'hiddenpower') {
+					var HPivs = this.getType(move.type).HPivs;
+					for (var iv in HPivs) {
+						ivs[iv] = HPivs[iv];
+					}
 				}
 			}
 
@@ -1214,6 +1220,8 @@ exports.BattleScripts = {
 			if (!template || !template.name || !template.types) continue;
 			if ((template.tier === 'G4CAP' || template.tier === 'G5CAP') && Math.random()*5>1) continue;
 			if (keys[i].substr(0,6) === 'arceus' && Math.random()*17>1) continue;
+			// Not available on BW
+			if (template.species === 'Pichu-Spiky-eared') continue;
 
 			if (ruleset && ruleset[0]==='PotD') {
 				var potd = this.getTemplate(config.potd);
@@ -1285,6 +1293,42 @@ exports.BattleScripts = {
 
 			set.level = 100;
 
+			team.push(set);
+		}
+
+		return team;
+	},
+	randomSeasonalVVTeam: function(side) {
+		var couples = ['nidoranf+nidoranm', 'nidorina+nidorino', 'nidoqueen+nidoking', 'gallade+gardevoir', 'plusle+minun', 'illumise+volbeat', 'latias+latios', 'skitty+wailord', 'tauros+miltank', 'rufflet+vullaby', 'braviary+mandibuzz', 'mew+mesprit', 'audino+chansey', 'lickilicky+blissey', 'purugly+beautifly', 'clefairy+wigglytuff', 'clefable+jigglypuff', 'cleffa+igglybuff', 'pichu+pachirisu', 'alomomola+luvdisc', 'gorebyss+huntail', 'kyuremb+kyuremw', 'cherrim+cherubi', 'slowbro+slowking', 'jynx+lickitung', 'milotic+gyarados', 'slowpoke+shellder', 'happiny+mimejr', 'mrmime+smoochum', 'woobat+munna', 'swoobat+musharna', 'delcatty+lopunny', 'skitty+buneary', 'togetic+shaymin', 'glameow+snubbull', 'whismur+wormadam', 'finneon+porygon', 'ditto+porygon2', 'porygonz+togekiss', 'hoppip+togepi', 'lumineon+corsola', 'exeggcute+flaaffy'];
+		couples = couples.randomize();
+		var shouldHaveAttract = {audino:1, beautifly:1, delcatty:1, finneon:1, glameow:1, lumineon:1, purugly:1, swoobat:1, woobat:1, wormadam:1, wormadamsandy:1, wormadamtrash:1};
+		var shouldHaveKiss = {buneary:1, finneon:1, lopunny:1, lumineon:1, minun:1, pachirisu:1, pichu:1, plusle:1, shaymin:1, togekiss:1, togepi:1, togetic:1};
+		var team = [];
+		
+		// First we get the first three couples and separate it in a list of Pokemon to deal with them
+		var pokemons = [];
+		for (var i=0; i<3; i++) {
+			var couple = couples[i].split('+');
+			pokemons.push(couple[0]);
+			pokemons.push(couple[1]);
+		}
+		
+		for (var i=0; i<6; i++) {
+			var pokemon = pokemons[i];
+			if (pokemon === 'wormadam') {
+				var wormadams = ['wormadam', 'wormadamsandy', 'wormadamtrash'];
+				wormadams = wormadams.randomize();
+				pokemon = wormadams[0];
+			}
+			var template = this.getTemplate(pokemon);
+			var set = this.randomSet(template, i);
+			// We set some arbitrary moves
+			if (template.id === 'jynx' && set.moves.indexOf('lovelykiss') < 0) set.moves[0] = 'Lovely Kiss';
+			if (template.id in shouldHaveAttract) set.moves[0] = 'Attract';
+			if (template.id in shouldHaveKiss) set.moves[0] = 'Sweet Kiss';
+			// We set some arbitrary levels to balance
+			if (template.id === 'kyuremblack' || template.id === 'kyuremwhite') set.level = 60;
+			if (template.id === 'magikarp') set.level = 100;
 			team.push(set);
 		}
 
