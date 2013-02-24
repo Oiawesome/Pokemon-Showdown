@@ -66,10 +66,14 @@ exports.BattleMovedex = {
             onSwitchIn: function(pokemon) {
                 var typeMod = this.getEffectiveness('Rock', pokemon);
                 var factor = 8;
-                if (typeMod == 1) factor = 4;
-                if (typeMod >= 2) factor = 6;
-                if (typeMod == -1) factor = 12;
-                if (typeMod <= -2) factor = 16;
+                if (typeMod == 1) factor = 6;
+                if (typeMod >= 2) factor = 4;
+                if (typeMod == -1) factor = 16;
+                if (typeMod <= -2) factor = 12;
+				//if (typeMod == 1) factor = 4;
+				//if (typeMod >= 2) factor = 2;
+				//if (typeMod == -1) factor = 16;
+				//if (typeMod <= -2) factor = 32;
                 var damage = this.damage(pokemon.maxhp/factor);
             }
         }
@@ -80,10 +84,7 @@ exports.BattleMovedex = {
     },
     scald: {
         inherit: true,
-        basePower: 75,
-        secondary: {
-            chance: 20
-        }
+        basePower: 65,
     },
 //-----------------------------------------------------------------------------------------------
 //Some types don't have good enough moves to compete with other insanely good types.
@@ -113,9 +114,65 @@ exports.BattleMovedex = {
         inherit: true,
         accuracy: 100
     },
+    airslash: {
+        inherit: true,
+        accuracy: 100
+    },
+//-----------------------------------------------------------------------------------------------
+//OHKO moves make for nice empty slots.
+//-----------------------------------------------------------------------------------------------
+	"fissure": {
+		num: 90,
+		accuracy: 30,
+		basePower: 140,
+		category: "Physical",
+		desc: "Deals damage to one adjacent target and lowers the user's Attack by 2 stages.",
+		shortDesc: "Lowers the user's Atk by 2.",
+		id: "fissure",
+		name: "Fissure",
+		pp: 5,
+		priority: 0,
+		self: {
+			boosts: {
+				atk: -2
+			}
+		},
+		secondary: false,
+		target: "normal",
+		type: "Ground"
+	},
 //-----------------------------------------------------------------------------------------------
 //Other buffs and tweaks
 //-----------------------------------------------------------------------------------------------
+	"toxicspikes": {
+		inherit: true,
+		effect: {
+			// this is a side condition
+			onStart: function(side) {
+				this.add('-sidestart', side, 'move: Toxic Spikes');
+				this.effectData.layers = 1;
+			},
+			onRestart: function(side) {
+				if (this.effectData.layers < 2) {
+					this.add('-sidestart', side, 'move: Toxic Spikes');
+					this.effectData.layers++;
+				}
+			},
+			onSwitchIn: function(pokemon) {
+				if (!pokemon.runImmunity('Ground')) return;
+				if (!pokemon.runImmunity('Poison')) return;
+				if (pokemon.ability === 'Wonder Guard') return;
+				if (pokemon.hasType('Poison')) {
+					this.add('-sideend', pokemon.side, 'move: Toxic Spikes', '[of] '+pokemon);
+					pokemon.side.removeSideCondition('toxicspikes');
+				} else if (this.effectData.layers >= 2) {
+					pokemon.trySetStatus('tox');
+				} else {
+					pokemon.trySetStatus('psn');
+				}
+			}
+		}
+	},
 	relicsong: {
 		inherit: true,
 		secondary: {

@@ -2,6 +2,9 @@ exports.BattleScripts = {
     init: function() {
         for (var i in this.data.FormatsData)
             this.data.FormatsData[i].dreamWorldRelease = true;
+        for (var i in this.data.Learnsets) {
+            delete this.data.Learnsets[i].fissure;
+		}
 ///////////////////////////////////////////////////////////////////////////////////////////////
 // Uber
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -26,9 +29,25 @@ exports.BattleScripts = {
 		this.data.Learnsets.blissey.learnset.aromatherapy = ['5L0'];
 		this.data.Learnsets.blissey.learnset.seismictoss = ['5L0'];
 		
+		this.data.Learnsets.dugtrio.learnset.fissure = ['5L0'];
+		
+		delete this.data.Learnsets.gible.learnset.dualchop;
+		delete this.data.Learnsets.gabite.learnset.dualchop;
+		delete this.data.Learnsets.garchomp.learnset.dualchop;
+		
+		this.data.Learnsets.haxorus.learnset.firefang = ['5L0'];
+		this.data.Learnsets.haxorus.learnset.icefang = ['5L0'];
+		this.data.Learnsets.haxorus.learnset.thunderfang = ['5L0'];
+		
+		this.data.Learnsets.hippowdon.learnset.fissure = ['5L0'];
+		
 		this.data.Pokedex.mamoswine.abilities['1'] = 'Ice Body';
 		
 		this.data.Pokedex.metagross.abilities['1'] = 'Iron Fist';
+		
+		this.data.Learnsets.reuniclus.learnset.aurasphere = ['5L0'];
+		this.data.Learnsets.reuniclus.learnset.thunderbolt = ['5L0'];
+		this.data.Learnsets.reuniclus.learnset.icebeam = ['5L0'];
 ///////////////////////////////////////////////////////////////////////////////////////////////
 // Borderline
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -90,6 +109,8 @@ exports.BattleScripts = {
 		this.data.Learnsets.darmanitan.learnset.calmmind = ['5L0'];
 		this.data.Learnsets.darmanitan.learnset.shadowball = ['5L0'];
 		this.data.Learnsets.darmanitan.learnset.morningsun = ['5L0'];
+		
+		this.data.Pokedex.dusclops.abilities['1'] = 'Levitate';
 		
 		this.data.Pokedex.empoleon.abilities['DW'] = 'Snow Cloak';
 		
@@ -177,6 +198,49 @@ exports.BattleScripts = {
 		
 		this.data.Learnsets.snorlax.learnset.slackoff = ['5L0'];
 		this.data.Learnsets.snorlax.learnset.bounce = ['5L0'];
+		
+		this.data.Pokedex.suicune.abilities['DW'] = 'Storm Drain';
+		this.data.Learnsets.suicune.learnset.wish = ['5L0'];
+		this.data.Learnsets.suicune.learnset.airslash = ['5L0'];
+		
+		this.data.Learnsets.swampert.learnset.slackoff = ['5L0'];
+		
+		this.data.Learnsets.togekiss.learnset.bravebird = ['5L0'];
+		this.data.Learnsets.togekiss.learnset.lunardance = ['5L0'];
+		
+		this.data.Learnsets.tornadus.learnset.calmmind = ['5L0'];
+		this.data.Learnsets.tornadus.learnset.aurasphere = ['5L0'];
+		
+		this.data.Learnsets.victini.learnset.earthquake = ['5L0'];
+		this.data.Learnsets.victini.learnset.calmmind = ['5L0'];
+		
+		this.data.Pokedex.virizion.abilities['1'] = 'Regenerator';
+		this.data.Learnsets.virizion.learnset.aurasphere = ['5L0'];
+		
+		this.data.Pokedex.weavile.abilities['1'] = 'Technician';
+		
+		this.data.Learnsets.xatu.learnset.taunt = ['5L0'];
+		this.data.Learnsets.xatu.learnset.healbell = ['5L0'];
+		this.data.Learnsets.xatu.learnset.hypnosis = ['5L0'];
+		
+		this.data.Pokedex.yanmega.types = ["Bug","Dragon"];
+		this.data.Learnsets.yanmega.learnset.dracometeor = ['5L0'];
+		this.data.Learnsets.yanmega.learnset.dragonpulse = ['5L0'];
+		this.data.Learnsets.yanmega.learnset.dragontail = ['5L0'];
+		this.data.Learnsets.yanmega.learnset.dragonrush = ['5L0'];
+		this.data.Learnsets.yanmega.learnset.outrage = ['5L0'];
+		this.data.Learnsets.yanmega.learnset.twister = ['5L0'];
+		this.data.Learnsets.yanmega.learnset.dragonclaw = ['5L0'];
+		delete this.data.Learnsets.yanmega.learnset.uturn;
+		
+		this.data.Learnsets.zapdos.learnset.airslash = ['5L0'];
+		this.data.Learnsets.zapdos.learnset.grassknot = ['5L0'];
+		
+		this.data.Learnsets.zoroark.learnset.earthquake = ['5L0'];
+		this.data.Learnsets.zoroark.learnset.flamewheel = ['5L0'];
+		this.data.Learnsets.zoroark.learnset.reversal = ['5L0'];
+		this.data.Learnsets.zoroark.learnset.aurasphere = ['5L0'];
+		
 		
 ///////////////////////////////////////////////////////////////////////////////////////////////
 // Rarelyused

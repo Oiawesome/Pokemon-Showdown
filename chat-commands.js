@@ -96,11 +96,15 @@ function parseCommandLocal(user, cmd, target, room, socket, message) {
 		break;
 
 	case 'dm2beta':
+	case 'dm2':
+	case 'dm':
 	case '!dm2beta':
+	case '!dm2':
+	case '!dm':
 		showOrBroadcastStart(user, cmd, room, socket, message);
 		showOrBroadcast(user, cmd, room, socket,
-			'<div style="border:1px solid #6688AA;padding:2px 4px">DuskMod 2:<br />' +
-			'- <a href="http://pastehtml.com/view/csxqwsqhc.html" target="_blank">Current Changelist</a>' +
+			'<div style="border:1px solid #6688AA;padding:2px 4px">DuskMod 2 Beta:<br />' +
+			'- <a href="http://pastehtml.com/view/cthqb174w.html" target="_blank">Current Changelist</a>' +
 			'</div>');
 		return false;
 		break;

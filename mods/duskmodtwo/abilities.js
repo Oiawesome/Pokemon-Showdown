@@ -35,6 +35,20 @@ exports.BattleAbilities = {
 		rating: 0,
 		num: 131
 	},
+	"hustle": {
+		desc: "This Pokemon's Attack receives a 50% boost but it takes 20% more damage from attacks.",
+		shortDesc: "This Pokemon's Attack is 1.5x and it takes 20% more incoming damage.",
+		onModifyAtk: function(atk) {
+			return atk * 1.5;
+		},
+		onSourceBasePower: function(basePower, attacker, defender, move) {
+			return basePower * 1.2;
+		},
+		id: "hustle",
+		name: "Hustle",
+		rating: 3,
+		num: 55
+	},
 	"justified": {
 		desc: "When a Pokemon with Justified is hit with a Dark-type attack, its attack is increased by one level, and the move itself has no effect. If hit by a multi-hit attack like Beat Up, it will increase attack by one stage for each hit. The only Dark-type move that will not activate Sap Sipper is Aromatherapy.",
 		shortDesc: "This Pokemon's Attack is boosted by 1 if hit by any Dark move; Dark immunity.",
@@ -58,14 +72,14 @@ exports.BattleAbilities = {
 		}
 	},
 	"snowcloak": {
-		desc: "If active while Hail is in effect, this Pokemon's Evasion receives a 20% boost; if this Pokemon has a typing that would normally take damage from Hail, this Pokemon is also immune to Hail's damage.",
-		shortDesc: "If Hail is active, this Pokemon's evasion is 1.25x; immunity to Hail.",
+		desc: "If this Pokemon is active while Hail is in effect, its speed is temporarily increased by 50%. The Pokemon is also immune to Hail damage",
+		shortDesc: "If Hail is active, this Pokemon's Speed is 1.5x. Immunity to Hail",
 		onImmunity: function(type, pokemon) {
 			if (type === 'hail') return false;
 		},
-		onModifyStats: function(stats, pokemon) {
+		onModifyStats: function(spe, pokemon) {
 			if (this.isWeather('hail')) {
-				stats.spe *= 1.5;
+				return spe * 1.5;
 			}
 		},
 		id: "snowcloak",
@@ -74,28 +88,46 @@ exports.BattleAbilities = {
 		num: 81
 	},
 	"swiftswim": {
-		inherit: true,
-		onModifyStats: function(stats, pokemon) {
+		desc: "If this Pokemon is active while Rain Dance is in effect, its speed is temporarily increased by 50%.",
+		shortDesc: "If Rain Dance is active, this Pokemon's Speed is 1.5x.",
+		onModifySpe: function(spe, pokemon) {
 			if (this.isWeather('raindance')) {
-				stats.spe *= 1.5;
+				return spe * 1.5;
 			}
-		}
+		},
+		id: "swiftswim",
+		name: "Swift Swim",
+		rating: 2,
+		num: 33
 	},
 	"chlorophyll": {
-		inherit: true,
-		onModifyStats: function(stats, pokemon) {
+		desc: "If this Pokemon is active while Sunny Day is in effect, its speed is temporarily increased by 50%.",
+		shortDesc: "If Sunny Day is active, this Pokemon's Speed is 1.5x.",
+		onModifySpe: function(spe) {
 			if (this.isWeather('sunnyday')) {
-				stats.spe *= 1.5;
+				return spe * 1.5;
 			}
-		}
+		},
+		id: "chlorophyll",
+		name: "Chlorophyll",
+		rating: 2,
+		num: 34
 	},
 	"sandrush": {
-		inherit: true,
-		onModifyStats: function(stats, pokemon) {
+		desc: "If this Pokemon is active while Sandstorm is in effect, its speed is temporarily increased by 50%. The Pokemon is also immune to Sandstorm damage",
+		shortDesc: "If Sandstorm is active, this Pokemon's Speed is 1.5x. Immunity to Sandstorm",
+		onModifySpe: function(spe, pokemon) {
 			if (this.isWeather('sandstorm')) {
-				stats.spe *= 1.5;
+				return spe * 1.5;
 			}
-		}
+		},
+		onImmunity: function(type, pokemon) {
+			if (type === 'sandstorm') return false;
+		},
+		id: "sandrush",
+		name: "Sand Rush",
+		rating: 2,
+		num: 146
 	},
 	"lightmetal": {
 		inherit: true,
@@ -104,6 +136,39 @@ exports.BattleAbilities = {
 		onModifySpe: function(spe) {
 			return spe * 1.2;
 		}
+	},
+	"wonderguard": {
+		desc: "This Pokemon only receives damage from attacks belonging to types that cause Super Effective to this Pokemon. The user is also immune to Sandstorm, Hail, and all entry hazards. Wonder Guard cannot be Skill Swapped nor Role Played. Trace, however, does copy Wonder Guard.",
+		shortDesc: "This Pokemon can only be damaged by super effective moves and is immune to some types of indirect damage.",
+		onDamagePriority: 10,
+		onDamage: function(damage, target, source, effect) {
+			if (effect && (effect.id === 'stealthrock' || effect.id === 'spikes')) {
+				return false;
+			}
+			if (effect.effectType !== 'Move') return;
+			if (effect.type === '???' || effect.id === 'Struggle') return;
+			this.debug('Wonder Guard immunity: '+effect.id);
+			if (this.getEffectiveness(effect.type, target) <= 0) {
+				this.add('-activate',target,'ability: Wonder Guard');
+				return null;
+			}
+		},
+		onSubDamage: function(damage, target, source, effect) {
+			if (effect.effectType !== 'Move') return;
+			if (target.negateImmunity[effect.type]) return;
+			this.debug('Wonder Guard immunity: '+effect.id);
+			if (this.getEffectiveness(effect.type, target) <= 0) {
+				this.add('-activate',target,'ability: Wonder Guard');
+				return null;
+			}
+		},
+		onImmunity: function(type, pokemon) {
+			if (type === 'sandstorm' || type === 'hail') return false;
+		},
+		id: "wonderguard",
+		name: "Wonder Guard",
+		rating: 5,
+		num: 25
 	},
 	"zenmode": {
 		desc: "When Darmanitan enters the battle, it will enter Zen Mode. This ability only works on Darmanitan, even if it is copied by Role Play, Entrainment, or swapped with Skill Swap.",

@@ -194,7 +194,7 @@ exports.BattleFormats = {
 		name: "NU v2",
 		mod: "nuv2",
 		challengeShow: true,
-		searchShow: true,
+		//searchShow: true,
 		isTeambuilderFormat: true,
 		ruleset: ['Pokemon', 'Standard', 'Team Preview'],
 		banlist: ['BL3', 'RU', 'BL2', 'UU', 'BL', 'OU', 'Uber']
@@ -206,7 +206,7 @@ exports.BattleFormats = {
 		challengeDefault: true,
 		rated: true,
 		challengeShow: true,
-		searchShow: true,
+		//searchShow: true,
 		isTeambuilderFormat: true,
 		ruleset: ['Pokemon', 'Standard', 'Evasion Abilities Clause', 'Team Preview'],
 		banlist: ['Uber', 'Drizzle ++ Swift Swim', 'Soul Dew']
@@ -222,8 +222,8 @@ exports.BattleFormats = {
 		challengeShow: true,
 		searchShow: true,
 		isTeambuilderFormat: true,
-		ruleset: ['Pokemon', 'Standard', 'Sleep Clause', 'Species Clause', 'OHKO Clause', 'Moody Clause', 'Evasion Moves Clause', 'Team Preview', 'DM Items'],
-		banlist: ['Uber', 'Drizzle ++ Swift Swim', 'Soul Dew', 'Sand Veil']
+		ruleset: ['Pokemon', 'Standard', 'Sleep Clause', 'Species Clause', 'Moody Clause', 'Evasion Moves Clause', 'Team Preview', 'DM Items'],
+		banlist: ['Uber', 'Soul Dew', 'Sand Veil', 'Sheer Cold', 'Guillotine', 'Horn Drill']
 	},
 	ou: {
 		effectType: 'Format',
@@ -991,6 +991,7 @@ exports.BattleFormats = {
 				"Petaya Berry":1,
 				"Leichi Berry":1,
 				"Salac Berry":1,
+				"Custap Berry":1,
 				"Quick Powder":1,
 				"Black Sludge":1,
 				"Zoom Lens":1,

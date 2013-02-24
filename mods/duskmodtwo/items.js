@@ -1,4 +1,116 @@
-exports.BattleItems = {
+exports.BattleItems = {				
+	"silkscarf": {
+		inherit: true,
+		onBasePower: function(basePower, user, target, move) {
+			if (move && move.type === 'Normal')
+				return basePower * 1.3;
+		}
+	},
+	"flameplate": {
+		inherit: true,
+		onBasePower: function(basePower, user, target, move) {
+			if (move && move.type === 'Fire')
+				return basePower * 1.3;
+		}
+	},
+	"fistplate": {
+		inherit: true,
+		onBasePower: function(basePower, user, target, move) {
+			if (move && move.type === 'Fighting')
+				return basePower * 1.3;
+		}
+	},
+	"splashplate": {
+		inherit: true,
+		onBasePower: function(basePower, user, target, move) {
+			if (move && move.type === 'Water')
+				return basePower * 1.3;
+		}
+	},
+	"meadowplate": {
+		inherit: true,
+		onBasePower: function(basePower, user, target, move) {
+			if (move && move.type === 'Grass')
+				return basePower * 1.3;
+		}
+	},
+	"toxicplate": {
+		inherit: true,
+		onBasePower: function(basePower, user, target, move) {
+			if (move && move.type === 'Poison')
+				return basePower * 1.3;
+		}
+	},
+	"zapplate": {
+		inherit: true,
+		onBasePower: function(basePower, user, target, move) {
+			if (move && move.type === 'Electric')
+				return basePower * 1.3;
+		}
+	},
+	"earthplate": {
+		inherit: true,
+		onBasePower: function(basePower, user, target, move) {
+			if (move && move.type === 'Ground')
+				return basePower * 1.3;
+		}
+	},
+	"mindplate": {
+		inherit: true,
+		onBasePower: function(basePower, user, target, move) {
+			if (move && move.type === 'Psychic')
+				return basePower * 1.3;
+		}
+	},
+	"stoneplate": {
+		inherit: true,
+		onBasePower: function(basePower, user, target, move) {
+			if (move && move.type === 'Rock')
+				return basePower * 1.3;
+		}
+	},
+	"icicleplate": {
+		inherit: true,
+		onBasePower: function(basePower, user, target, move) {
+			if (move && move.type === 'Ice')
+				return basePower * 1.3;
+		}
+	},
+	"insectplate": {
+		inherit: true,
+		onBasePower: function(basePower, user, target, move) {
+			if (move && move.type === 'Bug')
+				return basePower * 1.3;
+		}
+	},
+	"dracoplate": {
+		inherit: true,
+		onBasePower: function(basePower, user, target, move) {
+			if (move && move.type === 'Dragon')
+				return basePower * 1.3;
+		}
+	},
+	"spookyplate": {
+		inherit: true,
+		onBasePower: function(basePower, user, target, move) {
+			if (move && move.type === 'Ghost')
+				return basePower * 1.3;
+		}
+	},
+	"dreadplate": {
+		inherit: true,
+		onBasePower: function(basePower, user, target, move) {
+			if (move && move.type === 'Dark')
+				return basePower * 1.3;
+		}
+	},
+	"ironplate": {
+		inherit: true,
+		onBasePower: function(basePower, user, target, move) {
+			if (move && move.type === 'Steel')
+				return basePower * 1.3;
+		}
+	},
 	"shellbell": { //moar heals
 		inherit: true,
 		onAfterMoveSelf: function(source, target) {
@@ -52,9 +164,6 @@ exports.BattleItems = {
 		onModifyMove: function(move) {
 			if (move.category !== "Status" && move.type === "Poison") {
 				if (!move.secondaries) move.secondaries = [];
-				for (var i=0; i<move.secondaries.length; i++) {
-					if (move.secondaries[i].status === 'psn') return;
-				}
 				move.secondaries.push({
 					chance: 100,
 					status: 'psn'
