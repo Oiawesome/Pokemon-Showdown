@@ -123,7 +123,7 @@ exports.BattleMovedex = {
 //-----------------------------------------------------------------------------------------------
 	"fissure": {
 		num: 90,
-		accuracy: 30,
+		accuracy: 90,
 		basePower: 140,
 		category: "Physical",
 		desc: "Deals damage to one adjacent target and lowers the user's Attack by 2 stages.",
@@ -140,6 +140,46 @@ exports.BattleMovedex = {
 		secondary: false,
 		target: "normal",
 		type: "Ground"
+	},
+//-----------------------------------------------------------------------------------------------
+//95 accuracy is bullshit
+//-----------------------------------------------------------------------------------------------
+	"toxic": {
+		inherit: true,
+		accuracy: 100
+	},
+	"willowisp": {
+		inherit: true,
+		accuracy: 100
+	},
+	"leechseed": {
+		inherit: true,
+		accuracy: 100
+	},
+	"firefang": {
+		inherit: true,
+		accuracy: 100
+	},
+	"icefang": {
+		inherit: true,
+		accuracy: 100
+	},
+	"thunderfang": {
+		inherit: true,
+		accuracy: 100
+	},
+	"icywind": {
+		inherit: true,
+		accuracy: 100
+	},
+	"metalclaw": {
+		inherit: true,
+		accuracy: 100
+	},
+	"drillrun": {
+		inherit: true,
+		accuracy: 100,
+		basePower: 85
 	},
 //-----------------------------------------------------------------------------------------------
 //Other buffs and tweaks

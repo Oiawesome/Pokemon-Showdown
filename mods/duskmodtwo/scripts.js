@@ -41,6 +41,8 @@ exports.BattleScripts = {
 		
 		this.data.Learnsets.hippowdon.learnset.fissure = ['5L0'];
 		
+		this.data.Learnsets.hydreigon.learnset.nastyplot = ['5L0'];
+		
 		this.data.Pokedex.mamoswine.abilities['1'] = 'Ice Body';
 		
 		this.data.Pokedex.metagross.abilities['1'] = 'Iron Fist';
@@ -208,9 +210,6 @@ exports.BattleScripts = {
 		this.data.Learnsets.togekiss.learnset.bravebird = ['5L0'];
 		this.data.Learnsets.togekiss.learnset.lunardance = ['5L0'];
 		
-		this.data.Learnsets.tornadus.learnset.calmmind = ['5L0'];
-		this.data.Learnsets.tornadus.learnset.aurasphere = ['5L0'];
-		
 		this.data.Learnsets.victini.learnset.earthquake = ['5L0'];
 		this.data.Learnsets.victini.learnset.calmmind = ['5L0'];
 		
@@ -245,6 +244,25 @@ exports.BattleScripts = {
 ///////////////////////////////////////////////////////////////////////////////////////////////
 // Rarelyused
 ///////////////////////////////////////////////////////////////////////////////////////////////
+		
+		this.data.Pokedex.absol.abilities['0'] = 'Forewarn';
+		this.data.Pokedex.absol.abilities['1'] = 'Telepathy';
+		this.data.Learnsets.absol.learnset.closecombat = ['5L0'];
+		
+		this.data.Pokedex.absol.abilities['1'] = 'Regenerator';
+		this.data.Pokedex.absol.abilities['DW'] = 'Adaptability';
+		this.data.Learnsets.accelgor.learnset.taunt = ['5L0'];
+		
+		this.data.Learnsets.aerodactyl.learnset.headsmash = ['5L0'];
+		
+		this.data.Learnsets.aggron.learnset.bulletpunch = ['5L0'];
+		this.data.Learnsets.aggron.learnset.submission = ['5L0'];
+		this.data.Learnsets.aggron.learnset.wildcharge = ['5L0'];
+		
+		this.data.Learnsets.amoonguss.learnset.leechseed = ['5L0'];
+		
+		this.data.Pokedex.smeargle.abilities['DW'] = 'Pickup';
+		
 ///////////////////////////////////////////////////////////////////////////////////////////////
 // Neverused
 ///////////////////////////////////////////////////////////////////////////////////////////////

@@ -104,7 +104,7 @@ function parseCommandLocal(user, cmd, target, room, socket, message) {
 		showOrBroadcastStart(user, cmd, room, socket, message);
 		showOrBroadcast(user, cmd, room, socket,
 			'<div style="border:1px solid #6688AA;padding:2px 4px">DuskMod 2 Beta:<br />' +
-			'- <a href="http://pastehtml.com/view/cthqb174w.html" target="_blank">Current Changelist</a>' +
+			'- <a href="https://www.jottit.com/u5kpx/" target="_blank">Current Changelist</a>' +
 			'</div>');
 		return false;
 		break;

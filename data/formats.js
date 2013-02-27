@@ -225,6 +225,25 @@ exports.BattleFormats = {
 		ruleset: ['Pokemon', 'Standard', 'Sleep Clause', 'Species Clause', 'Moody Clause', 'Evasion Moves Clause', 'Team Preview', 'DM Items'],
 		banlist: ['Uber', 'Soul Dew', 'Sand Veil', 'Sheer Cold', 'Guillotine', 'Horn Drill']
 	},
+	dm2doubles: {
+		effectType: 'Format',
+		mod: 'duskmodtwo',
+		gameType: 'doubles',
+		name: "DM2 Doubles",
+		noCrit: true,
+		rated: true,
+		challengeShow: true,
+		searchShow: true,
+		onBegin: function() {
+			this.debug('cutting down to 4');
+			this.p1.pokemon = this.p1.pokemon.slice(0,4);
+			this.p1.pokemonLeft = this.p1.pokemon.length;
+			this.p2.pokemon = this.p2.pokemon.slice(0,4);
+			this.p2.pokemonLeft = this.p2.pokemon.length;
+		},
+		ruleset: ['Pokemon', 'Standard', 'Sleep Clause', 'Species Clause', 'Moody Clause', 'Evasion Moves Clause', 'Team Preview VGC', 'DM Items'],
+		banlist: ['Uber', 'Soul Dew', 'Sand Veil', 'Sheer Cold', 'Guillotine', 'Horn Drill']
+	},
 	ou: {
 		effectType: 'Format',
 		name: "OU",

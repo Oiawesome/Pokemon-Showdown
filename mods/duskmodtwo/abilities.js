@@ -7,6 +7,12 @@ exports.BattleAbilities = {
 			}
 		}
 	},
+	"cloudnine": {
+		inherit: true,
+		onStart: function(pokemon) {
+			this.setWeather('');
+		}
+	},
 	"colorchange": {
 		desc: "This Pokemon's secondary type changes according to it's most powerful attack.",
 		shortDesc: "This Pokemon's secondary type changes according to it's most powerful attack.",
@@ -21,6 +27,38 @@ exports.BattleAbilities = {
 		name: "Color Change",
 		rating: 4,
 		num: 16
+	},
+	"defeatist": {
+		inherit: true,
+		onModifyStats: function(stats, pokemon) {
+			if (pokemon.hp < pokemon.maxhp/2) {
+				stats.def /= 2;
+				stats.spd /= 2;
+			}
+		},
+		onResidual: function(pokemon) {
+			pokemon.update();
+		},
+		id: "defeatist",
+		name: "Defeatist",
+		rating: -1,
+		num: 129
+	},
+	"forewarn": {
+		desc: "On switch-in, this Pokemon is alerted to the foes' moveset.",
+		shortDesc: "The opponent's moveset is revealed.",
+		onStart: function(pokemon) {
+			var target = pokemon.side.foe.randomActive();
+			if (!target) return;
+			for (var j=0; j<target.moveset.length; j++) {
+				var move = this.getMove(target.moveset[j].move);
+				this.add('-message', target.name+' has '+move.name+'!');
+			}
+		},
+		id: "forewarn",
+		name: "Forewarn",
+		rating: 1,
+		num: 108
 	},
 	"healer": {
 		desc: "Heals 1\/16 HP each turn.",
@@ -71,13 +109,29 @@ exports.BattleAbilities = {
 			}
 		}
 	},
+	"pickup": {
+		desc: "Removes hazards on switch-in.",
+        shortDesc: "Removes hazards on switch-in.",
+		onStart: function(pokemon) {
+			var sideConditions = {spikes:1, toxicspikes:1, stealthrock:1};
+			for (var i in sideConditions) {
+				if (pokemon.hp && pokemon.side.removeSideCondition(i)) {
+					this.add('-message', pokemon.name+' picked up the hazards from the battlefield!');
+				}
+			}
+		},
+		id: "pickup",
+		name: "Pickup",
+		rating: 0,
+		num: 53
+	},
 	"snowcloak": {
 		desc: "If this Pokemon is active while Hail is in effect, its speed is temporarily increased by 50%. The Pokemon is also immune to Hail damage",
 		shortDesc: "If Hail is active, this Pokemon's Speed is 1.5x. Immunity to Hail",
 		onImmunity: function(type, pokemon) {
 			if (type === 'hail') return false;
 		},
-		onModifyStats: function(spe, pokemon) {
+		onModifySpe: function(spe, pokemon) {
 			if (this.isWeather('hail')) {
 				return spe * 1.5;
 			}
