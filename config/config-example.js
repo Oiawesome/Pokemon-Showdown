@@ -112,16 +112,16 @@ exports.modchat = false;
 //     - battlemessage: /a command.
 exports.groupsranking = [' ', '+', '%', '@', '&', '~'];
 exports.groups = {
-	'~': {
-		id: "admin",
-		name: "Administrator",
+	'$': {
+		id: "moneh",
+		name: "MoneyMaker",
 		root: true,
 		rank: 5
 	},
-	'&': {
-		id: "leader",
-		name: "Leader",
-		inherit: '@',
+	'?': {
+		id: "idk",
+		name: "WHAT IS THIS?",
+		inherit: '!',
 		jurisdiction: '@u',
 		promote: 'u',
 		forcewin: true,
@@ -132,10 +132,10 @@ exports.groups = {
 		forcerenameto: true,
 		rank: 4
 	},
-	'@': {
-		id: "mod",
-		name: "Moderator",
-		inherit: '%',
+	'!': {
+		id: "exc",
+		name: "EXCLIMATION!",
+		inherit: '.',
 		jurisdiction: 'u',
 		ban: true,
 		modchat: true,
@@ -145,9 +145,9 @@ exports.groups = {
 		alts: '@u',
 		rank: 3
 	},
-	'%': {
-		id: "driver",
-		name: "Driver",
+	'.': {
+		id: "period",
+		name: "Period",
 		inherit: '+',
 		jurisdiction: 'u',
 		announce: true,
@@ -157,15 +157,16 @@ exports.groups = {
 		rank: 2
 	},
 	'+': {
-		id: "voice",
-		name: "Voice",
+		id: "plus",
+		name: "Plus",
 		inherit: ' ',
 		broadcast: true,
 		rank: 1
 	},
-	' ': {
+	'~': {
 		ip: 's',
 		alts: 's',
+		broadcast: true,
 		rank: 0
 	}
 };
