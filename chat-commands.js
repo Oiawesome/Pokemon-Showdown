@@ -1591,76 +1591,76 @@ function parseCommandLocal(user, cmd, target, room, socket, message) {
 			emit(socket, 'console', '/learn [pokemon], [move, move, ...] - Displays how a Pokemon can learn the given moves, if it can at all.')
 			emit(socket, 'console', '!learn [pokemon], [move, move, ...] - Show everyone that information. Requires: + % @ & ~')
 		}
-		if (target === '@' || target === 'altcheck' || target === 'alt' || target === 'alts' || target === 'getalts') {
+		if (target === '!' || target === 'altcheck' || target === 'alt' || target === 'alts' || target === 'getalts') {
 			matched = true;
 			emit(socket, 'console', '/alts OR /altcheck OR /alt OR /getalts [username] - Get a user\'s alts. Requires: @ & ~');
 		}
-		if (target === '@' || target === 'forcerename' || target === 'fr') {
+		if (target === '!' || target === 'forcerename' || target === 'fr') {
 			matched = true;
 			emit(socket, 'console', '/forcerename OR /fr [username], [reason] - Forcibly change a user\'s name and shows them the [reason]. Requires: @ & ~');
 		}
-		if (target === '@' || target === 'forcerenameto' || target === 'frt') {
+		if (target === '!' || target === 'forcerenameto' || target === 'frt') {
 			matched = true;
 			emit(socket, 'console', '/forcerenameto OR /frt [username] - Force a user to choose a new name. Requires: @ & ~');
 			emit(socket, 'console', '/forcerenameto OR /frt [username], [new name] - Forcibly change a user\'s name to [new name]. Requires: @ & ~');
 		}
-		if (target === '@' || target === 'ban' || target === 'b') {
+		if (target === '!' || target === 'ban' || target === 'b') {
 			matched = true;
 			emit(socket, 'console', '/ban OR /b [username], [reason] - Kick user from all rooms and ban user\'s IP address with reason. Requires: @ & ~');
 		}
-		if (target === '@' || target === 'redirect' || target === 'redir') {
+		if (target === '!' || target === 'redirect' || target === 'redir') {
 			matched = true;
 			emit(socket, 'console', '/redirect OR /redir [username], [url] - Redirects user to a different URL. ~~intl and ~~dev are accepted redirects. Requires: @ & ~');
 		}
-		if (target === "@" || target === 'kick' || target === 'k') {
+		if (target === "!" || target === 'kick' || target === 'k') {
 			matched = true;
 			emit(socket, 'console', '/kick OR /k [username] - Quickly kicks a user by redirecting them to the Smogon Sim Rules page. Requires: @ & ~');
 		}
-		if (target === '@' || target === 'banredirect' || target === 'br') {
+		if (target === '!' || target === 'banredirect' || target === 'br') {
 			matched = true;
 			emit(socket, 'console', '/banredirect OR /br [username], [url] - Bans a user and then redirects user to a different URL. Requires: @ & ~');
 		}
-		if (target === '@' || target === 'unban') {
+		if (target === '!' || target === 'unban') {
 			matched = true;
 			emit(socket, 'console', '/unban [username] - Unban a user. Requires: @ & ~');
 		}
-		if (target === '@' || target === 'unbanall') {
+		if (target === '!' || target === 'unbanall') {
 			matched = true;
 			emit(socket, 'console', '/unbanall - Unban all IP addresses. Requires: @ & ~');
 		}
-		if (target === '%' || target === 'mute' || target === 'm') {
+		if (target === '.' || target === 'mute' || target === 'm') {
 			matched = true;
 			emit(socket, 'console', '/mute OR /m [username], [reason] - Mute user with reason. Requires: % @ & ~');
 		}
-		if (target === '%' || target === 'unmute') {
+		if (target === '.' || target === 'unmute') {
 			matched = true;
 			emit(socket, 'console', '/unmute [username] - Remove mute from user. Requires: % @ & ~');
 		}
-		if (target === '%' || target === 'modlog') {
+		if (target === '.' || target === 'modlog') {
 			matched = true;
 			emit(socket, 'console', '/modlog [n] - If n is a number or omitted, display the last n lines of the moderator log. Defaults to 15. If n is not a number, search the moderator log for "n". Requires: % @ & ~');
 		}
-		if (target === '&' || target === 'promote') {
+		if (target === '?' || target === 'promote') {
 			matched = true;
 			emit(socket, 'console', '/promote [username], [group] - Promotes the user to the specified group or next ranked group. Requires: & ~');
 		}
-		if (target === '&' || target === 'demote') {
+		if (target === '?' || target === 'demote') {
 			matched = true;
 			emit(socket, 'console', '/demote [username], [group] - Demotes the user to the specified group or previous ranked group. Requires: & ~');
 		}
-		if (target === '&' || target === 'declare' ) {
+		if (target === '?' || target === 'declare' ) {
 			matched = true;
 			emit(socket, 'console', '/declare [message] - Anonymously announces a message. Requires: & ~');
 		}
-		if (target === '%' || target === 'announce' || target === 'wall' ) {
+		if (target === '.' || target === 'announce' || target === 'wall' ) {
 			matched = true;
 			emit(socket, 'console', '/announce OR /wall [message] - Makes an announcement. Requires: % @ & ~');
 		}
-		if (target === '@' || target === 'modchat') {
+		if (target === '!' || target === 'modchat') {
 			matched = true;
 			emit(socket, 'console', '/modchat [on/off/+/%/@/&/~] - Set the level of moderated chat. Requires: @ & ~');
 		}
-		if (target === '~' || target === 'hotpatch') {
+		if (target === '$' || target === 'hotpatch') {
 			emit(socket, 'console', 'Hot-patching the game engine allows you to update parts of Showdown without interrupting currently-running battles. Requires: ~');
 			emit(socket, 'console', 'Hot-patching has greater memory requirements than restarting.');
 			emit(socket, 'console', '/hotpatch all - reload the game engine, data, and chat commands');
