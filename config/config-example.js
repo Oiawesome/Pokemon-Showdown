@@ -110,7 +110,7 @@ exports.modchat = false;
 //     - potd: Set PotD.
 //     - forcewin: /forcewin command.
 //     - battlemessage: /a command.
-exports.groupsranking = [' ', '+', '%', '@', '&', '~'];
+exports.groupsranking = ['~', '+', '.', '!', '?', '$'];
 exports.groups = {
 	'$': {
 		id: "moneh",
