@@ -13,6 +13,7 @@ module.exports = (function () {
 		'Learnsets': 'learnsets.js',
 		'Aliases': 'aliases.js'
 	};
+	lol
 	function Tools(mod) {
 		if (!mod) {
 			mod = 'base';
