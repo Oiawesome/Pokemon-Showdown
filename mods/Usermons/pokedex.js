@@ -1,3 +1,3 @@
 exports.BattlePokedex = {
-mew:{num:151,species:"Mew",types:["Psychic"],gender:"N",baseStats:{hp:100,atk:100,def:100,spa:100,spd:100,spe:100},abilities:{0:"Synchronize"},heightm:0.4,weightkg:4,color:"Pink",eggGroups:["No Eggs"]},
+oiawesome:{num:151,species:"Oiawesome",types:["Water","Electric"],gender:"N",baseStats:{hp:85,atk:95,def:100,spa:115,spd:90,spe:101},abilities:{0:"Drizzle",1:"Drunken Fist",DW:"OBJECTION"},heightm:0.4,weightkg:4,color:"Brown",eggGroups:["No Eggs"]},
 };
