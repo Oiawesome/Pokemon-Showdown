@@ -27,7 +27,6 @@
 			}
 		},
 		id: "objection",
-		isNonstandard: true,
 		name: "OBJECTION",
 		rating: 3.5,
 		num: 801
