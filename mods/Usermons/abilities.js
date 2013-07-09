@@ -23,6 +23,7 @@
 		onImmunity: function(type, target) {
 			if (type === 'Normal' && !target.activeTurns) {
 				return false;
+			      this.add('-message', pokemon.name + " objectified the normal type move!");	
 			}
 		},
 		id: "objection",
