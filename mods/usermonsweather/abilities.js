@@ -40,4 +40,16 @@ Ratings and how they work:
 */
 
 exports.BattleAbilities = {
+	"jointlighter": {
+		desc: "When this Pokemon enters the battlefield, it causes a permanent Rain Dance that can only be stopped by Air Lock, Cloud Nine or another weather condition.",
+		shortDesc: "On switch-in, this Pokemon summons Rain Dance until another weather replaces it.",
+		onStart: function(source) {
+			this.setWeather('zassoukemuri');
+			this.weatherData.duration = 0;
+		},
+		id: "jointlighter",
+		name: "Joint Lighter",
+		rating: 5,
+		num: -10
+	},
 };
