@@ -43,6 +43,9 @@ exports.BattleAbilities = {
 	"jointlighter": {
 		desc: "When this Pokemon enters the battlefield, it causes a permanent Rain Dance that can only be stopped by Air Lock, Cloud Nine or another weather condition.",
 		shortDesc: "On switch-in, this Pokemon summons Rain Dance until another weather replaces it.",
+		onStart: function(pokemon) {
+				this.add('-message', pokemon.name + " lit a huge ass joint!");
+		},
 		onStart: function(source) {
 			this.setWeather('zassoukemuri');
 			this.weatherData.duration = 0;
