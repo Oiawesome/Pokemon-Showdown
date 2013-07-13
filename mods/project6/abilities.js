@@ -53,33 +53,33 @@ exports.BattleAbilities = {
 		},
 		id: "sweetveil",
 		name: "Sweet Veil",
-		rating: 0,
-		//num: ???
+		rating: 2,
+		num: -5
         },
         fairyaura: {
         	desc: "Increases the power of all Fairy-type attacks in battle.",
         	shortDesc: "Increases power of Fairy-type attacks.",
         	onBasePower: function(basePower, user, target, move) {
 			if (move && move.type === 'Fairy') {
-				//return basePower * ???; 
+				return basePower * 1.5; 
 			}
 		},
 		id: "fairyaura",
 		name: "Fairy Aura",
 		rating: 4,
-		//num: ???
+		num: -6
         },
         darkaura: {
         	desc: "Increases the power of all Dark-type attacks in battle.",
         	shortDesc: "Increases power of Dark-type attacks.",
         	onBasePower: function(basePower, user, target, move) {
 			if (move && move.type === 'Dark') {
-				//return basePower * ???; 
+				return basePower * 1.5; 
 			}
 		},
 		id: "darkaura",
 		name: "Dark Aura",
 		rating: 4,
-		//num: ???
+		num: -7
         }
 };
